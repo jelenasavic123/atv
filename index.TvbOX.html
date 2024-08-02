@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Video Player</title>
+    <style>
+        body {
+            background-color: lightgrey;
+            color: white;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .vid-main-wrapper {
+            width: 100%;
+            background: #000000;
+            margin: 0 auto;
+        }
+
+        .vid-container {
+            position: relative;
+            padding-bottom: 52%;
+            padding-top: 0px;
+            height: 0;
+            width: 100%;
+        }
+
+        .vid-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .vid-list-container {
+            overflow-y: auto;
+            max-height: 600px; /* Set a maximum height for the scrollable area */
+        }
+
+        ol#vid-list {
+            margin: 1px;
+            padding: 0;
+            background: #222;
+        }
+
+        ol#vid-list li {
+            list-style: none;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            background-color: #000;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative; /* Added to ensure scrollIntoView works correctly */
+        }
+
+        .vid-thumb {
+            position: relative;
+            margin-right: 10px;
+        }
+
+        .vid-thumb img {
+            display: block;
+        }
+
+        .vid-thumb .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            text-align: center;
+            font-size: 14px;
+            box-sizing: border-box;
+            padding: 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .desc {
+            font-size: 16px;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 5px;
+        }
+
+        .button-container button {
+            background-color: #555;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .button-container button:hover {
+            background-color: #777;
+        }
+
+        .collapsible {
+            background-color: #B30000;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 20px;
+        }
+
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
+
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            font-size: 17px;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="vid-main-wrapper clearfix">
+        <!-- THE VIDEO PLAYER -->
+        <div class="vid-container">
+            <iframe id="vid_frame" src="https://dlhd.sx/embed/stream-134.php" webkitAllowFullScreen mozallowfullscreen allowfullscreen width="100%" height="100%" allow="autoplay"></iframe>
+        </div>
+        <!-- THE PLAYLIST -->
+        <div class="vid-list-container">
+            <ol id="vid-list">
+                <button onclick="window.location.reload();" style="background-color: red; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer;">
+                    Osveži stranicu
+                </button>
+                <!-- KOPIRAJ-->
+                <li id="stream-134" onclick="playDefaultStream('https://dlhd.sx/embed/stream-134.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport1.jpg" />
+                        <div class="overlay">PREMIUM</div>
+                    </span>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-134.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-134.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-429" onclick="playDefaultStream('https://dlhd.sx/embed/stream-429.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport1.jpg" />
+                        <div class="overlay">Arena 1 SRB</div>
+                    </span>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-429.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-429.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-579" onclick="playDefaultStream('https://dlhd.sx/embed/stream-579.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport1.jpg" />
+                        <div class="overlay">Arena 1 BH</div>
+                    </span>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-579.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-579.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-135.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport1.jpg" />
+                        <div class="overlay">Arena 1 HRV</div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://ds2video.com/e/449uey5uyh2n8tfgikobnt7n9sccjmsn', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://ds2video.com/e/stream2', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ--><!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-135.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport2.jpg" />
+                        <div class="overlay">PREMIUM </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-135.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-135.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-430.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport2.jpg" />
+                        <div class="overlay">Arena 2 Srb </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-430.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-430.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-433.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport2.jpg" />
+                        <div class="overlay">Arena 2 HRV </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-433.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-433.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-139.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport3.jpg" />
+                        <div class="overlay">PREMIUM</div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-139.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-139.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-431.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport3.jpg" />
+                        <div class="overlay">Arena 3 SRB</div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-431.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-139.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-434.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport3.jpg" />
+                        <div class="overlay">Arena 3 HRV</div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-434.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-434.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-581.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport4.jpg" />
+                        <div class="overlay">Arena 4 SRB</div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-434.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-581.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-580.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport4.jpg" />
+                        <div class="overlay">Arena 4 HRV</div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-580.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-580.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-580.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logoarenasport5.jpg" />
+                        <div class="overlay">NE RADI</div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-580.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-580.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-453.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logosportklubhd.jpg" />
+                        <div class="overlay">SRB </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-453.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-453.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-101.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logosportklub1.jpg" />
+                        <div class="overlay">SRB</div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-101.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-101.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-102.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logosportklub2.jpg" />
+                        <div class="overlay">SRB </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-102.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-102.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-103.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logosportklub3.jpg" />
+                        <div class="overlay">SRB </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-103.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-103.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-104.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://www.jagledam.com/logo/logosportklub4.jpg" />
+                        <div class="overlay">SRB </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-104.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-104.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://sportsonline.si/channels/pt/sporttv1.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://1.bp.blogspot.com/-ID3hqj38wdM/YUWeWG0gzBI/AAAAAAAABks/KXs443zr5kwdyjfkXnFzsN1JBVsKe49QQCNcBGAsYHQ/s0/sporttv.jpg" />
+                        <div class="overlay"> 1 </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://sportsonline.si/channels/pt/sporttv1.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://sportsonline.si/channels/pt/sporttv1.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://sportsonline.si/channels/pt/sporttv2.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://1.bp.blogspot.com/-ID3hqj38wdM/YUWeWG0gzBI/AAAAAAAABks/KXs443zr5kwdyjfkXnFzsN1JBVsKe49QQCNcBGAsYHQ/s0/sporttv.jpg" />
+                        <div class="overlay"> 2 </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://sportsonline.si/channels/pt/sporttv2.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://sportsonline.si/channels/pt/sporttv2.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://sportsonline.si/channels/pt/sporttv3.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://1.bp.blogspot.com/-ID3hqj38wdM/YUWeWG0gzBI/AAAAAAAABks/KXs443zr5kwdyjfkXnFzsN1JBVsKe49QQCNcBGAsYHQ/s0/sporttv.jpg" />
+                        <div class="overlay"> 3 </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://sportsonline.si/channels/pt/sporttv3.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://sportsonline.si/channels/pt/sporttv3.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://sportsonline.si/channels/pt/sporttv4.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://1.bp.blogspot.com/-ID3hqj38wdM/YUWeWG0gzBI/AAAAAAAABks/KXs443zr5kwdyjfkXnFzsN1JBVsKe49QQCNcBGAsYHQ/s0/sporttv.jpg" />
+                        <div class="overlay"> 4 </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://sportsonline.si/channels/pt/sporttv4.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://sportsonline.si/channels/pt/sporttv4.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://sportsonline.si/channels/pt/sporttv5.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://1.bp.blogspot.com/-ID3hqj38wdM/YUWeWG0gzBI/AAAAAAAABks/KXs443zr5kwdyjfkXnFzsN1JBVsKe49QQCNcBGAsYHQ/s0/sporttv.jpg" />
+                        <div class="overlay"> 5 </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://sportsonline.si/channels/pt/sporttv5.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://sportsonline.si/channels/pt/sporttv5.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-111.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://1.bp.blogspot.com/-_AFN5LfFu0M/YUPMfjWiQvI/AAAAAAAABj8/IvNNUFeNYfEFSXPJuonuxcXlIVhtnurwgCNcBGAsYHQ/s0/logorts1.jpg" />
+                        <div class="overlay"> 1 </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-112.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-111.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-112.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://1.bp.blogspot.com/-_AFN5LfFu0M/YUPMfjWiQvI/AAAAAAAABj8/IvNNUFeNYfEFSXPJuonuxcXlIVhtnurwgCNcBGAsYHQ/s0/logorts1.jpg" />
+                        <div class="overlay"> 2 </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-112.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-112.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-113.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://1.bp.blogspot.com/-_AFN5LfFu0M/YUPMfjWiQvI/AAAAAAAABj8/IvNNUFeNYfEFSXPJuonuxcXlIVhtnurwgCNcBGAsYHQ/s0/logorts1.jpg" />
+                        <div class="overlay"> 3 </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-113.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-113.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-114.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://1.bp.blogspot.com/-_AFN5LfFu0M/YUPMfjWiQvI/AAAAAAAABj8/IvNNUFeNYfEFSXPJuonuxcXlIVhtnurwgCNcBGAsYHQ/s0/logorts1.jpg" />
+                        <div class="overlay"> 4 </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-114.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-114.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.sx/embed/stream-115.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://1.bp.blogspot.com/-_AFN5LfFu0M/YUPMfjWiQvI/AAAAAAAABj8/IvNNUFeNYfEFSXPJuonuxcXlIVhtnurwgCNcBGAsYHQ/s0/logorts1.jpg" />
+                        <div class="overlay"> 5 </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.sx/embed/stream-115.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-115.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+                <!-- KOPIRAJ-->
+                <li id="stream-135" onclick="playDefaultStream('https://dlhd.so/embed/stream-35.php'); scrollToTop()">
+                    <span class="vid-thumb">
+                        <img width="100" src="https://1.bp.blogspot.com/-jKSKrM3RnLk/YUCQFta57fI/AAAAAAAABiY/yIDGfQBkF-YUZWJwWhekdsQNeQutR4uHQCNcBGAsYHQ/s350/sky.jpg" />
+                        <div class="overlay">Football </div>
+                    </span>
+                    <div class="desc"></div>
+                    <div class="button-container">
+                        <button onclick="changeStream('https://dlhd.so/embed/stream-35.php', 'Stream 1'); event.stopPropagation(); scrollToTop();">Stream 1</button>
+                        <button onclick="changeStream('https://d.daddylivehd.sx/embed/stream-35.php', 'Stream 2'); event.stopPropagation(); scrollToTop();">Stream 2</button>
+                    </div>
+                </li>
+                <!-- KOPIRAJ-->
+            </ol>
+        </div>
+    </div>
+
+    <button type="button" class="collapsible">📖Saznaj više o seriji👁️</button>
+    <div class="content">
+        <p><img src="SS" width="100" height="100"></p>
+    </div>
+
+    <script>
+        function changeStream(url, streamName) {
+            // Postavi novi URL za iframe
+            document.getElementById('vid_frame').src = url;
+
+            // Ažuriraj opis ako postoji
+            var desc = document.querySelector('#vid-list .desc');
+            if (desc) {
+                desc.textContent = streamName;
+            }
+        }
+
+        function playDefaultStream(url) {
+            // Postavi URL za iframe
+            document.getElementById('vid_frame').src = url;
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Dodaj event listener na collapsible dugme
+        document.addEventListener('DOMContentLoaded', () => {
+            var coll = document.getElementsByClassName("collapsible");
+            for (var i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.display === "block") {
+                        content.style.display = "none";
+                    } else {
+                        content.style.display = "block";
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
