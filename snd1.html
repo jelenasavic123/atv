@@ -1,0 +1,516 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://your-background-image-url.jpg') norepeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+        .header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .header img {
+            height: 40px;
+        }
+        .nav {
+            display: flex;
+            gap: 15px;
+        }
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .hero {
+            height: 50vh;
+            background: url('https://user-images.githubusercontent.com/33485020/108069438-5ee79d80-7089-11eb-8264-08fdda7e0d11.jpg') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 20px;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+        }
+        .section {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5); /* Overlay background */
+            background-image: url('https://jelenasavic123.github.io/atv/pozadina1.jpg'); /* Background image */
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative; /* Added for button positioning */
+        }
+        .section h2 {
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 10px 0;
+        }
+        .carousel img {
+            height: 150px;
+            border-radius: 8px;
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+        }
+        .carousel-button.left {
+            left: 10px;
+        }
+        .carousel-button.right {
+            right: 10px;
+        }
+        .footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .header img {
+                height: 30px;
+            }
+            .nav {
+                gap: 10px;
+            }
+            .nav a {
+                font-size: 12px;
+            }
+            .hero h1 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            .section h2 {
+                font-size: 1.5em;
+            }
+            .carousel img {
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .hero {
+                height: 40vh;
+            }
+            .hero h1 {
+                font-size: 1.5em;
+            }
+            .hero p {
+                font-size: 0.9em;
+            }
+            .section h2 {
+                font-size: 1.2em;
+            }
+            .carousel img {
+                height: 100px;
+            }
+        }
+        
+     /* pozadina i folderi za serije i filmove */
+                body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://jelenasavic123.github.io/atv/pozadina2.jpg') no-repeat center center fixed; /* Background image */
+            background-size: cover; /* Cover the whole page */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center buttons vertically */
+            padding: 20px; /* Padding around the container */
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px; /* Space between rows */
+            padding: 15px; /* Padding inside the container */
+            border-radius: 10px; /* More rounded corners */
+             background: rgba(255, 255, 255, 0.16);
+            position: relative; /* For positioning pseudo-element */
+            overflow: hidden; /* Ensure blurred background doesn't overflow */
+        }
+        .button-group::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+ 
+            background-size: cover;
+            filter: blur(2.8px); /* Reduced blur effect by 30% */
+            z-index: 0; /* Position behind buttons */
+        }
+        .button-group .button {
+            position: relative;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 13px;
+            text-align: center;
+            text-decoration: none;
+            color: #333; /* Dark color for text */
+            border: 2px solid rgba(255, 255, 255, 0.7); /* Light border */
+            border-radius: 5px;
+            cursor: pointer;
+            width: 150px; /* Fixed width for alignment */
+            box-sizing: border-box; /* Include padding in element's total width */
+            z-index: 1; /* Position in front of blurred background */
+            background: transparent; /* Transparent background for the button */
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+        }
+       /* Button styles */
+.button-group .button {
+    color: #fff; /* White text color for better contrast */
+    border: 2px solid rgba(255, 255, 255, 0.9); /* Slightly more visible border */
+    background-color: rgba(255, 255, 255, 0.3); /* Slightly less transparent background */
+    font-weight: bold; /* Bold text for better visibility */
+}
+
+.button-group:nth-child(2) .button {
+    background-color: rgba(255, 87, 51, 0.5); /* More opaque background */
+    box-shadow: 0 4px 8px rgba(255, 87, 51, 0.7); /* Stronger shadow effect */
+}
+
+.button-group:nth-child(1) .button {
+    background-color: rgba(51, 255, 87, 0.5); /* More opaque background */
+    box-shadow: 0 4px 8px rgba(51, 255, 87, 0.7); /* Stronger shadow effect */
+}
+
+.button-group:nth-child(3) .button {
+    background-color: rgba(51, 87, 255, 0.5); /* More opaque background */
+    box-shadow: 0 4px 8px rgba(51, 87, 255, 0.7); /* Stronger shadow effect */
+}
+
+.button-group:nth-child(4) .button {
+    background-color: rgba(217, 125, 141, 0.5); /* More opaque background */
+    box-shadow: 0 4px 8px rgba(217, 125, 141, 0.7); /* Stronger shadow effect */
+}
+
+.button-group:nth-child(5) .button {
+    background-color: rgba(255, 51, 166, 0.5); /* More opaque background */
+    box-shadow: 0 4px 8px rgba(255, 51, 166, 0.7); /* Stronger shadow effect */
+}
+
+.button-group:nth-child(6) .button {
+    background-color: rgba(51, 255, 247, 0.5); /* More opaque background */
+    box-shadow: 0 4px 8px rgba(51, 255, 247, 0.7); /* Stronger shadow effect */
+}
+
+/* pozadina i folderi za serije i filmove */
+
+
+
+
+        
+    </style>
+</head>
+<body>
+
+
+<body>
+    <div class="container">
+        <div class="button-group">
+            <a href="https://www.svenadlanuplus.club/p/lista-svih-serija_5.html" class="button left">Turske Serije</a>
+            <a href="https://www.svenadlanuplus.club/p/zadnje-objave.html" class="button right">Zadnje Objave</a>
+        </div>
+        <div class="button-group">
+            <a href="https://turksifilmovi.blogspot.com" class="button left">Turski Filmovi</a>
+            <a href="https://turksifilmovi.blogspot.com/p/zadnje-objave.html" class="button right">Zadnje Objave</a>
+        </div>
+        <div class="button-group">
+            <a href="https://strfilmvi.blogspot.com/" class="button left">Strani Filmovi</a>
+            <a href="https://strfilmvi.blogspot.com/p/zadnje-objave.html" class="button right">Zadnje objave</a>
+        </div>
+    </div>
+</body>
+
+
+
+    <!-- Featured and Popular Section -->
+<div class="section">
+    <h2>Popularne Serije</h2>
+    <div class="carousel">
+        <a href="https://www.svenadlanuplus.club/2022/12/sanjalica-erkenci-kus.html" data-content="content1" class="content-link">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjFXzs8-LbtQ6ZPSnTZxYRblMbmWfXAAGObeI8zp9FjTb0BlOoQZGkYlo0QS5gHVgrosH-wAIk13WhfhXyHUyNd8bhO5FBXZe7HpQLaRdTTm9abRcDDTsow8HNEOjT4Xhy0OH6qpLILYNv0E59cjfozJeRLoi8NWXphwj4O-RC_8JBxZDeU7UBYDFWlVSXY/s320-rw/Sanalica1.jpg" alt="Sanjalica">
+            
+            <a href="https://www.svenadlanuplus.club/2023/01/tri-sestre-uc-kz-kardeas.html" data-content="content1" class="content-link">
+            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEiz8TTXsMYMWmpQg5OwLpeGb-I67MafM3RFBQli2ptexRg_tmRGNsJOAiLcHVKoAlx9AFXyG6r3dVvBlg1SIWxR_LphL9P1dZLuK1KaqaGNTqSFH63JXwW9tzp1-0ABk_PNCGzOE_JFzH324yaME9_zg3LxjpT5qXKuYK7RKR4_w_PcKHBCgmMVdjyfnA=w680-rw" alt="Movie 5">
+            
+            <a href="https://www.svenadlanuplus.club/2023/08/rezervna-stranica-vodomar-36epz-vodomar_23.html" data-content="content1" class="content-link">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhdeA7xmyohiXxJrHZ0mOLVXZOn3DgpNqcnZB8fgT1vIHVmNG0h3UAuMvm3njRF7ZVRLZbmfMSNrNErOqUuuhlotKDbVRYvbTcMQRaeicXFGwe5viJm53Is03IMo1qeHQMSLD_ZC5ftRbT2tKaTmQ5JcpYDkdpNKE05pKUJisgMfAPDz4rtK3DhXIsveg/w680-rw/Vodomar.jpg" alt="Movie 5">
+            
+            <a href="https://www.svenadlanuplus.club/2023/01/spasenje-eserat.html" data-content="content1" class="content-link">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/s72-w680-c/Spasenje.jpg" alt="Movie 5">
+        </a>
+    </div>
+    
+    
+    <h2>Istaknute Serije</h2>
+    <div class="carousel">
+        <a href="https://www.svenadlanuplus.club/2023/02/merjem-meryem.html" data-content="content2" class="content-link">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjSUbMt6Q8VFzQOVQQRbdvQDdVt4jtAMIvyXYEK7A9Fuju6GF1x8zkc2aSrRnh3XuYoh9QtdOUrBQPgWC1OWHliRG1nJH9RZHky1Jp6iKx-gUWvUmBGf5gXti3VLf2ybLFU8rm7QbYcv_U_L9uJaPExnrpljO32H1LORGWSJ7TNRZJWDuSi2hQvO5b0YQ/s320-rw/Merijem1.jpg" alt="Movie 5">
+        </a>
+        <a href="https://www.svenadlanuplus.club/2023/01/krvavo-cvece-kan-cicekleri.html" data-content="content3" class="content-link">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjobLMy6-XhCe7oL72mjycT-w9NyTk3e5eTfHhri_AO4GAHpmAraQA3Iwg2cHlh13ee-F6FPNytsnjOkwDDpsDvK8XVKLP32rr9HqWYigyYFzKQnENDHcrz3uPMGwILnviNnU98yojq8XT-l2BspGNM4XM66PZSAf_cod7c6Y8ptYaUJr9V5a5kSEJWyw/s72-w680-c/KRVAVO%20CVECE.jpg" alt="Movie 6">
+        </a>
+        <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhuWVOqwhPOKlWedybs7FyJTLDSh6P83ijdauwG6rKQR6TEzk9y4ooUTLawED-2m19kLWHYwuPlARE6Kx6kkX7qHz1tkDIIgyq9PTHemR8Bk-EJik2KpRVGfXK1ByIQab6uLSnqwVS0_i85Cwhq-Cb3l0bIJ3XEotWq91wlV-Gf5wFh2WokAFa5yqUE8oV4/s72-w680-c/Safir1.jpg" data-content="content4" class="content-link">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhuWVOqwhPOKlWedybs7FyJTLDSh6P83ijdauwG6rKQR6TEzk9y4ooUTLawED-2m19kLWHYwuPlARE6Kx6kkX7qHz1tkDIIgyq9PTHemR8Bk-EJik2KpRVGfXK1ByIQab6uLSnqwVS0_i85Cwhq-Cb3l0bIJ3XEotWq91wlV-Gf5wFh2WokAFa5yqUE8oV4/s320-rw/Safir1.jpg" alt="Movie 7">
+        </a>
+        <a href="https://www.svenadlanuplus.club/2023/01/izdaja-prevara-aldatmak.html" data-content="content5" class="content-link">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjOW-gLWOaJUAcdFUlYVlTcS3nD_AIZENSA6VvhwfvQREzngbXDbiCdN-g8RXSOPPEOYtmCSGMb-z6-eDmlATHl7wCKe3_23ErjpQKElk6Nvxp6CHCuKLp_uHcAGSMHrSh0qr2OhaIbdz6mVuLfPWhA0rDLhTtUVHRm37yzquGS174GGtDEWQRrqKLDLw/s72-w680-c/izdaja.jpg" alt="Movie 8">
+        </a>
+    </div>
+    
+    
+    
+
+
+    
+   
+<script>
+/* ------------------- */
+/* ACCESS DENIED ERROR */
+/* ------------------- */
+function display_access_denied_error() {
+    document.body.innerHTML
+        = '<div id="access-denied-error">'
+        + '<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhIaHhvW65BH2K7NPeU5dQ3G0AP4ay85LrO3HwpVlyVDtgOuUFWZYItqhcHwfKBRKwCUSqtPWMDLQDK7VC0kClxd6UavCdorG5s2k3iPePNSgi-llBqtXfa51BEhKVUk2_TfBq-EmrEVRPOwMspTCehi3VrC8eBF4PH4jAvxZbokSgbITiTc438frKtOQLV/w680/slika.jpg" width="100%" height="100%">'
+        + '</span>'
+        + '</div>'
+        + '</div>'
+        
+
+}
+
+/* ------------------------- */
+/* BLOCK BLACKLIST COUNTRIES */
+/* ------------------------- */
+function block_blacklist_countries() {
+    // Blacklist countries
+    const blacklist_countries = [
+
+        "TR", // Turkey
+        "AN", // Ankara
+        "AD", // Adana
+        "IS", // Istanbul
+        "IZ", // Izmir
+        "US", // United States
+        "NO", // Norway
+        "VN", // Vietnam
+        "UM", // United States Minor Outlying Islands
+        "GB", // United Kingdom
+        "SG", // Singapore
+        "PL", // Poland
+        "NZ", // New Zealand
+        "MX", // Mexico
+        "LU", // Luxembourg
+        "LR", // Liberia
+        "JP", // Japan
+        "IL", // Israel
+        "IE", // Ireland
+        "IS", // Iceland
+        "FI", // Finland
+        "EG", // Egypt
+        "KY", // Cayman Islands
+        "CA", // Canada
+        "BD", // Bangladesh
+        "AR", // Argentina
+        "AQ", // Antarctica
+        "AX", // Aland Islands
+        "AS", // American Samoa
+        "BD", // Bangladesh
+        "BR", // Brazil
+        "CN", // China 
+        "HK", // Hong Kong
+        "CX", // Christmas Island
+        "CC", // Cocos
+        "CK", // Cook Islands
+        "GF", // French Guiana
+        "IN", // India
+        "IL", // Israel
+        "KP", // Korea
+        "KR", // KR
+        "MY", // Malaysia
+        "MC", // Monaco
+        "NZ", // New Zealand
+        "NO", // Norway
+        "PL", // Poland
+        "SA", // Saudi Arabia
+        "UM", // Ukrajina
+        "AE", // Ujedinjeni Arapski Emirati
+        "BE", // Belgija
+        "CA", // Kanada
+        "DK ", // Danska
+        "FR", // Francuska
+        "IT", // Italija
+        "JP", // Japan
+        "NL", // Holandija
+        "ES", // Španija
+        "SE", // Švedska
+        "CH", // Švajcarska
+        "ES", // Španija
+        "BG ", // Bugarska
+
+   
+
+    ]
+
+    // Detecting the users country
+    function get_country_code(api_url) {
+        fetch(api_url, { method: 'GET' })
+            .then(response => response.json()) // Getting ip info as json
+            .then(result => {
+                if (blacklist_countries.includes(result.country)) { // If my ip country code is in blacklist
+                    display_access_denied_error() // Access denied error
+                }
+            })
+            .catch(error => console.log('error', error))
+    }
+
+    // Getting country code from third party api
+    get_country_code("https://get.geojs.io/v1/ip/country.json")
+}
+
+/* ------------------------- */
+/* ALLOW WHITELIST COUNTRIES */
+/* ------------------------- */
+function allow_whitelist_countries() {
+    // Whitelist countries
+    const whitelist_countries = [
+
+        "TR", // Turkey
+        "AN", // Ankara
+        "AD", // Adana
+        "IS", // Istanbul
+        "IZ", // Izmir
+        "US", // United States
+        "NO", // Norway
+        "VN", // Vietnam
+        "UM", // United States Minor Outlying Islands
+        "GB", // United Kingdom
+        "SG", // Singapore
+        "PL", // Poland
+        "NZ", // New Zealand
+        "MX", // Mexico
+        "LU", // Luxembourg
+        "LR", // Liberia
+        "JP", // Japan
+        "IL", // Israel
+        "IE", // Ireland
+        "IS", // Iceland
+        "FI", // Finland
+        "EG", // Egypt
+        "KY", // Cayman Islands
+        "CA", // Canada
+        "BD", // Bangladesh
+        "AR", // Argentina
+        "AQ", // Antarctica
+        "AX", // Aland Islands
+        "AS", // American Samoa
+        "BD", // Bangladesh
+        "BR", // Brazil
+        "CN", // China 
+        "HK", // Hong Kong
+        "CX", // Christmas Island
+        "CC", // Cocos
+        "CK", // Cook Islands
+        "GF", // French Guiana
+        "IN", // India
+        "IL", // Israel
+        "KP", // Korea
+        "KR", // KR
+        "MY", // Malaysia
+        "MC", // Monaco
+        "NZ", // New Zealand
+        "NO", // Norway
+        "PL", // Poland
+        "SA", // Saudi Arabia
+        "UM", // Ukrajina
+        "AE", // Ujedinjeni Arapski Emirati
+        "BE", // Belgija
+        "CA", // Kanada
+        "DK ", // Danska
+        "FR", // Francuska
+        "IT", // Italija
+        "JP", // Japan
+        "NL", // Holandija
+        "ES", // Španija
+        "SE", // Švedska
+        "CH", // Švajcarska
+        "ES", // Španija
+        "BG ", // Bugarska
+
+    ]
+
+    // Detecting the users country
+    function get_country_code(api_url) {
+        fetch(api_url, { method: 'GET' })
+            .then(response => response.json()) // Getting ip info as json
+            .then(result => {
+                if (!whitelist_countries.includes(result.country)) { // If my ip country code is not in whitelist
+                    display_access_denied_error() // Access denied error
+                }
+            })
+            .catch(error => console.log('error', error))
+    }
+
+    // Getting country code from third party api
+    get_country_code("https://get.geojs.io/v1/ip/country.json")
+}
+
+/* -------------- */
+/* CALL FUNCTIONS */
+/* -------------- */
+block_blacklist_countries() // Block blacklist countries
+
+// allow_whitelist_countries() // Allow whitelist countries
+Footer
+
+</script>
+</body>
+</html>
