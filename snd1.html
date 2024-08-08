@@ -151,59 +151,52 @@
         }
         
      /* pozadina i folderi za serije i filmove */
-                body {
+     
+                     body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background: url('https://jelenasavic123.github.io/atv/pozadina2.jpg') no-repeat center center fixed; /* Background image */
             background-size: cover; /* Cover the whole page */
         }
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Center buttons vertically */
-            padding: 20px; /* Padding around the container */
-        }
-        .button-group {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 7px; /* Space between rows */
-            padding: 15px; /* Padding inside the container */
-            border-radius: 10px; /* More rounded corners */
-             background: rgba(255, 255, 255, 0.16);
-            position: relative; /* For positioning pseudo-element */
-            overflow: hidden; /* Ensure blurred background doesn't overflow */
-        }
-        .button-group::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
- 
-            background-size: cover;
-            filter: blur(2.8px); /* Reduced blur effect by 30% */
-            z-index: 0; /* Position behind buttons */
-        }
-        .button-group .button {
-            position: relative;
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 13px;
-            text-align: center;
-            text-decoration: none;
-            color: #333; /* Dark color for text */
-            border: 2px solid rgba(255, 255, 255, 0.7); /* Light border */
-            border-radius: 5px;
-            cursor: pointer;
-            width: 150px; /* Fixed width for alignment */
-            box-sizing: border-box; /* Include padding in element's total width */
-            z-index: 1; /* Position in front of blurred background */
-            background: transparent; /* Transparent background for the button */
-            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
-        }
-       /* Button styles */
+     
+      /* Osnovni stilovi za dugmadi */
+.button-group {
+    display: flex;
+    justify-content: center; /* Centriraj dugme unutar grupe */
+    margin-bottom: 15px; /* Razmak između redova */
+    padding: 10px; /* Padding unutar grupe */
+    border-radius: 10px; /* Zaobljeni uglovi */
+    background: rgba(255, 255, 255, 0.16);
+    position: relative; /* Za pozicionisanje pseudo-elementa */
+    overflow: hidden; /* Obezbedi da se pozadina ne preliva */
+}
+
+.button-group .button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 13px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff; /* Bele boje teksta */
+    border: 2px solid rgba(255, 255, 255, 0.9); /* Vidljivija ivica */
+    border-radius: 15px;
+    cursor: pointer;
+    width: 150px; /* Fiksna širina za poravnavanje */
+    box-sizing: border-box; /* Uključi padding u ukupnu širinu */
+    background: rgba(255, 255, 255, 0.3); /* Poluprovidna pozadina za dugme */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Glatke promene za hover efekte */
+    text-align: center; /* Poravnanje teksta u centru */
+    margin: 0 10px; /* Razmak između dugmadi */
+}
+
+/* Stilizacija za dugmadi sa specifičnim klasama */
+.button-group .button.left,
+.button-group .button.right {
+    background-color: rgba(255, 255, 255, 0.3); /* Pozadina dugmadi */
+}
+
+/* Button styles */
 .button-group .button {
     color: #fff; /* White text color for better contrast */
     border: 2px solid rgba(255, 255, 255, 0.9); /* Slightly more visible border */
@@ -211,12 +204,12 @@
     font-weight: bold; /* Bold text for better visibility */
 }
 
-.button-group:nth-child(2) .button {
-    background-color: rgba(255, 87, 51, 0.5); /* More opaque background */
+.button-group:nth-child(1) .button {
+    background-color: rgba(216, 36, 120); /* More opaque background */
     box-shadow: 0 4px 8px rgba(255, 87, 51, 0.7); /* Stronger shadow effect */
 }
 
-.button-group:nth-child(1) .button {
+.button-group:nth-child(2) .button {
     background-color: rgba(51, 255, 87, 0.5); /* More opaque background */
     box-shadow: 0 4px 8px rgba(51, 255, 87, 0.7); /* Stronger shadow effect */
 }
@@ -227,19 +220,13 @@
 }
 
 .button-group:nth-child(4) .button {
-    background-color: rgba(217, 125, 141, 0.5); /* More opaque background */
-    box-shadow: 0 4px 8px rgba(217, 125, 141, 0.7); /* Stronger shadow effect */
-}
-
-.button-group:nth-child(5) .button {
     background-color: rgba(255, 51, 166, 0.5); /* More opaque background */
     box-shadow: 0 4px 8px rgba(255, 51, 166, 0.7); /* Stronger shadow effect */
 }
 
-.button-group:nth-child(6) .button {
-    background-color: rgba(51, 255, 247, 0.5); /* More opaque background */
-    box-shadow: 0 4px 8px rgba(51, 255, 247, 0.7); /* Stronger shadow effect */
-}
+
+
+
 
 /* pozadina i folderi za serije i filmove */
 
@@ -254,6 +241,9 @@
 
 <body>
     <div class="container">
+             <div class="button-group">
+            <a href="https://www.svenadlanuplus.club/p/vase-omiljene-serije.html" class="button left">❤️Vaša lista omiljenih serija</a>
+        </div>
         <div class="button-group">
             <a href="https://www.svenadlanuplus.club/p/lista-svih-serija_5.html" class="button left">Turske Serije</a>
             <a href="https://www.svenadlanuplus.club/p/zadnje-objave.html" class="button right">Zadnje Objave</a>
@@ -265,7 +255,6 @@
         <div class="button-group">
             <a href="https://turksifilmovi.blogspot.com/p/svi-filmovi.html" class="button left">Turski Filmovi</a>
             <a href="https://www.svenadlanuplus.club/p/tv-uzivo.html" class="button right">Turska TV uživo</a>
-        </div>
         </div>
     </div>
 </body>
