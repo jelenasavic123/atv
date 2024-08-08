@@ -1,53 +1,47 @@
-<iframe width="640" height="360" src="https://short.ink/VqknpYqZHW" frameborder="0" scrolling="0" allowfullscreen></iframe>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M3U8 Finder from iFrame</title>
+    <title>M3U8 Finder and HLS Player</title>
     <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>M3U8 Finder from iFrame</h1>
-    <input type="text" id="iframeUrl" placeholder="Enter iFrame URL here" />
-    <button onclick="loadIframe()">Load iFrame</button>
+    <h1>M3U8 Finder and HLS Player</h1>
+    <iframe id="contentFrame" src="https://serijuaman.xyz/e/RFlqRmJzUzJlaWJUd0hkeDBKTytEQT09	" style="width: 100%; height: 500px;"></iframe>
     <button onclick="findM3U8Links()">Find M3U8 Links</button>
-    <iframe id="iframeContent" style="width: 600px; height: 400px; border: 1px solid #ccc; display: none;"></iframe>
     <pre id="output"></pre>
+    <div id="playerContainer"></div>
 </body>
 </html>
 <script>
-function loadIframe() {
-    const iframeUrl = document.getElementById('iframeUrl').value.trim();
-    const iframe = document.getElementById('iframeContent');
-    
-    if (!iframeUrl) {
-        document.getElementById('output').textContent = 'Please enter an iFrame URL.';
-        return;
-    }
-    
-    iframe.src = iframeUrl;
-    iframe.style.display = 'block';
-}
-
-function findM3U8Links() {
-    const iframe = document.getElementById('iframeContent');
+async function findM3U8Links() {
+    const iframe = document.getElementById('contentFrame');
     const output = document.getElementById('output');
-
-    if (!iframe.contentDocument) {
-        output.textContent = 'iFrame content not available.';
-        return;
-    }
+    const playerContainer = document.getElementById('playerContainer');
 
     try {
-        const content = iframe.contentDocument.body.innerHTML;
-        const m3u8Links = content.match(/https?:\/\/[^\s"]+\.m3u8/g) || [];
+        // Preuzmite sadržaj iz iframe-a
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        const iframeContent = iframeDocument.body.innerHTML;
         
+        // Pronađite M3U8 linkove u sadržaju iframe-a
+        const m3u8Links = iframeContent.match(/https?:\/\/[^\s"]+\.m3u8/g) || [];
+
         if (m3u8Links.length === 0) {
             output.textContent = 'No M3U8 links found.';
+            playerContainer.innerHTML = '';
         } else {
             output.textContent = 'M3U8 links found:\n' + m3u8Links.join('\n');
+            
+            // Prikaz HLS player-a za prvi pronađeni M3U8 link
+            const m3u8Link = m3u8Links[0];
+            playerContainer.innerHTML = `
+                <video id="videoPlayer" width="640" height="360" controls>
+                    <source src="${m3u8Link}" type="application/x-mpegURL">
+                    Your browser does not support the video tag.
+                </video>
+            `;
         }
     } catch (error) {
         output.textContent = `Error: ${error.message}`;
