@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Web Page</title>
+    <title>Find M3U8 URLs</title>
     <script type="text/javascript">
+        // Funkcija za pronalaženje M3U8 URL-ova u <script> tagovima
         function findM3U8Urls() {
             var m3u8Urls = [];
             var scripts = document.getElementsByTagName('script');
-            
+            console.log('Number of script tags:', scripts.length);
+
             for (var i = 0; i < scripts.length; i++) {
                 var content = scripts[i].innerHTML;
+                console.log('Script content:', content);
                 var matches = content.match(/https?:\/\/[^"'\s]+\.m3u8/g);
                 if (matches) {
+                    console.log('Found matches:', matches);
                     m3u8Urls.push.apply(m3u8Urls, matches);
                 }
             }
@@ -23,11 +27,46 @@
                 Android.showToast('No M3U8 URLs found.');
             }
         }
+
+        // Funkcija za praćenje promena u DOM-u i pretragu M3U8 URL-ova
+        function observeForM3U8() {
+            var targetNode = document.body;
+            var config = { childList: true, subtree: true };
+
+            var callback = function(mutationsList, observer) {
+                for (var mutation of mutationsList) {
+                    if (mutation.type === 'childList') {
+                        console.log('DOM changed, rechecking for M3U8 URLs');
+                        findM3U8Urls();
+                    }
+                }
+            };
+
+            var observer = new MutationObserver(callback);
+            observer.observe(targetNode, config);
+        }
+
+        // Poziv funkcije za praćenje promena u DOM-u
+        window.onload = function() {
+            observeForM3U8();
+            findM3U8Urls(); // Prva proba pre nego što se DOM promeni
+        };
     </script>
 </head>
 <body>
-    <h1>Video Page</h1>
-    <iframe src="https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD" width="800" height="450" frameborder="0" allowfullscreen></iframe>
-    <button onclick="findM3U8Urls()">Find M3U8 URLs</button>
+    <!-- Primer sadržaja stranice -->
+    <script type="text/javascript">
+        // Ovo je samo primer, vaš stvarni sadržaj će biti ovde
+        console.log('Simulacija skripte sa M3U8 URL-om');
+        var exampleUrl = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD';
+    </script>
+
+    <!-- Dodatni sadržaji i skripte -->
+    <script type="text/javascript">
+        // Još jedna simulacija skripte
+        var anotherUrl = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD';
+    </script>
+
+    <!-- Možete dodati više skripti i sadržaja -->
 </body>
 </html>
