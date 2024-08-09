@@ -1,17 +1,22 @@
-#EXTM3U #AZERBAYCAN,  KANALLAR İÇERİR | TV | TV #
-
-#EXTINF:-1 tvg-country="AZ" tvg-logo="https://m.yilmaztv.cc/logo/az.png" group-title="AZERBAYCAN yilmaztv.ru",5 канал
-http://mfe.cliptv.az/dash/5_Kanal_SD.ism/playlist.mpd
-#EXTINF:-1 tvg-country="AZ" tvg-logo="https://m.yilmaztv.cc/logo/az.png" group-title="AZERBAYCAN yilmaztv.ru",A Haber
-http://mfe.cliptv.az/dash/A_Haber_HD.ism/playlist.mpd
-#EXTINF:-1 tvg-country="AZ" tvg-logo="https://m.yilmaztv.cc/logo/az.png" group-title="AZERBAYCAN yilmaztv.ru",A Spor
-http://mfe.cliptv.az/dash/A_Spor_HD.ism/playlist.mpd
-#EXTINF:-1 tvg-country="AZ" tvg-logo="https://m.yilmaztv.cc/logo/az.png" group-title="AZERBAYCAN yilmaztv.ru",AKILLI TV
-http://mfe.cliptv.az/dash/AKILLI_TV_SD.ism/playlist.mpd
-#EXTINF:-1 tvg-country="AZ" tvg-logo="https://m.yilmaztv.cc/logo/az.png" group-title="AZERBAYCAN yilmaztv.ru",AL ZAHRA TV
-http://live.al-zahratv.com/live/playlist.m3u8
-#EXTINF:-1 tvg-country="AZ" tvg-logo="https://m.yilmaztv.cc/logo/az.png" group-title="AZERBAYCAN yilmaztv.ru",ATV
-http://mfe.cliptv.az/dash/ATV_Turk_HD.ism/playlist.mpd
-#EXTINF:-1 tvg-country="AZ" tvg-logo="https://m.yilmaztv.cc/logo/az.png" group-title="AZERBAYCAN yilmaztv.ru",ATV
-http://mfe.cliptv.az/dash/ATV_SD.ism/playlist.mpd
-#EXTINF:-1 tvg-country="AZ" tvg-logo="https://i.imgur.com/rDYSoRL.png" group-title="AZERBAYCAN yilmaztv.ru",ATV 1
+#EXTGRP:SRPSKI KANALI
+#EXTINF:-1,EX-YU: 24 Kitchen
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4126
+#EXTINF:-1,EX-YU: AMC
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/20166
+#EXTINF:-1,EX-YU: Arena Sport 6
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/145720
+#EXTINF:-1,EX-YU: AXN
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/20174
+#EXTINF:-1,EX-YU: AXN Spin
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/36885
+#EXTINF:-1,EX-YU: Baby TV
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/13472
+#EXTINF:-1,EX-YU: BBC Earth
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/24924
+#EXTINF:-1,EX-YU: CBS Reality
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/36914
+#EXTINF:-1,EX-YU: Cinemax
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4138
+#EXTINF:-1,EX-YU: Cinemax 2
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4139
+#EXTINF:-1,EX-YU: CineStar TV 1
