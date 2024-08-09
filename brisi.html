@@ -5,68 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find M3U8 URLs</title>
     <script type="text/javascript">
-        // Funkcija za pronalaženje M3U8 URL-ova u <script> tagovima
-        function findM3U8Urls() {
-            var m3u8Urls = [];
-            var scripts = document.getElementsByTagName('script');
-            console.log('Number of script tags:', scripts.length);
-
-            for (var i = 0; i < scripts.length; i++) {
-                var content = scripts[i].textContent;
-                console.log('Script content:', content);
-                var matches = content.match(/https?:\/\/[^"'\s]+\.m3u8/g);
-                if (matches) {
-                    console.log('Found matches:', matches);
-                    m3u8Urls.push.apply(m3u8Urls, matches);
-                }
-            }
-
-            if (m3u8Urls.length > 0) {
-                alert('Found M3U8 URLs: ' + m3u8Urls.join(', '));
-            } else {
-                alert('No M3U8 URLs found.');
-            }
-        }
-
-        // Funkcija za praćenje promena u DOM-u i pretragu M3U8 URL-ova
-        function observeForM3U8() {
-            var targetNode = document.body;
-            var config = { childList: true, subtree: true };
-
-            var callback = function(mutationsList, observer) {
-                for (var mutation of mutationsList) {
-                    if (mutation.type === 'childList') {
-                        console.log('DOM changed, rechecking for M3U8 URLs');
-                        findM3U8Urls();
+        async function findM3U8Urls(url) {
+            try {
+                // Preuzmi HTML sadržaj stranice
+                const response = await fetch(url);
+                const htmlText = await response.text();
+                
+                // Analiziraj HTML sadržaj
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                
+                // Pretraži sve <script> tagove u HTML-u
+                const scripts = doc.getElementsByTagName('script');
+                let m3u8Urls = [];
+                
+                for (let script of scripts) {
+                    const content = script.textContent;
+                    const matches = content.match(/https?:\/\/[^"'\s]+\.m3u8/g);
+                    if (matches) {
+                        m3u8Urls.push(...matches);
                     }
                 }
-            };
 
-            var observer = new MutationObserver(callback);
-            observer.observe(targetNode, config);
+                // Prikaži rezultate
+                if (m3u8Urls.length > 0) {
+                    alert('Found M3U8 URLs: ' + m3u8Urls.join(', '));
+                } else {
+                    alert('No M3U8 URLs found.');
+                }
+            } catch (error) {
+                console.error('Error fetching or processing the page:', error);
+            }
         }
 
-        // Poziv funkcije za praćenje promena u DOM-u
         window.onload = function() {
-            observeForM3U8();
-            findM3U8Urls(); // Prva proba pre nego što se DOM promeni
+            const urlToSearch = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD'; // Zameni sa stvarnim URL-om stranice
+            findM3U8Urls(urlToSearch);
         };
     </script>
 </head>
 <body>
-    <!-- Primer sadržaja stranice -->
-    <script type="text/javascript">
-        // Ovo je samo primer, vaš stvarni sadržaj će biti ovde
-        console.log('Simulacija skripte sa M3U8 URL-om');
-        var exampleUrl = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD'; // Promenite ovo na validan M3U8 URL
-    </script>
-
-    <!-- Dodatni sadržaji i skripte -->
-    <script type="text/javascript">
-        // Još jedna simulacija skripte
-        var anotherUrl = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD'; // Promenite ovo na validan M3U8 URL
-    </script>
-
-    <!-- Možete dodati više skripti i sadržaja -->
+    <h1>Find M3U8 URLs</h1>
+    <!-- Content of the page -->
 </body>
 </html>
