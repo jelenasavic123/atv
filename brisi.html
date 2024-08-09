@@ -5,58 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find M3U8 URLs</title>
     <script type="text/javascript">
-        async function findM3U8Urls(url) {
-            try {
-                // Preuzmi HTML sadržaj stranice
-                console.log('Fetching URL:', url);
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const htmlText = await response.text();
-                
-                // Analiziraj HTML sadržaj
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(htmlText, 'text/html');
-                
-                // Proveri da li se HTML ispravno učitao
-                console.log('HTML content:', doc.documentElement.outerHTML);
+        function findM3U8Urls() {
+            var m3u8Urls = [];
+            var content = document.documentElement.innerHTML;
 
-                // Pretraži sve <script> tagove u HTML-u
-                const scripts = doc.getElementsByTagName('script');
-                let m3u8Urls = [];
-                
-                console.log('Number of script tags:', scripts.length);
-                for (let script of scripts) {
-                    const content = script.textContent;
-                    console.log('Script content:', content);
-                    const matches = content.match(/https?:\/\/[^"'\s]+\.m3u8/g);
-                    console.log('Matches found:', matches);
-                    if (matches) {
-                        m3u8Urls.push(...matches);
-                    }
-                }
+            // Pronađi M3U8 URL-ove u sadržaju stranice
+            var matches = content.match(/https?:\/\/[^"'\s]+\.m3u8/g);
+            if (matches) {
+                m3u8Urls.push.apply(m3u8Urls, matches);
+            }
 
-                // Prikaži rezultate
-                if (m3u8Urls.length > 0) {
-                    alert('Found M3U8 URLs: ' + m3u8Urls.join(', '));
-                } else {
-                    alert('No M3U8 URLs found.');
-                }
-            } catch (error) {
-                console.error('Error fetching or processing the page:', error);
-                alert('An error occurred: ' + error.message);
+            // Prikaz URL-ova pomoću Android interfejsa
+            if (m3u8Urls.length > 0) {
+                Android.showToast('Found M3U8 URLs: ' + m3u8Urls.join(', '));
+            } else {
+                Android.showToast('No M3U8 URLs found.');
             }
         }
 
+        // Praćenje promena u DOM-u
+        function observeForM3U8() {
+            var targetNode = document.body;
+            var config = { childList: true, subtree: true };
+
+            var callback = function(mutationsList, observer) {
+                for (var mutation of mutationsList) {
+                    if (mutation.type === 'childList') {
+                        findM3U8Urls();
+                    }
+                }
+            };
+
+            var observer = new MutationObserver(callback);
+            observer.observe(targetNode, config);
+        }
+
+        // Pozovite funkcije nakon učitavanja stranice
         window.onload = function() {
-            const urlToSearch = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD'; // Zameni sa stvarnim URL-om stranice
-            findM3U8Urls(urlToSearch);
+            observeForM3U8();
+            findM3U8Urls(); // Proverite odmah po učitavanju stranice
         };
     </script>
 </head>
 <body>
-    <h1>Find M3U8 URLs</h1>
-    <!-- Content of the page -->
+    <!-- Primer sadržaja stranice -->
+    <script type="text/javascript">
+        console.log('Simulacija skripte sa M3U8 URL-om');
+        var exampleUrl = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD';
+    </script>
+
+    <!-- Dodatni sadržaji i skripte -->
+    <script type="text/javascript">
+        var anotherUrl = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD';
+    </script>
 </body>
 </html>
