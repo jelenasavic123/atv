@@ -4,26 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find M3U8 URLs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+    </style>
     <script type="text/javascript">
         function findM3U8Urls() {
             var m3u8Urls = [];
-            var content = document.documentElement.innerHTML;
+            var scripts = document.getElementsByTagName('script');
+            console.log('Number of script tags:', scripts.length);
 
-            // Pronađi M3U8 URL-ove u sadržaju stranice
-            var matches = content.match(/https?:\/\/[^"'\s]+\.m3u8/g);
-            if (matches) {
-                m3u8Urls.push.apply(m3u8Urls, matches);
+            for (var i = 0; i < scripts.length; i++) {
+                var content = scripts[i].innerHTML;
+                console.log('Script content:', content);
+                var matches = content.match(/https?:\/\/[^"'\s]+\.m3u8/g);
+                if (matches) {
+                    console.log('Found matches:', matches);
+                    m3u8Urls.push.apply(m3u8Urls, matches);
+                }
             }
 
-            // Prikaz URL-ova pomoću Android interfejsa
             if (m3u8Urls.length > 0) {
-                Android.showToast('Found M3U8 URLs: ' + m3u8Urls.join(', '));
+                alert('Found M3U8 URLs: ' + m3u8Urls.join(', '));
             } else {
-                Android.showToast('No M3U8 URLs found.');
+                alert('No M3U8 URLs found.');
             }
         }
 
-        // Praćenje promena u DOM-u
         function observeForM3U8() {
             var targetNode = document.body;
             var config = { childList: true, subtree: true };
@@ -31,6 +48,7 @@
             var callback = function(mutationsList, observer) {
                 for (var mutation of mutationsList) {
                     if (mutation.type === 'childList') {
+                        console.log('DOM changed, rechecking for M3U8 URLs');
                         findM3U8Urls();
                     }
                 }
@@ -40,22 +58,23 @@
             observer.observe(targetNode, config);
         }
 
-        // Pozovite funkcije nakon učitavanja stranice
         window.onload = function() {
             observeForM3U8();
-            findM3U8Urls(); // Proverite odmah po učitavanju stranice
+            findM3U8Urls();
         };
     </script>
 </head>
 <body>
-    <!-- Primer sadržaja stranice -->
+    <h1>Welcome to the M3U8 Finder Page!</h1>
+    <p>This page is used to test M3U8 URL finding functionality.</p>
     <script type="text/javascript">
-        console.log('Simulacija skripte sa M3U8 URL-om');
+        // This script is a test
+        console.log('Simulating a script with M3U8 URL');
         var exampleUrl = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD';
     </script>
 
-    <!-- Dodatni sadržaji i skripte -->
     <script type="text/javascript">
+        // Another test script
         var anotherUrl = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD';
     </script>
 </body>
