@@ -3,79 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find M3U8 URLs</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            color: #666;
-        }
-    </style>
-    <script type="text/javascript">
-        function findM3U8Urls() {
-            var m3u8Urls = [];
-            var scripts = document.getElementsByTagName('script');
-            console.log('Number of script tags:', scripts.length);
-
-            for (var i = 0; i < scripts.length; i++) {
-                var content = scripts[i].innerHTML;
-                console.log('Script content:', content);
-                var matches = content.match(/https?:\/\/[^"'\s]+\.m3u8/g);
-                if (matches) {
-                    console.log('Found matches:', matches);
-                    m3u8Urls.push.apply(m3u8Urls, matches);
-                }
-            }
-
-            if (m3u8Urls.length > 0) {
-                alert('Found M3U8 URLs: ' + m3u8Urls.join(', '));
-            } else {
-                alert('No M3U8 URLs found.');
-            }
-        }
-
-        function observeForM3U8() {
-            var targetNode = document.body;
-            var config = { childList: true, subtree: true };
-
-            var callback = function(mutationsList, observer) {
-                for (var mutation of mutationsList) {
-                    if (mutation.type === 'childList') {
-                        console.log('DOM changed, rechecking for M3U8 URLs');
-                        findM3U8Urls();
-                    }
-                }
-            };
-
-            var observer = new MutationObserver(callback);
-            observer.observe(targetNode, config);
-        }
-
-        window.onload = function() {
-            observeForM3U8();
-            findM3U8Urls();
-        };
-    </script>
+    <title>Favorite Links and Video</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>Welcome to the M3U8 Finder Page!</h1>
-    <p>This page is used to test M3U8 URL finding functionality.</p>
-    <script type="text/javascript">
-        // This script is a test
-        console.log('Simulating a script with M3U8 URL');
-        var exampleUrl = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD';
-    </script>
-
-    <script type="text/javascript">
-        // Another test script
-        var anotherUrl = 'https://filemoon.in/e/jfss5fm21b66/Gunesine_Cerke_-_33_epizoda_HD';
-    </script>
+    <div id="container">
+        <button id="new-link-button">Add New Link</button>
+        <div id="add-link-form">
+            <input type="text" id="title" placeholder="Title">
+            <input type="text" id="url" placeholder="URL">
+            <button id="add">Add</button>
+            <button id="cancel">Cancel</button>
+        </div>
+        <div id="fav">
+            <button id="close">Close</button>
+            <ul id="favorite-links"></ul>
+        </div>
+        <button id="show">Show Favorites</button>
+    </div>
+    
+    <!-- Video elements will be dynamically managed -->
 </body>
 </html>
+<style>
+body {
+    background-color: #2d2d2d;
+    color: #ccc;
+    font-family: Verdana, sans-serif;
+}
+
+#container {
+    margin: 0;
+    width: 300px;
+    position: relative;
+    background: #2d2d2d;
+}
+
+#header {
+    background: #ccc;
+    padding: 20px;
+}
+
+#content {
+    padding: 5px 20px 10px 20px;
+}
+
+h5.found {
+    text-align: left;
+    margin: 3px 0 3px 7px;
+    color: #007bff;
+}
+
+h5.not-found {
+    color: #007bff;
+    white-space: nowrap;
+    margin: 12px 10px 12px 10px;
+}
+
+a {
+    text-decoration: none;
+    color: dimgrey;
+}
+
+a:hover {
+    color: #007bff;
+}
+
+#fav {
+    display: none;
+    position: fixed;
+    z-index: 1010;
+    top: 0;
+    right: -10px;
+    overflow-x: hidden;
+    overflow: scroll;
+    height: 100vh;
+    background: #2d2d2d;
+    border-left: solid 0px #000;
+    animation-name: example;
+    animation-duration: 0.3s;
+}
+
+@keyframes example {
+    from { width: 10px; }
+    to { width: 300px; }
+}
+
+#show {
+    color: #007bff;
+}
+
+#close {
+    padding: 5px 10px;
+    border: 0;
+    background: #fff;
+    color: #007bff;
+    font-size: 12px;
+}
+
+#add-link-form {
+    display: none;
+    background: #444;
+    padding: 20px;
+    color: #ccc;
+}
+
+#add-link-form input {
+    margin: 5px 0;
+    width: 100%;
+    color: #333;
+    padding: 5px;
+    outline: none;
+    border: none;
+}
+
+button {
+    padding: 5px;
+    margin-bottom: 5px;
+    background: #007bff;
+    color: #fff;
+    border: solid 0px;
+}
+
+.removebtn {
+    border: none;
+    background: none;
+    color: #999;
+    float: right;
+    margin-top: -5px;
+    font-size: 14px;
+    display: block;
+    padding: 5px;
+}
+
+.removebtn:hover {
+    cursor: pointer;
+    color: orange;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    margin-bottom: 5px;
+    list-style: none;
+    background: #131212;
+    padding: 10px;
+}
+
+ul li:hover {
+    background: #212020;
+}
+
+#favorite-links a {
+    color: dimgrey;
+    text-decoration: none;
+    padding: 10px 10px 40px 10px;
+}
+
+#favorite-links a:hover {
+    color: #007bff !important;
+}
+
+#favorite-links li:last-child {
+    border: none;
+}
+
+#add-link-form input {
+    color: #333;
+}
+
+</style>
+
+<script>
+$(document).ready(function() {
+    var $ul = $('#favorite-links');
+    var $title = $('#title');
+    var $url = $('#url');
+    var $newLinkButton = $('#new-link-button');
+    var $addLinkForm = $('#add-link-form');
+    var $show = $('#show');
+    var $fav = $('#fav');
+    var $close = $('#close');
+    var $cancel = $('#cancel');
+    var $add = $('#add');
+
+    // Initialize form with current page details
+    $title.val(document.title);
+    $url.val(window.location.href);
+
+    // Load items from local storage
+    if (localStorage.getItem('vk-links')) {
+        $ul.html(localStorage.getItem('vk-links'));
+    }
+
+    // Add new item
+    $add.click(function () {
+        var number = 1 + Math.floor(Math.random() * 999999999);
+        var newId = 'bookmark_' + number;
+        var url1 = $url.val();
+        var title1 = $title.val();
+        
+        $ul.append('<li id="' + newId + '"><a href="' + url1 + '">' + title1 + '</a><button class="removebtn">x</button></li>');
+
+        // Save changes to local storage
+        localStorage.setItem('vk-links', $ul.html());
+
+        // Reset form
+        $title.val(document.title);
+        $url.val(window.location.href);
+        $addLinkForm.slideToggle("100");
+    });
+
+    // Remove item
+    $ul.on('click', '.removebtn', function() {
+        $(this).parent().remove();
+        // Save changes to local storage
+        localStorage.setItem('vk-links', $ul.html());
+    });
+
+    // Form toggle
+    $newLinkButton.click(function() {
+        $addLinkForm.slideToggle("100");
+    });
+
+    // Show favorites panel
+    $show.hover(function() {
+        $fav.show();
+    });
+
+    $close.click(function() {
+        $fav.hide();
+    });
+
+    // Hide panel when mouse leaves container
+    $('#container').mouseleave(function() {
+        $fav.hide();
+    });
+
+    // Manage drag-and-drop
+    var $sortable = $ul;
+    var pos = JSON.parse(localStorage.getItem('positions'));
+    if (pos) {
+        $.each(pos, function(i, position) {
+            var $target = $sortable.find('#' + position);
+            $target.appendTo($sortable);
+        });
+    }
+
+    $sortable.sortable({
+        update: saveNewOrder
+    });
+
+    function saveNewOrder() {
+        var pos = JSON.stringify($sortable.sortable("toArray"));
+        localStorage.setItem('positions', pos);
+    }
+
+    // Handle video content
+    var videos = document.getElementsByTagName('video');
+    for (var i = 0; i < videos.length; i++) {
+        var video = videos[i];
+        var srcs = [];
+        if (video.getAttribute("src")) {
+            srcs.push(video.getAttribute("src"));
+        }
+        var sources = video.getElementsByTagName('source');
+        for (var j = 0; j < sources.length; j++) {
+            srcs.push(sources[j].getAttribute("src"));
+        }
+        for (var k = 0; k < srcs.length; k++) {
+            var src = srcs[k];
+            if (src.includes(".m3u8")) {
+                var hls = new Hls();
+                hls.on(Hls.Events.ERROR, function(event, data) {
+                    var msg = "Player error: " + data.type + " - " + data.details;
+                    console.error(msg);
+                    if (data.fatal) {
+                        switch (data.type) {
+                            case Hls.ErrorTypes.MEDIA_ERROR:
+                                handleMediaError(hls);
+                                break;
+                            case Hls.ErrorTypes.NETWORK_ERROR:
+                                console.error("Network error...");
+                                break;
+                            default:
+                                console.error("Unrecoverable error");
+                                hls.destroy();
+                                break;
+                        }
+                    }
+                });
+                hls.loadSource(src);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play();
+                });
+            }
+        }
+    }
+});
+
+</script>
