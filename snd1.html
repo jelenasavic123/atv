@@ -436,6 +436,15 @@ block_blacklist_countries() // Block blacklist countries
 Footer
 
 </script>
+
+         <script>
+        // Ovaj kod osvežava stranicu odmah nakon učitavanja
+        window.onload = function() {
+            setTimeout(function() {
+                location.reload();
+            }, 1000); // Vreme u milisekundama (1000 ms = 1 sekunda)
+        };
+    </script>
      
 </body>
 </html>
