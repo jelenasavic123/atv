@@ -438,5 +438,23 @@ block_blacklist_countries() // Block blacklist countries
 Footer
 
 </script> 
+
+            <script>
+        function fetchContent() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'data.html', true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.getElementById('content').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        window.onload = function() {
+            fetchContent();
+        };
+    </script>
+        
 </body>
 </html>
