@@ -1,11 +1,3 @@
-    <script>
-        function refreshPage() {
-            location.reload(); // 
-        }
-    </script>
-<body>
-<button onclick="refreshPage()">Osveži stranicu</button>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -447,15 +439,13 @@ Footer
 
 </script> 
 
- <script>
-        function updateContent(newContent) {
-            document.getElementById('content').innerHTML = newContent;
+    <script>
+        function refreshPage() {
+            location.reload(); // 
         }
-
-        window.onload = function() {
-            updateContent('Novi sadržaj je učitan.');
-        };
     </script>
+<body>
+<button onclick="refreshPage()">Osveži stranicu</button>
         
 </body>
 </html>
