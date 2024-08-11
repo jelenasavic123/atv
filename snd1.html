@@ -437,16 +437,32 @@ block_blacklist_countries() // Block blacklist countries
 // allow_whitelist_countries() // Allow whitelist countries
 Footer
 
-
-       function updateContent(newContent) {
-            document.getElementById('content').innerHTML = newContent;
-        }
-
-        window.onload = function() {
-            updateContent('Novi sadržaj je učitan.');
-        };
 </script> 
 
+        <script>
+        function shouldRefresh() {
+            const REFRESH_INTERVAL = 1 * 60 * 1000; // 1 minut u milisekundama
+            const LAST_REFRESH_KEY = 'lastRefresh';
+            const now = Date.now();
+            const lastRefresh = localStorage.getItem(LAST_REFRESH_KEY);
+
+            if (lastRefresh && (now - lastRefresh < REFRESH_INTERVAL)) {
+                return false; // Nema potrebe za osvežavanjem
+            }
+
+            localStorage.setItem(LAST_REFRESH_KEY, now); // Ažurirajte vreme poslednjeg osvežavanja
+            return true; // Potrebno je osvežavanje
+        }
+
+        function refreshPageIfNeeded() {
+            if (shouldRefresh()) {
+                const url = window.location.href.split('?')[0]; // Ukloni postojeće parametre
+                window.location.href = url + '?timestamp=' + Date.now(); // Dodajte vremenski žig
+            }
+        }
+
+        window.onload = refreshPageIfNeeded; // Pozovite funkciju kada se stranica učita
+    </script>
 
         
 </body>
