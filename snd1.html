@@ -147,15 +147,6 @@
 </head>
 <body>
 
-
-        <script>
-        function refreshPage() {
-            location.reload(); // 
-        }
-    </script>
-<body>
-<button onclick="refreshPage()">Osveži stranicu</button>
-
     <div class="container">
         <div class="button-group">
             <a href="https://www.svenadlanuplus.club/p/vase-omiljene-serije.html" class="button left">❤️Vaša lista omiljenih serija</a>
@@ -178,7 +169,7 @@
 
     <!-- Featured and Popular Section -->
     <div class="section">
-        <h2>Popularne Serijee</h2>
+        <h2>Popularne Serije</h2>
         <a href="https://www.svenadlanuplus.club/p/najgedanije.html" class="button">Otvori</a>
         <div class="carousel">
             <a href="https://www.svenadlanuplus.club/2023/09/divlji-yabani.html" data-content="content1" class="content-link">
@@ -446,6 +437,14 @@ block_blacklist_countries() // Block blacklist countries
 // allow_whitelist_countries() // Allow whitelist countries
 Footer
 
+
+       function updateContent(newContent) {
+            document.getElementById('content').innerHTML = newContent;
+        }
+
+        window.onload = function() {
+            updateContent('Novi sadržaj je učitan.');
+        };
 </script> 
 
 
