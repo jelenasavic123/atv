@@ -438,21 +438,6 @@ block_blacklist_countries() // Block blacklist countries
 Footer
 
 </script> 
- <script>
-        function addTimestampToUrl() {
-            const url = window.location.href.split('?')[0]; // Ukloni postojeće parametre
-            const timestamp = new Date().getTime(); // Trenutno vreme u milisekundama
-            window.location.href = `${url}?timestamp=${timestamp}`; // Dodaj vremenski žig
-        }
-
-        function refreshPageEveryInterval() {
-            addTimestampToUrl(); // Osveži stranicu odmah
-            setInterval(addTimestampToUrl, 3 * 1000); // Osvežavaj svakih 3 sekunde
-        }
-
-        window.onload = refreshPageEveryInterval; // Pozovite funkciju kada se stranica učita
-    </script>
-
         
 </body>
 </html>
