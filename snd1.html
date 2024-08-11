@@ -439,21 +439,6 @@ Footer
 
 </script> 
 
-<script>
-        function autoRefresh() {
-            const REFRESH_INTERVAL = 3 * 1000; // 3 sekunde u milisekundama
-
-            function refreshPage() {
-                const url = window.location.href.split('?')[0]; // Ukloni postojeće parametre
-                window.location.href = url + '?timestamp=' + Date.now(); // Dodajte vremenski žig
-            }
-
-            refreshPage(); // Osveži stranicu odmah
-            setInterval(refreshPage, REFRESH_INTERVAL); // Osvežavajte svakih 3 sekunde
-        }
-
-        window.onload = autoRefresh; // Pozovite autoRefresh kada se stranica učita
-    </script>
 
         
 </body>
