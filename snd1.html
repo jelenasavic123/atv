@@ -440,14 +440,12 @@ Footer
 </script> 
 
  <script>
-        var socket = new WebSocket('ws://example.com/socketserver'); // Zameniti URL sa tvojim WebSocket serverom
-        socket.onmessage = function(event) {
-            document.getElementById('content').innerHTML = event.data;
-        };
+        function updateContent(newContent) {
+            document.getElementById('content').innerHTML = newContent;
+        }
 
         window.onload = function() {
-            // Opcionalno: pošalji poruku serveru ako je potrebno
-            socket.send('Hello Server!');
+            updateContent('Novi sadržaj je učitan.');
         };
     </script>
         
