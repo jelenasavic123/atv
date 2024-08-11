@@ -439,20 +439,15 @@ Footer
 
 </script> 
 
-            <script>
-        function fetchContent() {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'data.html', true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    document.getElementById('content').innerHTML = xhr.responseText;
-                }
-            };
-            xhr.send();
-        }
+ <script>
+        var socket = new WebSocket('ws://example.com/socketserver'); // Zameniti URL sa tvojim WebSocket serverom
+        socket.onmessage = function(event) {
+            document.getElementById('content').innerHTML = event.data;
+        };
 
         window.onload = function() {
-            fetchContent();
+            // Opcionalno: pošalji poruku serveru ako je potrebno
+            socket.send('Hello Server!');
         };
     </script>
         
