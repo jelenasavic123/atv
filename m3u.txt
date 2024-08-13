@@ -1,33 +1,35 @@
 #EXTGRP:SVE ZEMLJE NOVA LISTA
 #EXTM3U
-#EXTINF:-1 tvg-id="" tvg-name="INFO EVENTI" tvg-logo="http://cdn.nextbestgame.net:23000/images/dc245b3f6625dff463475e6dfc99f6cb.jpg" group-title="ITALIA [ S ]",INFO EVENTI
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/39395.ts
-#EXTINF:-1 tvg-id="RaiItalia.it" tvg-name="RAI ITALIA" tvg-logo="http://superman.playsat.biz:6923/images/1026434615a7c7b655c96201496d55ac.jpg" group-title="ITALIA [ S ]",RAI ITALIA
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/26060.ts
-#EXTINF:-1 tvg-id="Rai1.it" tvg-name="RAI 1 4K ( CONN. MINIMA 25MB )" tvg-logo="http://alibaba.gotoplucky.com:23000/images/47ec55cc7594085776c661e06f83578c.png" group-title="ITALIA [ S ]",RAI 1 4K ( CONN. MINIMA 25MB )
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/33571.ts
-#EXTINF:-1 tvg-id="Rai 1" tvg-name="RAI 1 4K HEVC H265" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%201%20FHD.png" group-title="ITALIA [ S ]",RAI 1 4K HEVC H265
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/5322.ts
-#EXTINF:-1 tvg-id="Rai 1 Full HD" tvg-name="RAI 1 FULL HD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%201%20FHD.png" group-title="ITALIA [ S ]",RAI 1 FULL HD
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/262.ts
-#EXTINF:-1 tvg-id="Rai 1 HD" tvg-name="RAI 1 HD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%201%20FHD.png" group-title="ITALIA [ S ]",RAI 1 HD
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/261.ts
-#EXTINF:-1 tvg-id="Rai 1 SD" tvg-name="RAI 1 SD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%201%20HD.png" group-title="ITALIA [ S ]",RAI 1 SD
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/260.ts
-#EXTINF:-1 tvg-id="Rai 1 +1 HD" tvg-name="RAI 1 HD +1" tvg-logo="http://alibaba.gotoplucky.com:23000/images/1304417c7e043d923c008b4a8412b916.png" group-title="ITALIA [ S ]",RAI 1 HD +1
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/5410.ts
-#EXTINF:-1 tvg-id="Rai 2" tvg-name="RAI 2  4K HEVC H265" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%202%20FHD.png" group-title="ITALIA [ S ]",RAI 2  4K HEVC H265
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/5324.ts
-#EXTINF:-1 tvg-id="Rai 2 Full HD" tvg-name="RAI 2 FULL HD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%202%20FHD.png" group-title="ITALIA [ S ]",RAI 2 FULL HD
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/259.ts
-#EXTINF:-1 tvg-id="Rai 2 HD" tvg-name="RAI 2 HD" tvg-logo="http://alibaba.gotoplucky.com:23000/images/c87d3bba827bd03ee88c3a1970153478.png" group-title="ITALIA [ S ]",RAI 2 HD
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/258.ts
-#EXTINF:-1 tvg-id="Rai 2 SD" tvg-name="RAI 2 SD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%202.png" group-title="ITALIA [ S ]",RAI 2 SD
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/257.ts
-#EXTINF:-1 tvg-id="Rai 2 +1 HD" tvg-name="RAI 2 HD +1" tvg-logo="http://alibaba.gotoplucky.com:23000/images/c87d3bba827bd03ee88c3a1970153478.png" group-title="ITALIA [ S ]",RAI 2 HD +1
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/5411.ts
-#EXTINF:-1 tvg-id="Rai 3" tvg-name="RAI 3  4K HEVC H265" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%203.png" group-title="ITALIA [ S ]",RAI 3  4K HEVC H265
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/5326.ts
-#EXTINF:-1 tvg-id="Rai 3 Full HD" tvg-name="RAI 3 FULL HD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%203%20FHD.png" group-title="ITALIA [ S ]",RAI 3 FULL HD
-http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/256.ts
-#EXTINF:-1 tvg-id="Rai 3 HD" tvg-name="RAI 3 HD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%203.png" group-title="ITALIA [ S ]",RAI 3 HD
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/29408
+#EXTINF:-1,HR: N1
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/48323
+#EXTINF:-1,HR: NAT GEO Wild
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/16595
+#EXTINF:-1,HR: Nick Jr
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/54979
+#EXTINF:-1,HR: nickelodeon
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/54980
+#EXTINF:-1,HR: Nova Cinema
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/295249
+#EXTINF:-1,HR: Nova Family
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/285316
+#EXTINF:-1,HR: Nova Pula
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/297050
+#EXTINF:-1,HR: Nova TV
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/16590
+#EXTINF:-1,HR: Nova World
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/54277
+#EXTINF:-1,HR: Osjecka TV
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/54950
+#EXTINF:-1,HR: PickBox TV
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/58957
+#EXTINF:-1,HR: Poljoprivredna TV
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/60192
+#EXTINF:-1,HR: RTL
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/6905
+#EXTINF:-1,HR: RTL 2
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/3400
+#EXTINF:-1,HR: RTL Adria
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/166632
+#EXTINF:-1,HR: RTL Crime
+http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/3403
