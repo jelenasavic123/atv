@@ -14,3 +14,20 @@ http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/262.ts
 http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/261.ts
 #EXTINF:-1 tvg-id="Rai 1 SD" tvg-name="RAI 1 SD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%201%20HD.png" group-title="ITALIA [ S ]",RAI 1 SD
 http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/260.ts
+#EXTINF:-1 tvg-id="Rai 1 +1 HD" tvg-name="RAI 1 HD +1" tvg-logo="http://alibaba.gotoplucky.com:23000/images/1304417c7e043d923c008b4a8412b916.png" group-title="ITALIA [ S ]",RAI 1 HD +1
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/5410.ts
+#EXTINF:-1 tvg-id="Rai 2" tvg-name="RAI 2  4K HEVC H265" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%202%20FHD.png" group-title="ITALIA [ S ]",RAI 2  4K HEVC H265
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/5324.ts
+#EXTINF:-1 tvg-id="Rai 2 Full HD" tvg-name="RAI 2 FULL HD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%202%20FHD.png" group-title="ITALIA [ S ]",RAI 2 FULL HD
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/259.ts
+#EXTINF:-1 tvg-id="Rai 2 HD" tvg-name="RAI 2 HD" tvg-logo="http://alibaba.gotoplucky.com:23000/images/c87d3bba827bd03ee88c3a1970153478.png" group-title="ITALIA [ S ]",RAI 2 HD
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/258.ts
+#EXTINF:-1 tvg-id="Rai 2 SD" tvg-name="RAI 2 SD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%202.png" group-title="ITALIA [ S ]",RAI 2 SD
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/257.ts
+#EXTINF:-1 tvg-id="Rai 2 +1 HD" tvg-name="RAI 2 HD +1" tvg-logo="http://alibaba.gotoplucky.com:23000/images/c87d3bba827bd03ee88c3a1970153478.png" group-title="ITALIA [ S ]",RAI 2 HD +1
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/5411.ts
+#EXTINF:-1 tvg-id="Rai 3" tvg-name="RAI 3  4K HEVC H265" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%203.png" group-title="ITALIA [ S ]",RAI 3  4K HEVC H265
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/5326.ts
+#EXTINF:-1 tvg-id="Rai 3 Full HD" tvg-name="RAI 3 FULL HD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%203%20FHD.png" group-title="ITALIA [ S ]",RAI 3 FULL HD
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/256.ts
+#EXTINF:-1 tvg-id="Rai 3 HD" tvg-name="RAI 3 HD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/Rai%203.png" group-title="ITALIA [ S ]",RAI 3 HD
