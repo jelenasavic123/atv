@@ -274,6 +274,100 @@ function block_blacklist_countries() {
     // Blacklist countries
     const blacklist_countries = [
 
+       "TR", // Turkey
+        "AN", // Ankara
+        "AD", // Adana
+        "IS", // Istanbul
+        "IZ", // Izmir
+        "US", // United States
+        "NO", // Norway
+        "VN", // Vietnam
+        "UM", // United States Minor Outlying Islands
+        "GB", // United Kingdom
+        "SG", // Singapore
+        "PL", // Poland
+        "NZ", // New Zealand
+        "MX", // Mexico
+        "LR", // Liberia
+        "JP", // Japan
+        "IL", // Israel
+        "IE", // Ireland
+        "IS", // Iceland
+        "FI", // Finland
+        "EG", // Egypt
+        "KY", // Cayman Islands
+        "CA", // Canada
+        "BD", // Bangladesh
+        "AR", // Argentina
+        "AQ", // Antarctica
+        "AX", // Aland Islands
+        "AS", // American Samoa
+        "BD", // Bangladesh
+        "BR", // Brazil
+        "CN", // China 
+        "HK", // Hong Kong
+        "CX", // Christmas Island
+        "CC", // Cocos
+        "CK", // Cook Islands
+        "GF", // French Guiana
+        "IN", // India
+        "IL", // Israel
+        "KP", // Korea
+        "KR", // KR
+        "MY", // Malaysia
+        "MC", // Monaco
+        "NZ", // New Zealand
+        "NO", // Norway
+        "PL", // Poland
+        "SA", // Saudi Arabia
+        "UM", // Ukrajina
+        "AE", // Ujedinjeni Arapski Emirati
+        "CA", // Kanada
+        "DK", // Danska
+        "JP", // Japan
+        "ES", // Španija
+        "BG", // Bugarska
+        "AR", // Argentina
+        "AU", // Australia
+        "BE", // Belgium
+        "CN", // China
+        "CK", // Cook Islands
+        "FR", // France
+        "HK", // Hong Kong
+        "IN", // India
+        "IT", // Italy
+        "MC", // Monaco
+        "NZ", // New Zealand
+        "NL", // Netherlands
+        "SZ", // Swaziland
+        "SE", // Sweden
+   
+
+    ]
+
+    // Detecting the users country
+    function get_country_code(api_url) {
+        fetch(api_url, { method: 'GET' })
+            .then(response => response.json()) // Getting ip info as json
+            .then(result => {
+                if (blacklist_countries.includes(result.country)) { // If my ip country code is in blacklist
+                    display_access_denied_error() // Access denied error
+                }
+            })
+            .catch(error => console.log('error', error))
+    }
+
+    // Getting country code from third party api
+    get_country_code("https://get.geojs.io/v1/ip/country.json")
+}
+
+/* ------------------------- */
+/* ALLOW WHITELIST COUNTRIES */
+/* ------------------------- */
+function allow_whitelist_countries() {
+    // Whitelist countries
+    const whitelist_countries = [
+
         "TR", // Turkey
         "AN", // Ankara
         "AD", // Adana
@@ -323,91 +417,24 @@ function block_blacklist_countries() {
         "UM", // Ukrajina
         "AE", // Ujedinjeni Arapski Emirati
         "CA", // Kanada
-        "DK ", // Danska
+        "DK", // Danska
         "JP", // Japan
         "ES", // Španija
-        "BG ", // Bugarska
-
-   
-
-    ]
-
-    // Detecting the users country
-    function get_country_code(api_url) {
-        fetch(api_url, { method: 'GET' })
-            .then(response => response.json()) // Getting ip info as json
-            .then(result => {
-                if (blacklist_countries.includes(result.country)) { // If my ip country code is in blacklist
-                    display_access_denied_error() // Access denied error
-                }
-            })
-            .catch(error => console.log('error', error))
-    }
-
-    // Getting country code from third party api
-    get_country_code("https://get.geojs.io/v1/ip/country.json")
-}
-
-/* ------------------------- */
-/* ALLOW WHITELIST COUNTRIES */
-/* ------------------------- */
-function allow_whitelist_countries() {
-    // Whitelist countries
-    const whitelist_countries = [
-
-         "TR", // Turkey
-        "AN", // Ankara
-        "AD", // Adana
-        "IS", // Istanbul
-        "IZ", // Izmir
-        "US", // United States
-        "NO", // Norway
-        "VN", // Vietnam
-        "UM", // United States Minor Outlying Islands
-        "GB", // United Kingdom
-        "SG", // Singapore
-        "PL", // Poland
-        "NZ", // New Zealand
-        "MX", // Mexico
-        "LR", // Liberia
-        "JP", // Japan
-        "IL", // Israel
-        "IE", // Ireland
-        "IS", // Iceland
-        "FI", // Finland
-        "EG", // Egypt
-        "KY", // Cayman Islands
-        "CA", // Canada
-        "BD", // Bangladesh
+        "BG", // Bugarska
         "AR", // Argentina
-        "AQ", // Antarctica
-        "AX", // Aland Islands
-        "AS", // American Samoa
-        "BD", // Bangladesh
-        "BR", // Brazil
-        "CN", // China 
-        "HK", // Hong Kong
-        "CX", // Christmas Island
-        "CC", // Cocos
+        "AU", // Australia
+        "BE", // Belgium
+        "CN", // China
         "CK", // Cook Islands
-        "GF", // French Guiana
+        "FR", // France
+        "HK", // Hong Kong
         "IN", // India
-        "IL", // Israel
-        "KP", // Korea
-        "KR", // KR
-        "MY", // Malaysia
+        "IT", // Italy
         "MC", // Monaco
         "NZ", // New Zealand
-        "NO", // Norway
-        "PL", // Poland
-        "SA", // Saudi Arabia
-        "UM", // Ukrajina
-        "AE", // Ujedinjeni Arapski Emirati
-        "CA", // Kanada
-        "DK ", // Danska
-        "JP", // Japan
-        "ES", // Španija
-        "BG ", // Bugarska
+        "NL", // Netherlands
+        "SZ", // Swaziland
+        "SE", // Sweden
 
     ]
 
