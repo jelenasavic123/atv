@@ -1,4 +1,5 @@
 #EXTGRP:SRPSKI KANALI
+#EXTM3U
 #EXTINF:-1,EX-YU: 24 Kitchen
 http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4126
 #EXTINF:-1,EX-YU: AMC
@@ -633,7 +634,8 @@ http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/3412
 http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/80321
 #EXTINF:-1,RS: Zico TV
 
-#EXTGRP:HRVATSKI KANALI
+#EXTGRP: Hrvatski Kanali
+#EXTM3U
 #EXTINF:-1,HR: 24 Kitchen
 http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/70822
 #EXTINF:-1,HR: AlJazeera Balkans
