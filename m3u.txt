@@ -1,3 +1,14 @@
 #EXTM3U
 #EXTINF:-1,EX-YU: HBO
 http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/6826
+#EXTINF:-1 tvg-id="Sky Cinema Uno +24" tvg-name="[S+] SKY CINEMA UNO24 FULL HD" tvg-logo="http://online.playsat.biz:6923/Picons/SKY%20CINEMA%20UNO%20%2024%20FULL%20HD.png" group-title="SKY CINEMA [ S+ ]",[S+] SKY CINEMA UNO24 FULL HD
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/38639.ts
+#EXTINF:-1 tvg-id="Sky Cinema Uno +24 FHD" tvg-name="[S+] SKY CINEMA UNO24 HD" tvg-logo="http://online.playsat.biz:6923/Picons/SKY%20CINEMA%20UNO%20%2024%20HD.png" group-title="SKY CINEMA [ S+ ]",[S+] SKY CINEMA UNO24 HD
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/38640.ts
+#EXTINF:-1 tvg-id="Sky Cinema Due" tvg-name="[S+] SKY CINEMA DUE FULL HD" tvg-logo="http://online.playsat.biz:6923/Picons/SKY%20CINEMA%20DUE%20FULL%20HD.png" group-title="SKY CINEMA [ S+ ]",[S+] SKY CINEMA DUE FULL HD
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/38641.ts
+#EXTINF:-1 tvg-id="Sky Cinema Due FHD" tvg-name="[S+] SKY CINEMA DUE HD" tvg-logo="http://online.playsat.biz:6923/images/0da00622210047d3a10d1a58f0f3d0db.png" group-title="SKY CINEMA [ S+ ]",[S+] SKY CINEMA DUE HD
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/38642.ts
+#EXTINF:-1 tvg-id="Sky Cinema Due +24" tvg-name="[S+] SKY CINEMA DUE24 FULL HD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/4K%20SKY%20CINEMA%20DUE.png" group-title="SKY CINEMA [ S+ ]",[S+] SKY CINEMA DUE24 FULL HD
+http://saracca60.org:23000/live/Fratellogianna/Yh45tN2qd2/38643.ts
+#EXTINF:-1 tvg-id="Sky Cinema Due +24 FHD" tvg-name="[S+] SKY CINEMA DUE24 HD" tvg-logo="http://alibaba.gotoplucky.com:23000/Loghi/4K%20SKY%20CINEMA%20DUE.png" group-title="SKY CINEMA [ S+ ]",[S+] SKY CINEMA DUE24 HD
