@@ -1,187 +1,61 @@
-#EXTGRP:SRPSKI KANALI
-#EXTINF:-1,EX-YU: 24 Kitchen
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4126
-#EXTINF:-1,EX-YU: AMC
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/20166
-#EXTINF:-1,EX-YU: Arena Sport 6
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/145720
-#EXTINF:-1,EX-YU: AXN
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/20174
-#EXTINF:-1,EX-YU: AXN Spin
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/36885
-#EXTINF:-1,EX-YU: Baby TV
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/13472
-#EXTINF:-1,EX-YU: BBC Earth
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/24924
-#EXTINF:-1,EX-YU: CBS Reality
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/36914
-#EXTINF:-1,EX-YU: Cinemax
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4138
-#EXTINF:-1,EX-YU: Cinemax 2
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4139
-#EXTINF:-1,EX-YU: CineStar TV 1
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/193639
-#EXTINF:-1,EX-YU: Cinestar TV 2
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/279036
-#EXTINF:-1,EX-YU: CineStar TV Action
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299632
-#EXTINF:-1,EX-YU: CineStar TV Comedy
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299635
-#EXTINF:-1,EX-YU: Cinestar TV Premiere 1
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299629
-#EXTINF:-1,EX-YU: Cinestar TV Premiere 2
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299626
-#EXTINF:-1,EX-YU: Crime+ Investigation
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4145
-#EXTINF:-1,EX-YU: Da Vinci
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/24073
-#EXTINF:-1,EX-YU: Discovery Science
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4147
-#EXTINF:-1,EX-YU: Discovery World
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4146
-#EXTINF:-1,EX-YU: Diva
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/120591
-#EXTINF:-1,EX-YU: DOBRA
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/197589
-#EXTINF:-1,EX-YU: DOBRA EXCLUSIVE
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/295227
-#EXTINF:-1,EX-YU: DOBRA ISLAMSKA
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/295228
-#EXTINF:-1,EX-YU: DOBRA MUZICKA
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/295225
-#EXTINF:-1,EX-YU: DOBRA SEVDAH
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/197600
-#EXTINF:-1,EX-YU: DocuBox
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/59863
-#EXTINF:-1,EX-YU: E!
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/20195
-#EXTINF:-1,EX-YU: Elita7 live 1
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/303951
-#EXTINF:-1,EX-YU: Elita7 live 2
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/303952
-#EXTINF:-1,EX-YU: Elita7 live 3
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/303953
-#EXTINF:-1,EX-YU: Elita7 live 4
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/303954
-#EXTINF:-1,EX-YU: Euro Cinema 1
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299657
-#EXTINF:-1,EX-YU: Euro Cinema 3
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299658
-#EXTINF:-1,EX-YU: Euro Cinema 4
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299659
-#EXTINF:-1,EX-YU: Eurosport 1
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4151
-#EXTINF:-1,EX-YU: Eurosport 2
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4152
-#EXTINF:-1,EX-YU: FilmBox Arthouse
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/283201
-#EXTINF:-1,EX-YU: FilmBox Extra
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/10684
-#EXTINF:-1,EX-YU: FilmBox Stars
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/265784
-#EXTINF:-1,EX-YU: Food Network
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/51895
-#EXTINF:-1,EX-YU: FOX
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4156
-#EXTINF:-1,EX-YU: Fox Crime
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4153
-#EXTINF:-1,EX-YU: Fox Life
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4154
-#EXTINF:-1,EX-YU: Fox Movies
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4155
-#EXTINF:-1,EX-YU: HBO
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/6826
-#EXTINF:-1,EX-YU: HBO 2
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4161
-#EXTINF:-1,EX-YU: HBO 3
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/10696
-#EXTINF:-1,EX-YU: History
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4163
-#EXTINF:-1,EX-YU: History 2
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/20210
-#EXTINF:-1,EX-YU: Investigation Discovery
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/10675
-#EXTINF:-1,EX-YU: Lov i ribolov
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/36892
-#EXTINF:-1,EX-YU: Minimax
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/295563
-#EXTINF:-1,EX-YU: Moja TV Premijer Liga
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/168060
-#EXTINF:-1,EX-YU: Nat Geo
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4177
-#EXTINF:-1,EX-YU: Nat Geo Wild
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4178
-#EXTINF:-1,EX-YU: Nick Jr
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/13473
-#EXTINF:-1,EX-YU: nickelodeon
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4179
-#EXTINF:-1,EX-YU: Nova series
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/295248
-#EXTINF:-1,EX-YU: RTL
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/148206
-#EXTINF:-1,EX-YU: RTL 2
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299647
-#EXTINF:-1,EX-YU: RTL Adria
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/202104
-#EXTINF:-1,EX-YU: RTL Crime
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/281892
-#EXTINF:-1,EX-YU: RTL Kockica
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299643
-#EXTINF:-1,EX-YU: RTL Living
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299646
-#EXTINF:-1,EX-YU: RTL Passion
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299645
-#EXTINF:-1,EX-YU: RTL Plus
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299644
-#EXTINF:-1,EX-YU: Sport Klub 2
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/15572
-#EXTINF:-1,EX-YU: Sport Klub 3
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/282759
-#EXTINF:-1,EX-YU: Sport Klub 4
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/281896
-#EXTINF:-1,EX-YU: Sport Klub 5
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/3470
-#EXTINF:-1,EX-YU: Sport Klub 7
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/146299
-#EXTINF:-1,EX-YU: Sport Klub 8
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/54987
-#EXTINF:-1,EX-YU: Sport Klub Golf
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/299649
-#EXTINF:-1,EX-YU: Tom and Jerry
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/26810
-#EXTINF:-1,EX-YU: TV 1000
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4210
-#EXTINF:-1,EX-YU: TV Istok
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/171911
-#EXTINF:-1,EX-YU: Viasat Explore
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/4214
-#EXTINF:-1,EX-YU: Viasat Nature
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/298868
-#EXTINF:-1,AT: ATV
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/3489
-#EXTINF:-1,AT: ATV 2
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/12643
-#EXTINF:-1,AT: DMAX
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/12651
-#EXTINF:-1,AT: Dorf TV
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/200462
-#EXTINF:-1,AT: FS1
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/44792
-#EXTINF:-1,AT: Hitradio Ö3
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/301395
-#EXTINF:-1,AT: Kabel Eins Doku
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/2074
-#EXTINF:-1,AT: Krone HIT
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/17152
-#EXTINF:-1,AT: Krone HIT 480
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/301390
-#EXTINF:-1,AT: Ländle TV
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/200432
-#EXTINF:-1,AT: Melodie TV
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/281751
-#EXTINF:-1,AT: nick Austria
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/2102
-#EXTINF:-1,AT: Oe24 TV
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/18492
-#EXTINF:-1,AT: Okto
-http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/166216
+#EXTM3U
+#EXTINF:-1 tvg-id="BalkanRadioSalzburg.at",Balkan Radio Salzburg (480p)
+https://channel.streams.ovh:1936/balkanradiosalzburgtv/balkanradiosalzburgtv/playlist.m3u8
+#EXTINF:-1 tvg-id="BloombergAdria.rs",Bloomberg Adria (1080p)
+https://d3ojytvj4doga3.cloudfront.net/app-23764-1566/ngrp:Jq3SvH9h_all/playlist.m3u8
+#EXTINF:-1 tvg-id="EDUTV.rs",EDU TV (576p) [Not 24/7]
+https://5aa64ca8b95b8.streamlock.net:4443/edutv/edutelevizija/playlist.m3u8
+#EXTINF:-1 tvg-id="EuronewsSerbia.rs",Euronews Serbia (1080p)
+https://d1ei8ofhgfmkac.cloudfront.net/app-19518-1306/ngrp:QoZfNjsg_all/playlist.m3u8
+#EXTINF:-1 tvg-id="KurirTV.rs",Kurir TV (720p)
+https://kurir-tv.haste-cdn.net/providus/live2805.m3u8
+#EXTINF:-1 tvg-id="TVMarsh.rs",Marsh TV (720p) [Not 24/7]
+http://cdn.dovecher.tv:8081/live/marsh/playlist.m3u8
+#EXTINF:-1 tvg-id="MISTelevizija.au",MIS Televizija (720p) [Not 24/7]
+https://5afd52b55ff79.streamlock.net/MISTV/myStream/playlist.m3u8
+#EXTINF:-1 tvg-id="NisvilleTV.rs",Nisville TV (1080p)
+https://tv.nisville.com/live/nisville/playlist.m3u8
+#EXTINF:-1 tvg-id="RadioLolaTV.rs",Radio Lola (720p) [Not 24/7]
+https://peer2.tdiradio.com/static/streaming-playlists/hls/7c3ea8d3-49dc-4e1b-8b1e-dc6fab71f5cf/0.m3u8
+#EXTINF:-1 tvg-id="RedTV.rs",Red TV (720p)
+https://live.rednet.rs/providus/redtv_multi.m3u8
+#EXTINF:-1 tvg-id="RedTV.rs",Red TV (720p)
+https://live.rednet.rs/providus/redtv_multi_hq/index.m3u8
+#EXTINF:-1 tvg-id="RTS1.rs",RTS 1 (720p) [Not 24/7]
+https://webtvstream.bhtelecom.ba/rts1.m3u8
+#EXTINF:-1 tvg-id="RTS2.rs",RTS 2 (720p) [Not 24/7]
+https://webtvstream.bhtelecom.ba/rts2.m3u8
+#EXTINF:-1 tvg-id="RTV1.rs",RTV 1 (576p) [Not 24/7]
+mmsh://212.200.255.151/rtv1
+#EXTINF:-1 tvg-id="RTV1.rs",RTV 1 (576p) [Not 24/7]
+rtsp://212.200.255.151/rtv1
+#EXTINF:-1 tvg-id="RTV2.rs",RTV 2 (576p) [Not 24/7]
+mmsh://212.200.255.151/rtv2
+#EXTINF:-1 tvg-id="RTV2.rs",RTV 2 (576p) [Not 24/7]
+rtsp://212.200.255.151/rtv2
+#EXTINF:-1 tvg-id="TVAS.rs",RTV AS (576p)
+https://srv1.adriatelekom.com/TVAS/index.m3u8
+#EXTINF:-1 tvg-id="RTVBap.rs",RTV Bap (480p)
+https://53be5ef2d13aa.streamlock.net/rtvbap/uzivo/playlist.m3u8
+#EXTINF:-1 tvg-id="RTVNoviPazar.rs",RTV Novi Pazar (576p)
+https://hls.rtvnp.rs/tvlive/75e168bf8304fe9b1fac9a6c2f702d590e1cf986.m3u8
+#EXTINF:-1 tvg-id="SandzakTV.rs",Sandzak TV (576p)
+https://streaming.iptv.nextfiber.rs/nxt004/master.m3u8
+#EXTINF:-1 tvg-id="SOSKanalPlus.rs",SOS Kanal Plus (720p)
+https://53be5ef2d13aa.streamlock.net/soskanalplus/soskanalplus.stream/playlist.m3u8
+#EXTINF:-1 tvg-id="TopTV.rs",Top TV (1080p)
+http://82.165.71.58:8081/TopTV/live/playlist.m3u8
+#EXTINF:-1 tvg-id="BelleAmie.rs",TV Belle Amie (540p)
+http://92.60.238.10:1935/live/belleamie/playlist.m3u8
+#EXTINF:-1 tvg-id="TVDugaPlus.rs",TV Duga Plus (480p) [Not 24/7]
+http://109.92.29.10:1935/tvduga/tvduga/playlist.m3u8
+#EXTINF:-1 tvg-id="TVHram.rs",TV Hram (576p) [Not 24/7]
+https://vod1.laki.eu/live/hram/index.m3u8
+#EXTINF:-1 tvg-id="TVKanalM.rs",TV Kanal M (576p)
+http://176.67.210.1/hls/kanalm.m3u8
+#EXTINF:-1 tvg-id="TVPiKanal.rs",TV Pi Kanal (576p) [Not 24/7]
+https://stream.pikanal.rs/pikanal/pgm.m3u8
+#EXTINF:-1 tvg-id="TVPirot.rs",TV Pirot (240p) [Not 24/7]
+https://5bc45691ca49f.streamlock.net/tvpirot/uzivo/playlist.m3u8
+#EXTINF:-1 tvg-id="Pink.rs",Pink
+https://live.rednet.rs/providus/pink1.m3u8
