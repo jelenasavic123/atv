@@ -333,12 +333,15 @@
 /* ------------------- */
 function display_access_denied_error() {
     document.body.innerHTML
-        = '<div id="access-denied-error">'
-        + '<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhIaHhvW65BH2K7NPeU5dQ3G0AP4ay85LrO3HwpVlyVDtgOuUFWZYItqhcHwfKBRKwCUSqtPWMDLQDK7VC0kClxd6UavCdorG5s2k3iPePNSgi-llBqtXfa51BEhKVUk2_TfBq-EmrEVRPOwMspTCehi3VrC8eBF4PH4jAvxZbokSgbITiTc438frKtOQLV/w680/slika.jpg" width="100%" height="100%">'
-        + '</span>'
+        = '<div id="access-denied-error" style="display: flex; justify-content: center; align-items: center; height: 100vh; background: url(\'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEica0ohmmvadKEUM9RcEtQ3aZ7ZXEWeKYO_UOMZCaKbsVxDpnNVPqxhV2Z34SvQAqIRhHWxUNmzO2D6mxkwClKC7yugfBXZMIAhrMBiys2EUcZXvpcMBnDOsnNLrLs7BPu44nO-lpRPzgbljBfTkdB0CYzH0A-MJVravHOeJgD6RjbmYFhcxNX6EqXLuzA9/w362-h640/slikaza-Zemlje.JPG\') no-repeat center center; background-size: cover;">'
+        + '<div style="text-align: center; background-color: white; padding: 40px; border-radius: 12px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);">'
+        + '<h1 style="font-size: 32px; margin-bottom: 20px;">Latest Updates on Turkish Series</h1>' // Naslov iznad dugmeta
+        + '<button onclick="window.location.href=\'https://svenadlanuzemlje.blogspot.com\'" style="padding: 20px 40px; font-size: 24px; background-color: #f44336; color: white; border: none; border-radius: 8px; cursor: pointer;">'
+        + 'Poseti Sajt'
+        + '</button>'
+        + '<p style="margin-top: 20px; font-size: 18px; color: #333;">Follow the latest news, reviews, and trends in the world of series. Stay up-to-date with premieres.</p>' // Tekst ispod dugmeta
         + '</div>'
         + '</div>'
-
 }
 
 /* ------------------------- */
@@ -403,28 +406,6 @@ function block_blacklist_countries() {
         "IN", // India
         "MC", // Monaco
         "NZ", // New Zealand
-        "AO", // Angola
-        "AU", // Australia
-        "BO", // Bolivia
-        "CL", // Chile
-        "BG", // Bulgaria
-        "CY", // Cyprus
-        "DK", // Denmark
-        "EE", // Estonia
-        "FI", // Finland
-        "IE", // Ireland
-        "LV", // Latvia
-        "LT", // Lithuania
-        "SK", // Slovakia
-        "ES", // Spain
-        "UA", // Ukraine
-        "PH", // Philippines
-        "IN", // India
-        "ZA", // South Africa
-        "AR", // Argentina
-        "CL", // Chile
-        "CO", // Colombia
-
     ]
 
     // Detecting the users country
@@ -449,7 +430,7 @@ function block_blacklist_countries() {
 function allow_whitelist_countries() {
     // Whitelist countries
     const whitelist_countries = [
-
+       
         "TR", // Turkey
         "AN", // Ankara
         "AD", // Adana
@@ -505,28 +486,6 @@ function allow_whitelist_countries() {
         "IN", // India
         "MC", // Monaco
         "NZ", // New Zealand
-        "AO", // Angola
-        "AU", // Australia
-        "BO", // Bolivia
-        "CL", // Chile
-        "BG", // Bulgaria
-        "CY", // Cyprus
-        "DK", // Denmark
-        "EE", // Estonia
-        "FI", // Finland
-        "IE", // Ireland
-        "LV", // Latvia
-        "LT", // Lithuania
-        "SK", // Slovakia
-        "ES", // Spain
-        "UA", // Ukraine
-        "PH", // Philippines
-        "IN", // India
-        "ZA", // South Africa
-        "AR", // Argentina
-        "CL", // Chile
-        "CO", // Colombia
-
     ]
 
     // Detecting the users country
@@ -551,29 +510,6 @@ function allow_whitelist_countries() {
 block_blacklist_countries() // Block blacklist countries
 
 // allow_whitelist_countries() // Allow whitelist countries
-Footer
-
-
-        function performSearch(event) {
-      event.preventDefault(); // Sprečava slanje forme na uobičajen način
-      var query = document.getElementById('search-input').value;
-      if (query) {
-        window.location.href = `https://www.svenadlanuplus.club/search?q=${encodeURIComponent(query)}`;
-      }
-    }
-
-    function updateSearchStatus(query) {
-      var statusElement = document.getElementById('search-status');
-      if (query) {
-        statusElement.innerText = `Serije koje još možete pogledati: ${query}`;
-        statusElement.style.display = 'block';
-      } else {
-        statusElement.style.display = 'none';
-      }
-    }
-
-    // Initialize the search status with default message
-    updateSearchStatus('');
-</script>     
+</script>
 </body>
 </html>
