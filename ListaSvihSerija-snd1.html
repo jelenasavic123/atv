@@ -27,9 +27,10 @@
       margin-bottom: 10px;
       width: 100%;
       box-sizing: border-box;
+      position: relative; /* Needed for absolute positioning of "Popularno" label */
     }
     .post-title {
-      background-color: #000;
+      background-color: #c0392b;
       color: #fff;
       padding: 5px 10px;
       border-radius: 8px;
@@ -41,6 +42,7 @@
     img {
       max-width: 100px;
       margin-right: 10px;
+      position: relative;
     }
     .loading {
       text-align: center;
@@ -64,6 +66,21 @@
     .reload-button:hover {
       background-color: #f40612; /* Darker Netflix red */
     }
+    .popular-label {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background-color: #E50914; /* Netflix red */
+      color: white;
+      padding: 2px 5px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 10px;
+      text-transform: uppercase;
+      z-index: 10; /* Ensure it's on top of other content */
+    }
+    
+    
   </style>
 </head>
 <body>
@@ -86,7 +103,7 @@
 
         var container = document.getElementById('recent-posts');
 
-        posts.forEach(post => {
+        posts.forEach((post, index) => {
           var postTitle = post.title.$t;
           var postURL = "";
           var postImage = "";
@@ -119,6 +136,9 @@
           }
 
           var postHTML = '<div class="post-container">';
+          if (index === 0) { // Dodaj oznaku "Popularno" samo za najpopularniji post
+            postHTML += '<div class="popular-label">Popularno</div>';
+          }
           postHTML += '<div style="display: flex; align-items: center; margin-bottom: 10px;">';
           postHTML += '<a href="' + postURL + '"><img src="' + postImage + '" alt="' + postTitle + '"></a>';
           postHTML += '<div>';
