@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recent Posts</title>
+  <style>
+    /* Dodatak za stiliziranje */
+    body {
+      background-color: #272525;
+      color: black;
+      font-family: Arial, sans-serif;
+    }
+    .post-container {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .post-title {
+      background-color: #000; /* Bela pozadina */
+      color: #fff;
+      padding: 10px 10px; /* Prostor unutar naslova */
+      border-radius: 5px; /* Zaobljeni uglovi */
+      display: inline-block; /* Da bi se pozadina prilagodila tekstu */
+    }
+    .published-time {
+      color: green; /* Boja za "Objavljeno prije" */
+    }
+  </style>
+</head>
+<body>
+  <div id="recent-posts" style="border: 1px solid rgb(204, 204, 204); padding: 10px;">
+    <!-- Ovdje će se automatski dodati postovi -->
+  </div>
+
+  <script>
+    function prikaziZadnjePostove(response) {
+      var posts = response.feed.entry;
+
+      if (posts) {
+        var currentTime = new Date();
+
+        for (var i = 0; i < posts.length; i++) {
+          var postTitle = posts[i].title.$t;
+          var postURL = "";
+          var postPublished = posts[i].published.$t;
+          var postImage = "";
+
+          if (posts[i].media$thumbnail) {
+            postImage = posts[i].media$thumbnail.url;
+          } else {
+            postImage = "https://via.placeholder.com/150";
+          }
+
+          for (var k = 0; k < posts[i].link.length; k++) {
+            if (posts[i].link[k].rel === "alternate") {
+              postURL = posts[i].link[k].href;
+              break;
+            }
+          }
+
+          var postPublishedTime = new Date(postPublished);
+          var timeDifference = Math.floor((currentTime - postPublishedTime) / (1000 * 60 * 60)); // Razlika u satima
+
+          var timeText = '';
+
+          if (timeDifference < 24) {
+            timeText = '<span class="published-time">Objavljeno prije ' + timeDifference + ' sati</span>';
+          } else {
+            var timeDifferenceInDays = Math.floor(timeDifference / 24);
+
+            if (timeDifferenceInDays === 1) {
+              timeText = '<span class="published-time">Objavljeno prije ' + timeDifferenceInDays + ' dan</span>';
+            } else {
+              timeText = '<span class="published-time">Objavljeno prije ' + timeDifferenceInDays + ' dana</span>';
+            }
+          }
+
+          var postHTML = '<div class="post-container">';
+          postHTML += '<div style="display: flex; align-items: center; margin-bottom: 10px;">';
+          postHTML += '<a href="' + postURL + '"><img src="' + postImage + '" alt="' + postTitle + '" style="max-width: 100px; margin-right: 10px;"></a>';
+          postHTML += '<div>';
+          postHTML += '<p><a class="post-title" href="' + postURL + '">' + postTitle + '</a></p>'; // Dodali smo klasu "post-title"
+          postHTML += '<p>' + timeText + '</p>';
+          postHTML += '</div>';
+          postHTML += '</div>';
+          postHTML += '</div>';
+
+          document.getElementById('recent-posts').innerHTML += postHTML;
+        }
+      } else {
+        document.getElementById('recent-posts').innerHTML = '<p>Nema postova.</p>';
+      }
+    }
+
+    function dohvatiZadnjePostove() {
+      var script = document.createElement('script');
+      script.src = 'https://www.svenadlanuplus.club/feeds/posts/default?alt=json-in-script&orderby=published&max-results=20&callback=prikaziZadnjePostove';
+      document.body.appendChild(script);
+    }
+    dohvatiZadnjePostove();
+  </script>
+</body>
+</html>
