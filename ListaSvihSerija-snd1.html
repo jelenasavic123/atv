@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recent Posts</title>
+  <style>
+    body {
+      background: url('https://assets.nflxext.com/ffe/siteui/vlv3/6e4efb8c-15cc-4eec-8e60-055e6b748af1/2f3b7a04-bc9f-4513-924e-d6c6ea6ad07e/JPG/1080p/5.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    #recent-posts {
+      background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+      color: white;
+      border: 1px solid #444;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+    }
+    .post-container {
+      border-bottom: 1px solid #666;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .post-title {
+      background-color: #000;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+    .tags {
+      color: #1DB954; /* Spotify green color for tag text */
+    }
+    img {
+      max-width: 100px;
+      margin-right: 10px;
+    }
+    .loading {
+      text-align: center;
+      padding: 20px;
+      font-size: 18px;
+    }
+    .reload-button {
+      display: block;
+      width: 200px;
+      margin: 20px auto;
+      padding: 10px;
+      text-align: center;
+      background-color: #E50914; /* Netflix red */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    .reload-button:hover {
+      background-color: #f40612; /* Darker Netflix red */
+    }
+  </style>
+</head>
+<body>
+  <div id="recent-posts">
+    <!-- Ovdje će se automatski dodati postovi -->
+  </div>
+  <div id="loading" class="loading" style="display:none;">Učitavanje...</div>
+  <button id="reloadButton" class="reload-button">Učitaj još postova</button>
+
+  <script>
+    var currentPage = 1;
+    var loading = false;
+
+    function prikaziZadnjePostove(response) {
+      var posts = response.feed.entry;
+
+      if (posts) {
+        // Sortiranje postova prema popularnosti (pretpostavlja se da postoji polje 'popularity')
+        posts.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+
+        var container = document.getElementById('recent-posts');
+
+        posts.forEach(post => {
+          var postTitle = post.title.$t;
+          var postURL = "";
+          var postImage = "";
+
+          if (post.media$thumbnail) {
+            postImage = post.media$thumbnail.url;
+          } else {
+            postImage = "https://via.placeholder.com/150";
+          }
+
+          post.link.forEach(link => {
+            if (link.rel === "alternate") {
+              postURL = link.href;
+            }
+          });
+
+          var tagsHTML = '';
+          if (post.category) {
+            var tags = post.category;
+            var tagCount = Math.min(tags.length, 3); // Ograničavamo broj prikazanih tagova na 3
+            for (var i = 0; i < tagCount; i++) {
+              tagsHTML += '<span class="tags">' + tags[i].term + '</span>';
+              if (i < tagCount - 1) {
+                tagsHTML += ', ';
+              }
+            }
+            if (tags.length > 3) {
+              tagsHTML += '...'; // Dodajemo elipsu ako ima više od 3 tagova
+            }
+          }
+
+          var postHTML = '<div class="post-container">';
+          postHTML += '<div style="display: flex; align-items: center; margin-bottom: 10px;">';
+          postHTML += '<a href="' + postURL + '"><img src="' + postImage + '" alt="' + postTitle + '"></a>';
+          postHTML += '<div>';
+          postHTML += '<p><a class="post-title" href="' + postURL + '">' + postTitle + '</a></p>';
+          postHTML += '<p>🎬 ' + tagsHTML + '</p>'; // Prikazujemo tagove umesto vremena objavljivanja
+          postHTML += '</div>';
+          postHTML += '</div>';
+          postHTML += '</div>';
+
+          container.innerHTML += postHTML;
+        });
+      } else {
+        document.getElementById('recent-posts').innerHTML = '<p>Nema postova.</p>';
+      }
+      loading = false;
+      document.getElementById('loading').style.display = 'none';
+    }
+
+    function dohvatiZadnjePostove(page) {
+      var script = document.createElement('script');
+      script.src = `https://www.svenadlanuplus.club/feeds/posts/default?alt=json-in-script&orderby=published&max-results=10&start-index=${(page - 1) * 10 + 1}&callback=prikaziZadnjePostove`;
+      document.body.appendChild(script);
+    }
+
+    function onScroll() {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500 && !loading) {
+        loading = true;
+        document.getElementById('loading').style.display = 'block';
+        currentPage++;
+        dohvatiZadnjePostove(currentPage);
+      }
+    }
+
+    function reloadPosts() {
+      if (!loading) {
+        loading = true;
+        document.getElementById('loading').style.display = 'block';
+        currentPage++;
+        dohvatiZadnjePostove(currentPage);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll);
+    document.getElementById('reloadButton').addEventListener('click', reloadPosts);
+
+    // Initial load
+    dohvatiZadnjePostove(currentPage);
+  </script>
+</body>
+</html>
