@@ -6,8 +6,7 @@
   <title>Recent Posts</title>
   <style>
     body {
-      background: url('https://assets.nflxext.com/ffe/siteui/vlv3/6e4efb8c-15cc-4eec-8e60-055e6b748af1/2f3b7a04-bc9f-4513-924e-d6c6ea6ad07e/JPG/1080p/5.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background-color: #141414; /* Netflix crna */
       color: white;
       font-family: Arial, sans-serif;
       margin: 0;
@@ -30,7 +29,7 @@
       position: relative; /* Needed for absolute positioning of "Popularno" label */
     }
     .post-title {
-      background-color: #c0392b;
+      background-color: #c0392b; /* Netflix red */
       color: #fff;
       padding: 5px 10px;
       border-radius: 8px;
@@ -79,8 +78,17 @@
       text-transform: uppercase;
       z-index: 10; /* Ensure it's on top of other content */
     }
-    
-    
+    #remaining-posts {
+      position: fixed;
+      bottom: 50px; /* Pomereno 20px od dna */
+      right: 10px;
+      background-color: #00aaff; /* Svetlo plava boja */
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 11.2px; /* Smanjeno za 30% od 16px */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -88,16 +96,23 @@
     <!-- Ovdje će se automatski dodati postovi -->
   </div>
   <div id="loading" class="loading" style="display:none;">Učitavanje...</div>
-  <button id="reloadButton" class="reload-button">Učitaj još postova</button>
+  <button id="reloadButton" class="reload-button">Učitaj još serija</button>
+  <div id="remaining-posts">Serije koje još možete pogledati: <span id="remaining-count">0</span></div>
 
   <script>
     var currentPage = 1;
     var loading = false;
+    var totalPosts = 0;
+    var postsPerPage = 10;
+    var loadedPosts = 0;
 
     function prikaziZadnjePostove(response) {
       var posts = response.feed.entry;
 
       if (posts) {
+        totalPosts = response.feed.openSearch$totalResults.$t; // Ukupan broj postova
+        loadedPosts += posts.length; // Ažuriramo broj učitanih postova
+
         // Sortiranje postova prema popularnosti (pretpostavlja se da postoji polje 'popularity')
         posts.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
 
@@ -150,8 +165,12 @@
 
           container.innerHTML += postHTML;
         });
+
+        // Ažuriranje broja preostalih serija
+        var remainingPosts = Math.max(totalPosts - loadedPosts, 0);
+        document.getElementById('remaining-count').textContent = remainingPosts;
       } else {
-        document.getElementById('recent-posts').innerHTML = '<p>Nema postova.</p>';
+        document.getElementById('recent-posts').innerHTML = '<p>Nema serija.</p>';
       }
       loading = false;
       document.getElementById('loading').style.display = 'none';
@@ -159,7 +178,7 @@
 
     function dohvatiZadnjePostove(page) {
       var script = document.createElement('script');
-      script.src = `https://www.svenadlanuplus.club/feeds/posts/default?alt=json-in-script&orderby=published&max-results=10&start-index=${(page - 1) * 10 + 1}&callback=prikaziZadnjePostove`;
+      script.src = `https://www.svenadlanuplus.club/feeds/posts/default?alt=json-in-script&orderby=published&max-results=${postsPerPage}&start-index=${(page - 1) * postsPerPage + 1}&callback=prikaziZadnjePostove`;
       document.body.appendChild(script);
     }
 
