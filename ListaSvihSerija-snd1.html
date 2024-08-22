@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista Serija</title>
+  
   <style>
     body {
       background-color: #141414; /* Netflix crna */
@@ -12,39 +12,6 @@
       margin: 0;
       padding: 0;
     }
-    #search-form {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
-      padding: 10px;
-      border-bottom: 1px solid #444;
-      display: flex;
-      justify-content: center;
-      z-index: 1000;
-    }
-    #search-form input[type="text"] {
-      padding: 5px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      margin-right: 5px;
-      width: 300px;
-    }
-    #search-form input[type="submit"] {
-      padding: 5px 10px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      background-color: #E50914; /* Netflix red */
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    #search-form input[type="submit"]:hover {
-      background-color: #f40612; /* Darker Netflix red */
-    }
     #recent-posts {
       background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
       color: white;
@@ -52,7 +19,6 @@
       padding: 10px;
       margin: 10px;
       border-radius: 8px;
-      margin-top: 50px; /* Adjust based on the height of the search bar */
     }
     .post-container {
       border-bottom: 1px solid #666;
@@ -60,7 +26,7 @@
       margin-bottom: 10px;
       width: 100%;
       box-sizing: border-box;
-      position: relative;
+      position: relative; /* Needed for absolute positioning of "Popularno" label */
     }
     .post-title {
       background-color: #c0392b; /* Netflix red */
@@ -110,11 +76,11 @@
       font-weight: bold;
       font-size: 10px;
       text-transform: uppercase;
-      z-index: 10;
+      z-index: 10; /* Ensure it's on top of other content */
     }
     #remaining-posts {
       position: fixed;
-      bottom: 20px;
+      bottom: 50px; /* Pomereno 20px od dna */
       right: 10px;
       background-color: #00aaff; /* Svetlo plava boja */
       color: #fff;
@@ -123,21 +89,84 @@
       font-size: 11.2px; /* Smanjeno za 30% od 16px */
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
+    
+    
+
+    #search-form {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+      padding: 10px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      justify-content: center;
+      z-index: 1000;
+    }
+    #search-form input[type="text"] {
+      padding: 5px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 5px;
+      width: 300px;
+    }
+    #search-form input[type="submit"] {
+      padding: 5px 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #E50914; /* Netflix red */
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    #search-form input[type="submit"]:hover {
+      background-color: #f40612; /* Darker Netflix red */
+    }
+    #search-status {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      display: none;
+    }
+    
+    
   </style>
 </head>
 <body>
+
+
+      <p>.</p    
+
+ 
+    <div class="content">
+   
+ <div style="border: 2px solid #4CAF50; padding: 5px; background-color: #000000; color: #4CAF50; font-weight: bold;">
+  <p style="font-size: 12px; line-height: 1px;">Koristite samo običnu latinicu (bez Č, Đ, Š, Ž).</p>
+</div>
+    </div>
+<body>
   <div id="search-form">
-    <form id="search-form" onsubmit="search(event)">
-      <input type="text" id="search-query" placeholder="Pretraži serije...">
+    <form id="search-form" onsubmit="performSearch(event)">
+      <input type="text" id="search-input" name="q" placeholder="Pretraži serije..." required>
       <input type="submit" value="Pretraži">
     </form>
   </div>
+
+
   <div id="recent-posts">
-    <!-- Ovdje će se automatski dodati postovi -->
   </div>
   <div id="loading" class="loading" style="display:none;">Učitavanje...</div>
   <button id="reloadButton" class="reload-button">Učitaj još serija</button>
   <div id="remaining-posts">Serije koje još možete pogledati: <span id="remaining-count">0</span></div>
+   
 
   <script>
     var currentPage = 1;
@@ -209,38 +238,63 @@
         // Ažuriranje broja preostalih serija
         var remainingPosts = Math.max(totalPosts - loadedPosts, 0);
         document.getElementById('remaining-count').textContent = remainingPosts;
-        document.getElementById('loading').style.display = 'none';
-        loading = false;
       } else {
-        document.getElementById('loading').textContent = 'Nema postova za prikaz.';
+        document.getElementById('recent-posts').innerHTML = '<p>Nema serija.</p>';
       }
+      loading = false;
+      document.getElementById('loading').style.display = 'none';
     }
 
     function dohvatiZadnjePostove(page) {
       var script = document.createElement('script');
-      script.src = `https://www.svenadlanuplus.club/feeds/posts/summary?alt=json-in-script&callback=prikaziZadnjePostove&page=${page}`;
+      script.src = `https://www.svenadlanuplus.club/feeds/posts/default?alt=json-in-script&orderby=published&max-results=${postsPerPage}&start-index=${(page - 1) * postsPerPage + 1}&callback=prikaziZadnjePostove`;
       document.body.appendChild(script);
     }
 
-    function search(event) {
-      event.preventDefault();
-      var query = document.getElementById('search-query').value;
-      var searchURL = `https://jelenasavic123.github.io/atv/ListaSvihSerija-snd1.html?q=${encodeURIComponent(query)}`;
-      window.location.href = searchURL;
+    function onScroll() {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500 && !loading) {
+        loading = true;
+        document.getElementById('loading').style.display = 'block';
+        currentPage++;
+        dohvatiZadnjePostove(currentPage);
+      }
     }
 
     function reloadPosts() {
       if (!loading) {
         loading = true;
         document.getElementById('loading').style.display = 'block';
-        dohvatiZadnjePostove(++currentPage);
+        currentPage++;
+        dohvatiZadnjePostove(currentPage);
       }
     }
 
+    window.addEventListener('scroll', onScroll);
     document.getElementById('reloadButton').addEventListener('click', reloadPosts);
 
-    // Učitavanje prvih postova
+    // Initial load
     dohvatiZadnjePostove(currentPage);
+    
+        function performSearch(event) {
+      event.preventDefault(); // Sprečava slanje forme na uobičajen način
+      var query = document.getElementById('search-input').value;
+      if (query) {
+        window.location.href = `https://www.svenadlanuplus.club/search?q=${encodeURIComponent(query)}`;
+      }
+    }
+
+    function updateSearchStatus(query) {
+      var statusElement = document.getElementById('search-status');
+      if (query) {
+        statusElement.innerText = `Serije koje još možete pogledati: ${query}`;
+        statusElement.style.display = 'block';
+      } else {
+        statusElement.style.display = 'none';
+      }
+    }
+
+    // Initialize the search status with default message
+    updateSearchStatus('');
   </script>
 </body>
 </html>
