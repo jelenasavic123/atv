@@ -4,201 +4,207 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: url('https://jelenasavic123.github.io/atv/pozadina2.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-        }
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('https://jelenasavic123.github.io/atv/pozadina2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+}
 
-        .section {
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5); /* Overlay background */
-            background-image: url('https://jelenasavic123.github.io/atv/pozadina1.jpg'); /* Background image */
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: relative; /* Added for button positioning */
-        }
-        .section h2 {
-            margin-bottom: 10px;
-            font-size: 1.8em;
-            display: inline-block;
-        }
-        .section .button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 13px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff; /* White text color */
-            border: 2px solid rgba(255, 255, 255, 0.9); /* Slightly more visible border */
-            border-radius: 15px;
-            cursor: pointer;
-            background: rgba(255, 255, 255, 0.3); /* Semi-transparent background for button */
-            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Smooth hover effects */
-            text-align: center; /* Center text */
-            margin-left: 20px; /* Space between title and button */
-        }
+/* Search Form Styles */
+#search-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+}
 
-        .carousel {
-            display: flex;
-            overflow-x: auto;
-            gap: 10px;
-            padding: 10px 0;
-        }
-        .carousel img {
-            height: 150px;
-            border-radius: 8px;
-        }
+#search-form input[type="text"] {
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 5px;
+    width: 300px;
+}
 
-        @media (max-width: 768px) {
-            .header img {
-                height: 30px;
-            }
-   
-            .section h2 {
-                font-size: 1.5em;
-            }
-            .carousel img {
-                height: 120px;
-            }
-        }
+#search-form input[type="submit"] {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #E50914; /* Netflix red */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        .button-group {
-            display: flex;
-            justify-content: center; /* Center the buttons within the group */
-            margin-bottom: 15px; /* Space between rows */
-            padding: 10px; /* Padding within the group */
-            border-radius: 10px; /* Rounded corners */
-            background: rgba(255, 255, 255, 0.16);
-            position: relative; /* For positioning pseudo-elements */
-            overflow: hidden; /* Prevent background from overflowing */
-        }
+#search-form input[type="submit"]:hover {
+    background-color: #f40612; /* Darker Netflix red */
+}
 
-        .button-group .button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 13px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff; /* White text color */
-            border: 2px solid rgba(255, 255, 255, 0.9); /* Slightly more visible border */
-            border-radius: 15px;
-            cursor: pointer;
-            width: 150px; /* Fixed width for alignment */
-            box-sizing: border-box; /* Include padding in total width */
-            background: rgba(255, 255, 255, 0.3); /* Semi-transparent background for button */
-            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Smooth hover effects */
-            text-align: center; /* Center text */
-            margin: 0 10px; /* Space between buttons */
-        }
+/* Container Styles */
+.container {
+    padding: 20px;
+    margin-top: 60px; /* Space below the fixed search form */
+}
 
-        .button-group .button.left,
-        .button-group .button.right {
-            background-color: rgba(255, 255, 255, 0.3); /* Button background */
-        }
+.container a {
+    float: left;
+    width: 48%;
+    margin-right: 4%; /* Space between images */
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    box-sizing: border-box;
+}
 
-        .button-group:nth-child(1) .button {
-            background-color: rgba(216, 36, 120); /* More opaque background */
-            box-shadow: 0 4px 8px rgba(255, 87, 51, 0.7); /* Stronger shadow effect */
-        }
+.container a:nth-child(2n) {
+    margin-right: 0; /* Remove margin for the second item in each row */
+}
 
-        .button-group:nth-child(2) .button {
-            background-color: rgba(100, 255, 87, 0.5); /* More opaque background */
-            box-shadow: 0 4px 8px rgba(51, 255, 87, 0.7); /* Stronger shadow effect */
-        }
+.container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
 
-        .button-group:nth-child(3) .button {
-            background-color: rgba(100, 87, 255, 0.5); /* More opaque background */
-            box-shadow: 0 4px 8px rgba(51, 87, 255, 0.7); /* Stronger shadow effect */
-        }
+/* Button and Section Styles */
+.section {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5); /* Overlay background */
+    background-image: url('https://jelenasavic123.github.io/atv/pozadina1.jpg'); /* Background image */
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative; /* Added for button positioning */
+}
 
-        .button-group:nth-child(4) .button {
-            background-color: rgba(255, 51, 166, 0.5); /* More opaque background */
-            box-shadow: 0 4px 8px rgba(255, 51, 166, 0.7); /* Stronger shadow effect */
-        }
-        
-        .button-group:nth-child(5) .button {
-            background-color: rgba(100, 100, 166, 0.5); /* More opaque background */
-            box-shadow: 0 4px 8px rgba(255, 51, 166, 0.7); /* Stronger shadow effect */
-        }
+.section h2 {
+    margin-bottom: 10px;
+    font-size: 1.8em;
+    display: inline-block;
+}
 
-        .container {
-            padding: 20px;
-        }
+.section .button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 13px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff; /* White text color */
+    border: 2px solid rgba(255, 255, 255, 0.9); /* Slightly more visible border */
+    border-radius: 15px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.3); /* Semi-transparent background for button */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Smooth hover effects */
+    text-align: center; /* Center text */
+    margin-left: 20px; /* Space between title and button */
+}
 
-        .container a {
-            float: left;
-            width: 48%;
-            margin-right: 4%; /* Space between images */
-            text-align: center;
-            color: #fff;
-            text-decoration: none;
-            box-sizing: border-box;
-        }
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px 0;
+}
 
-        .container a:nth-child(2n) {
-            margin-right: 0; /* Remove margin for the second item in each row */
-        }
+.carousel img {
+    height: 150px;
+    border-radius: 8px;
+}
 
-        .container img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        
-        
-            #search-form {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
-      padding: 10px;
-      border-bottom: 1px solid #444;
-      display: flex;
-      justify-content: center;
-      z-index: 1000;
+@media (max-width: 768px) {
+    .header img {
+        height: 30px;
     }
-    #search-form input[type="text"] {
-      padding: 5px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      margin-right: 5px;
-      width: 300px;
+
+    .section h2 {
+        font-size: 1.5em;
     }
-    #search-form input[type="submit"] {
-      padding: 10px 15px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      background-color: #E50914; /* Netflix red */
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s;
+    .carousel img {
+        height: 120px;
     }
-    #search-form input[type="submit"]:hover {
-      background-color: #f40612; /* Darker Netflix red */
-    }
-    #search-status {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
-      color: white;
-      padding: 10px;
-      border-radius: 5px;
-      font-size: 14px;
-      display: none;
-    }
+}
+
+.button-group {
+    display: flex;
+    justify-content: center; /* Center the buttons within the group */
+    margin-bottom: 15px; /* Space between rows */
+    padding: 10px; /* Padding within the group */
+    border-radius: 10px; /* Rounded corners */
+    background: rgba(255, 255, 255, 0.16);
+    position: relative; /* For positioning pseudo-elements */
+    overflow: hidden; /* Prevent background from overflowing */
+}
+
+.button-group .button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 13px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff; /* White text color */
+    border: 2px solid rgba(255, 255, 255, 0.9); /* Slightly more visible border */
+    border-radius: 15px;
+    cursor: pointer;
+    width: 150px; /* Fixed width for alignment */
+    box-sizing: border-box; /* Include padding in total width */
+    background: rgba(255, 255, 255, 0.3); /* Semi-transparent background for button */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Smooth hover effects */
+    text-align: center; /* Center text */
+    margin: 0 10px; /* Space between buttons */
+}
+
+.button-group .button.left,
+.button-group .button.right {
+    background-color: rgba(255, 255, 255, 0.3); /* Button background */
+}
+
+.button-group:nth-child(1) .button {
+    background-color: rgba(216, 36, 120); /* More opaque background */
+    box-shadow: 0 4px 8px rgba(255, 87, 51, 0.7); /* Stronger shadow effect */
+}
+
+.button-group:nth-child(2) .button {
+    background-color: rgba(100, 255, 87, 0.5); /* More opaque background */
+    box-shadow: 0 4px 8px rgba(51, 255, 87, 0.7); /* Stronger shadow effect */
+}
+
+.button-group:nth-child(3) .button {
+    background-color: rgba(100, 87, 255, 0.5); /* More opaque background */
+    box-shadow: 0 4px 8px rgba(51, 87, 255, 0.7); /* Stronger shadow effect */
+}
+
+.button-group:nth-child(4) .button {
+    background-color: rgba(255, 51, 166, 0.5); /* More opaque background */
+    box-shadow: 0 4px 8px rgba(255, 51, 166, 0.7); /* Stronger shadow effect */
+}
+
+.button-group:nth-child(5) .button {
+    background-color: rgba(100, 100, 166, 0.5); /* More opaque background */
+    box-shadow: 0 4px 8px rgba(255, 51, 166, 0.7); /* Stronger shadow effect */
+}
+
     </style>
 </head>
+
 <body>
 
-
+<div id="search-form">
+  <form id="search-form" onsubmit="performSearch(event)">
+    <input type="text" id="search-input" name="q" placeholder="Pretraži serije..." required>
+    <input type="submit" value="Pretraži">
+  </form>
+</div>
 
     <div class="container">
         <div class="button-group">
@@ -305,6 +311,7 @@
             <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmP8NRiaUECgWfyecGIjWWRzNruG9rz6LYVWsgFDl-ef_ZSjt0nbSOu5-KVsKRPfyHxe933MZbj5NeheavSITbrTgL4ClUmGd0Tv59R0jjf8LjGoa_ooQHdTQj3r13eMhOwNwyQKpZGR3D/w680/pkc+na+moja+vrata.jpg" alt="Image 2">
         </a>
     </div>
+</div>
     
 <script>
 /* ------------------- */
@@ -489,6 +496,15 @@ function allow_whitelist_countries() {
 block_blacklist_countries() // Block blacklist countries
 
 // allow_whitelist_countries() // Allow whitelist countries
+
+  function performSearch(event) {
+    event.preventDefault();
+    var query = document.getElementById('search-input').value;
+    var searchUrl = 'https://www.svenadlanuplus.club/search?q=' + encodeURIComponent(query);
+    
+    // Preusmeravanje na URL za pretragu
+    window.location.href = searchUrl;
+  }
 </script>
 </body>
 </html>
