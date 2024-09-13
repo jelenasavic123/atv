@@ -227,11 +227,36 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
+        .container {
+            text-align: center;
+        }
+
+        #like-button {
+            padding: 7px 17px;
+            font-size: 12px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #like-button i {
+            font-size: 15px;
+        }
+
+        #like-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>Sledeća epizoda se očekuje</h1>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <div class="dropdown">
             <button class="dropbtn">Izaberite dan</button>
             <div class="dropdown-content">
@@ -245,7 +270,11 @@
             </div>
         </div>
     </div>
-
+<div class="container">
+        <button id="like-button">
+            <i class="fa-solid fa-thumbs-up"></i> Svidja mi se<span id="like-count">0</span>
+        </button>
+    </div>
     <div class="calendar-container">
         <div class="slider-container">
             <div class="day-slider" id="day-slider">
@@ -449,6 +478,19 @@ function hidePopup(popupId) {
     document.getElementById(popupId).style.display = 'none';
 }
 
+ document.addEventListener('DOMContentLoaded', () => {
+            const likeButton = document.getElementById('like-button');
+            const likeCountSpan = document.getElementById('like-count');
+            let likeCount = localStorage.getItem('likeCount') || 0;
+
+            likeCountSpan.textContent = likeCount;
+
+            likeButton.addEventListener('click', () => {
+                likeCount++;
+                likeCountSpan.textContent = likeCount;
+                localStorage.setItem('likeCount', likeCount);
+            });
+        });
     </script>
 </body>
 </html>
