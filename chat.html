@@ -142,169 +142,165 @@
         <button id="logout-btn">Logout</button>
     </div>
 
-    <script>
-        // Elementi
-        const loginScreen = document.getElementById('login-screen');
-        const chatScreen = document.getElementById('chat-screen');
-        const loginBtn = document.getElementById('login-btn');
-        const sendBtn = document.getElementById('send-btn');
-        const logoutBtn = document.getElementById('logout-btn');
-        const usernameInput = document.getElementById('username');
-        const userDisplay = document.getElementById('user-display');
-        const messageInput = document.getElementById('message-input');
-        const chatBox = document.getElementById('chat-box');
-        const userCountNumber = document.getElementById('user-count-number');
-        const avatars = document.querySelectorAll('.avatar');
-        const avatarUpload = document.getElementById('avatar-upload');
-        const uploadedAvatar = document.getElementById('uploaded-avatar');
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+      import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+      import { getAuth, signInAnonymously, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+      import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
-        let replyToMessage = null;
-        let selectedAvatar = null;
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAcp6ogJFrSnw2U6kTW0isDtSuWR7i20bs",
+        authDomain: "chat-4a2d6.firebaseapp.com",
+        projectId: "chat-4a2d6",
+        storageBucket: "chat-4a2d6.appspot.com",
+        messagingSenderId: "1045553997806",
+        appId: "1:1045553997806:web:bdffccdb2bd9f3bb9510ff",
+        measurementId: "G-X0564DDDLZ"
+      };
 
-        // Prikaz korisničkog imena iz localStorage
-        window.addEventListener('load', () => {
-            const storedUsername = localStorage.getItem('username');
-            const storedAvatar = localStorage.getItem('avatar');
-            if (storedUsername) {
-                userDisplay.textContent = storedUsername;
-                loginScreen.style.display = 'none';
-                chatScreen.style.display = 'block';
-                if (storedAvatar) {
-                    const avatarImg = document.createElement('img');
-                    avatarImg.src = storedAvatar;
-                    avatarImg.className = 'avatar';
-                    chatScreen.insertBefore(avatarImg, chatBox);
-                }
-                loadMessages();
-                updateUserCount();
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const firestore = getFirestore(app);
+      const auth = getAuth(app);
+      const storage = getStorage(app);
+
+      // DOM Elements
+      const loginScreen = document.getElementById('login-screen');
+      const chatScreen = document.getElementById('chat-screen');
+      const loginBtn = document.getElementById('login-btn');
+      const sendBtn = document.getElementById('send-btn');
+      const logoutBtn = document.getElementById('logout-btn');
+      const usernameInput = document.getElementById('username');
+      const userDisplay = document.getElementById('user-display');
+      const messageInput = document.getElementById('message-input');
+      const chatBox = document.getElementById('chat-box');
+      const userCountNumber = document.getElementById('user-count-number');
+      const avatars = document.querySelectorAll('.avatar');
+      const avatarUpload = document.getElementById('avatar-upload');
+      const uploadedAvatar = document.getElementById('uploaded-avatar');
+
+      let replyToMessage = null;
+      let selectedAvatar = null;
+
+      // Handle user authentication
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userDisplay.textContent = user.displayName || 'Anonymous';
+          loginScreen.style.display = 'none';
+          chatScreen.style.display = 'block';
+          loadMessages();
+          updateUserCount();
+        }
+      });
+
+      // Login user
+      loginBtn.addEventListener('click', async () => {
+        const username = usernameInput.value.trim();
+        if (username && (selectedAvatar || uploadedAvatar.src)) {
+          try {
+            await signInAnonymously(auth);
+            const user = auth.currentUser;
+            if (user) {
+              await user.updateProfile({ displayName: username, photoURL: selectedAvatar || uploadedAvatar.src });
+              localStorage.setItem('avatar', selectedAvatar || uploadedAvatar.src);
             }
-        });
+          } catch (error) {
+            console.error('Error during login:', error);
+          }
+        }
+      });
 
-        // Prijavljivanje korisnika
-        loginBtn.addEventListener('click', () => {
-            const username = usernameInput.value.trim();
-            if (username && (selectedAvatar || uploadedAvatar.src)) {
-                localStorage.setItem('username', username);
-                localStorage.setItem('avatar', selectedAvatar || uploadedAvatar.src);
-                userDisplay.textContent = username;
-                loginScreen.style.display = 'none';
-                chatScreen.style.display = 'block';
-                loadMessages();
-                updateUserCount();
-            }
+      // Handle avatar selection
+      avatars.forEach(avatar => {
+        avatar.addEventListener('click', () => {
+          avatars.forEach(av => av.classList.remove('selected'));
+          avatar.classList.add('selected');
+          selectedAvatar = avatar.dataset.avatar;
+          uploadedAvatar.src = ''; // Clear custom avatar
+          uploadedAvatar.style.display = 'none'; // Hide custom avatar
         });
+      });
 
-        // Izbor avatara
-        avatars.forEach(avatar => {
-            avatar.addEventListener('click', () => {
-                avatars.forEach(av => av.classList.remove('selected'));
-                avatar.classList.add('selected');
-                selectedAvatar = avatar.dataset.avatar;
-                uploadedAvatar.src = ''; // Clear custom avatar
-                uploadedAvatar.style.display = 'none'; // Hide custom avatar
-            });
-        });
+      // Handle custom avatar upload
+      avatarUpload.addEventListener('change', () => {
+        const file = avatarUpload.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            uploadedAvatar.src = e.target.result;
+            uploadedAvatar.style.display = 'block';
+            selectedAvatar = null; // Clear selected avatar
+            avatars.forEach(av => av.classList.remove('selected'));
+          };
+          reader.readAsDataURL(file);
+        }
+      });
 
-        // Učitavanje prilagođene slike avatara
-        avatarUpload.addEventListener('change', () => {
-            const file = avatarUpload.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    uploadedAvatar.src = e.target.result;
-                    uploadedAvatar.style.display = 'block';
-                    selectedAvatar = null; // Clear selected avatar
-                    avatars.forEach(av => av.classList.remove('selected'));
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+      // Send message
+      sendBtn.addEventListener('click', () => {
+        const messageText = messageInput.value.trim();
+        if (messageText) {
+          addDoc(collection(firestore, 'messages'), {
+            user: auth.currentUser.displayName,
+            avatar: auth.currentUser.photoURL,
+            message: messageText,
+            timestamp: new Date()
+          }).then(() => {
+            messageInput.value = '';
+          }).catch((error) => {
+            console.error('Error sending message:', error);
+          });
+        }
+      });
 
-        // Slanje poruke
-        sendBtn.addEventListener('click', () => {
-            const message = messageInput.value.trim();
-            if (message) {
-                const username = localStorage.getItem('username') || 'Anonymous';
-                const messageData = { username, message, replyTo: replyToMessage };
-                saveMessage(messageData);
-                displayMessage(messageData);
-                messageInput.value = '';
-                replyToMessage = null; // Resetovanje odgovora
-                messageInput.placeholder = 'Enter your message'; // Resetovanje placeholdera
-                chatBox.scrollTop = chatBox.scrollHeight;  // Automatsko skrolovanje
-            }
-        });
-
-        // Prikaz poruka
-        function displayMessage({ username, message, replyTo }) {
+      // Load messages
+      function loadMessages() {
+        onSnapshot(collection(firestore, 'messages'), (snapshot) => {
+          chatBox.innerHTML = '';
+          snapshot.forEach(doc => {
+            const data = doc.data();
             const messageElement = document.createElement('div');
             messageElement.className = 'message';
-
-            const avatarImg = document.createElement('img');
-            avatarImg.src = localStorage.getItem('avatar') || 'default-avatar.png';
-            messageElement.appendChild(avatarImg);
-
-            const messageContent = document.createElement('div');
-            messageContent.className = 'message-content';
-            messageContent.innerHTML = `
-                <p><strong>${username}:</strong> ${message}</p>
-                ${replyTo ? `<div class="reply-box">Reply to: ${replyTo}</div>` : ''}
-                <button class="reply-btn">Reply</button>
+            messageElement.innerHTML = `
+              <img src="${data.avatar || 'default-avatar.png'}" alt="${data.user}'s avatar">
+              <div class="message-content">
+                <strong>${data.user}</strong>
+                <p>${data.message}</p>
+                <button class="reply-btn" onclick="replyToMessage('${doc.id}')">Reply</button>
+                ${replyToMessage === doc.id ? `<div class="reply-box">Replying to ${data.message}</div>` : ''}
+              </div>
             `;
-
-            const replyBtn = messageContent.querySelector('.reply-btn');
-            replyBtn.addEventListener('click', () => {
-                replyToMessage = message;
-                messageInput.placeholder = `Replying to: ${message}`;
-            });
-
-            messageElement.appendChild(messageContent);
             chatBox.appendChild(messageElement);
-        }
-
-        // Učitavanje poruka
-        function loadMessages() {
-            const messages = JSON.parse(localStorage.getItem('messages')) || [];
-            messages.forEach(message => displayMessage(message));
-        }
-
-        // Čuvanje poruka
-        function saveMessage(message) {
-            const messages = JSON.parse(localStorage.getItem('messages')) || [];
-            messages.push(message);
-            localStorage.setItem('messages', JSON.stringify(messages));
-        }
-
-        // Ažuriranje broja online korisnika
-        function updateUserCount() {
-            let onlineUsers = JSON.parse(localStorage.getItem('onlineUsers')) || [];
-            userCountNumber.textContent = onlineUsers.length;
-        }
-
-        // Prijavljivanje korisnika
-        let onlineUsers = JSON.parse(localStorage.getItem('onlineUsers')) || [];
-        if (!onlineUsers.includes(localStorage.getItem('username'))) {
-            onlineUsers.push(localStorage.getItem('username'));
-            localStorage.setItem('onlineUsers', JSON.stringify(onlineUsers));
-            updateUserCount(); // Ažuriranje broja korisnika
-        }
-
-        // Odjava korisnika
-        logoutBtn.addEventListener('click', () => {
-            const username = localStorage.getItem('username');
-            if (username) {
-                let onlineUsers = JSON.parse(localStorage.getItem('onlineUsers')) || [];
-                onlineUsers = onlineUsers.filter(user => user !== username);
-                localStorage.setItem('onlineUsers', JSON.stringify(onlineUsers));
-                updateUserCount(); // Ažuriranje broja korisnika
-            }
-            localStorage.removeItem('username');
-            localStorage.removeItem('avatar');
-            localStorage.removeItem('messages');
-            localStorage.removeItem('onlineUsers');
-            window.location.reload();
+          });
+          chatBox.scrollTop = chatBox.scrollHeight;
         });
+      }
 
+      // Reply to message
+      window.replyToMessage = (id) => {
+        replyToMessage = id;
+        loadMessages();
+      };
+
+      // Update user count
+      function updateUserCount() {
+        // Here you should handle real-time user count updates
+        userCountNumber.textContent = 0; // Placeholder value
+      }
+
+      // Logout user
+      logoutBtn.addEventListener('click', () => {
+        signOut(auth).then(() => {
+          loginScreen.style.display = 'block';
+          chatScreen.style.display = 'none';
+        }).catch((error) => {
+          console.error('Error during logout:', error);
+        });
+      });
     </script>
 </body>
 </html>
