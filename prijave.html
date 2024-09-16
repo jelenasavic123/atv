@@ -2,22 +2,419 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puni Ekran</title>
+    <title>Chat App with Firebase</title>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <!-- CSS -->
     <style>
-        html, body {
-            height: 100%;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
-            overflow: hidden;
+            padding: 0;
         }
-        iframe {
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        #login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #chat-screen {
+            display: none;
+            width: 80%;
+        }
+        .message {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            position: relative;
+            padding: 10px;
+            background-color: #e9e9e9;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 80%;
+            position: relative;
+        }
+        .message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .reply-box {
+            background-color: #d3d3d3;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 4px;
+            margin-top: 10px;
+            margin-left: 60px; /* Indentation to align to the right */
+            display: flex;
+            flex-direction: column;
+        }
+        .reply-box::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: -15px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent #d3d3d3 transparent transparent;
+        }
+        .reply-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .reply-info img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+        .reply-info span {
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .reply-text {
+            margin-top: 5px;
+        }
+        .reply-btn {
+            cursor: pointer;
+            padding: 2px 6px;
+            background-color: #007bff;
+            color: white;
             border: none;
+            border-radius: 4px;
+            font-size: 0.7em;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+        .reply-btn:hover {
+            background-color: #0056b3;
+        }
+        .delete-btn {
+            cursor: pointer;
+            padding: 2px 6px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.7em;
+            position: absolute;
+            right: 60px;
+            bottom: 10px;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .selected {
+            border: 2px solid #007bff;
+        }
+        #messageInput {
             width: 100%;
-            height: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #sendMessage {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        #sendMessage:hover {
+            background-color: #0056b3;
+        }
+        #avatarUpload {
+            display: none;
+        }
+        #uploadedAvatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: none;
+        }
+        #logout-btn {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #logout-btn:hover {
+            background-color: #c82333;
+        }
+        #password-container {
+            display: none;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <iframe src="https://sve-na-dlanu-zabava.blogspot.com/" allowfullscreen></iframe>
+    <div class="container">
+        <div id="login-screen">
+            <h1>Prijava</h1>
+            <input type="text" id="username" placeholder="Unesite svoje ime">
+            <div id="password-container">
+                <input type="password" id="password" placeholder="Unesite lozinku">
+            </div>
+            <button id="login-btn">Prijavi se</button>
+            <input type="file" id="avatar-upload">
+            <img id="uploaded-avatar">
+            <div>
+                <h2>Izaberite Avatar</h2>
+                <img src="avatar1.png" class="avatar" data-avatar="avatar1.png" alt="Avatar 1">
+                <img src="avatar2.png" class="avatar" data-avatar="avatar2.png" alt="Avatar 2">
+                <img src="avatar3.png" class="avatar" data-avatar="avatar3.png" alt="Avatar 3">
+                <!-- Add more avatars as needed -->
+            </div>
+        </div>
+
+        <div id="chat-screen">
+            <h1 id="user-display"></h1>
+            <div id="chat-box"></div>
+            <div>
+                <input type="text" id="message-input" placeholder="Unesite svoju poruku">
+                <button id="send-btn">Pošalji</button>
+                <button id="logout-btn">Odjavi se</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAcp6ogJFrSnw2U6kTW0isDtSuWR7i20bs",
+            authDomain: "chat-4a2d6.firebaseapp.com",
+            projectId: "chat-4a2d6",
+            storageBucket: "chat-4a2d6.appspot.com",
+            messagingSenderId: "1045553997806",
+            appId: "1:1045553997806:web:bdffccdb2bd9f3bb9510ff",
+            measurementId: "G-X0564DDDLZ"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Initialize Firestore
+        const db = firebase.firestore();
+
+        const loginScreen = document.getElementById('login-screen');
+        const chatScreen = document.getElementById('chat-screen');
+        const loginBtn = document.getElementById('login-btn');
+        const sendBtn = document.getElementById('send-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const userDisplay = document.getElementById('user-display');
+        const messageInput = document.getElementById('message-input');
+        const chatBox = document.getElementById('chat-box');
+        const avatars = document.querySelectorAll('.avatar');
+        const avatarUpload = document.getElementById('avatar-upload');
+        const uploadedAvatar = document.getElementById('uploaded-avatar');
+        const passwordContainer = document.getElementById('password-container');
+
+        let replyToMessage = null;
+        let selectedAvatar = null;
+
+        // Admin credentials
+        const ADMIN_PASSWORD = 'admin123';
+
+        // On page load, check for stored username and avatar
+        window.addEventListener('load', () => {
+            const storedUsername = localStorage.getItem('username');
+            const storedAvatar = localStorage.getItem('avatar');
+            if (storedUsername) {
+                userDisplay.textContent = storedUsername;
+                loginScreen.style.display = 'none';
+                chatScreen.style.display = 'block';
+                if (storedAvatar) {
+                    const avatarImg = document.createElement('img');
+                    avatarImg.src = storedAvatar;
+                    avatarImg.style.width = '40px';
+                    avatarImg.style.height = '40px';
+                    userDisplay.prepend(avatarImg);
+                }
+                loadMessages();
+            }
+        });
+
+        // Handle login
+        loginBtn.addEventListener('click', () => {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (username === 'admin') {
+                passwordContainer.style.display = 'block';
+                if (password === ADMIN_PASSWORD) {
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('avatar', selectedAvatar || 'default-avatar.png');
+                    localStorage.setItem('isAdmin', 'true');
+                    userDisplay.textContent = username;
+                    loginScreen.style.display = 'none';
+                    chatScreen.style.display = 'block';
+                    loadMessages();
+                } else {
+                    alert('Nepoznata lozinka!');
+                }
+            } else if (username) {
+                localStorage.setItem('username', username);
+                localStorage.setItem('avatar', selectedAvatar || 'default-avatar.png');
+                localStorage.setItem('isAdmin', 'false');
+                userDisplay.textContent = username;
+                loginScreen.style.display = 'none';
+                chatScreen.style.display = 'block';
+                loadMessages();
+            }
+        });
+
+        // Handle logout
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('username');
+            localStorage.removeItem('avatar');
+            localStorage.removeItem('isAdmin');
+            loginScreen.style.display = 'flex';
+            chatScreen.style.display = 'none';
+            usernameInput.value = '';
+            passwordInput.value = '';
+            passwordContainer.style.display = 'none';
+            userDisplay.textContent = '';
+        });
+
+        // Handle message sending
+        sendBtn.addEventListener('click', () => {
+            const user = localStorage.getItem('username');
+            const avatar = localStorage.getItem('avatar');
+            const message = messageInput.value.trim();
+
+            if (user && message) {
+                const newMessage = {
+                    user,
+                    avatar,
+                    text: message,
+                    replyTo: replyToMessage,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                db.collection('messages').add(newMessage)
+                    .then(() => {
+                        messageInput.value = '';
+                        replyToMessage = null;
+                    })
+                    .catch((error) => {
+                        console.error('Error adding message: ', error);
+                    });
+            }
+        });
+
+        // Handle message reply
+        chatBox.addEventListener('click', (e) => {
+            if (e.target.classList.contains('reply-btn')) {
+                replyToMessage = e.target.getAttribute('data-id');
+                messageInput.focus();
+            }
+        });
+
+        // Handle delete message (admin only)
+        function handleDeleteMessage(messageId) {
+            const isAdmin = localStorage.getItem('isAdmin') === 'true';
+            if (isAdmin) {
+                db.collection('messages').doc(messageId).delete()
+                    .then(() => {
+                        console.log('Message successfully deleted!');
+                    })
+                    .catch((error) => {
+                        console.error('Error removing message: ', error);
+                    });
+            } else {
+                alert('Niste ovlašćeni za brisanje poruka.');
+            }
+        }
+
+        // Add delete button to each message if user is admin
+        function loadMessages() {
+            db.collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
+                chatBox.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'message';
+                    messageDiv.id = `msg-${doc.id}`;
+                    messageDiv.innerHTML = `
+                        <div class="message-info">
+                            <img src="${data.avatar}" alt="${data.user}">
+                            <span>${data.user}</span>
+                        </div>
+                        <div class="message-text">
+                            ${data.text}
+                        </div>
+                        ${data.replyTo ? `<div class="reply-box">
+                            <div class="reply-info">
+                                <img src="${data.avatar}" alt="${data.user}">
+                                <span>${data.user} odgovara:</span>
+                            </div>
+                            <div class="reply-text">
+                                ${data.text}
+                            </div>
+                        </div>` : ''}
+                        <button class="reply-btn" data-id="${doc.id}">Odgovori</button>
+                        ${localStorage.getItem('isAdmin') === 'true' ? `<button class="delete-btn" data-id="${doc.id}">Obriši</button>` : ''}
+                    `;
+                    chatBox.appendChild(messageDiv);
+                });
+            });
+        }
+
+        // Handle delete button click
+        chatBox.addEventListener('click', (e) => {
+            if (e.target.classList.contains('delete-btn')) {
+                const messageId = e.target.getAttribute('data-id');
+                handleDeleteMessage(messageId);
+            }
+        });
+
+        // Handle avatar selection
+        avatars.forEach(avatar => {
+            avatar.addEventListener('click', () => {
+                avatars.forEach(av => av.classList.remove('selected'));
+                avatar.classList.add('selected');
+                selectedAvatar = avatar.getAttribute('data-avatar');
+            });
+        });
+
+        // Handle avatar upload
+        avatarUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    uploadedAvatar.src = reader.result;
+                    uploadedAvatar.style.display = 'block';
+                    selectedAvatar = reader.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>
