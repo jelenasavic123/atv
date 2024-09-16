@@ -28,200 +28,149 @@
             flex-direction: column;
             align-items: center;
         }
-       #chat-screen {
-    display: none;
-    width: 80%;
-    min-height: 100vh; /* Osigurava da zauzima barem visinu prozora */
+        #chat-screen {
+            display: none;
+            width: 80%;
+        }
+      .message {
     display: flex;
     flex-direction: column;
-}
-
-#chat-box {
-    flex: 1; /* Učitava sav preostali prostor */
-    overflow-y: auto;
+    margin-bottom: 10px;
+    position: relative;
     padding: 10px;
-    background-color: #f9f9f9; /* Svetla pozadina za chat box */
+    background-color: #e9e9e9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    max-width: 80%;
+}
+.message img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.reply-box {
+    background-color: #d3d3d3;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-left: 50px; /* Adjust indentation */
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
-#message-input-container {
-    position: fixed;
-    bottom: 0;
-    width: 80%;
-    background-color: #ffffff;
-    border-top: 1px solid #e0e0e0; /* Svetlija granica */
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Lagana senka za dubinu */
-    padding: 10px 15px; /* Prostor oko elemenata */
+.reply-box::before {
+    content: '';
+    position: absolute;
+    bottom: 100%; /* Position the arrow above the box */
+    left: 20px; /* Center the arrow */
+    border-width: 10px 10px 0 10px;
+    border-style: solid;
+    border-color: #d3d3d3 transparent transparent transparent; /* Create the triangle */
+    transform: translateX(-50%); /* Center the arrow */
+}
+.reply-info {
     display: flex;
     align-items: center;
-    gap: 10px; /* Razmak između elemenata */
+    margin-bottom: 5px;
 }
-
-#message-input {
-    flex: 1; /* Da zauzima sav prostor osim prostora za dugme */
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    font-size: 16px;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Lagana unutrašnja senka */
-    outline: none;
+.reply-info img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
 }
-
-#send-btn {
-    background-color: #0084ff; /* Plava boja */
+.reply-info span {
+    font-size: 0.9em;
+    font-weight: bold;
+}
+.reply-text {
+    margin-top: 5px;
+}
+.reply-btn {
+    cursor: pointer;
+    padding: 2px 6px;
+    background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 20px; /* Zaobljeni uglovi */
-    padding: 10px 20px;
-    font-size: 16px;
+    border-radius: 4px;
+    font-size: 0.7em;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+.reply-btn:hover {
+    background-color: #0056b3;
+}
+.delete-btn {
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Lagana senka za dubinu */
+    padding: 2px 6px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.7em;
+    position: absolute;
+    right: 60px;
+    bottom: 10px;
 }
-
+.delete-btn:hover {
+    background-color: #c82333;
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 5px;
+}
+.selected {
+    border: 2px solid #007bff;
+}
+#message-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+#send-btn {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
 #send-btn:hover {
-    background-color: #0073e6; /* Tamnija plava pri hover-u */
+    background-color: #0056b3;
+}
+#avatar-upload {
+    display: none;
+}
+#uploaded-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: none;
+}
+#logout-btn {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#logout-btn:hover {
+    background-color: #c82333;
+}
+#password-container {
+    display: none;
+    margin-top: 10px;
 }
 
-#send-btn:active {
-    background-color: #005bb5; /* Još tamnija plava kada se klikne */
-}
-
-        .message {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 10px;
-            position: relative;
-            padding: 10px;
-            background-color: #e9e9e9;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            max-width: 80%;
-            position: relative;
-        }
-        .message img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        .reply-box {
-            background-color: #d3d3d3;
-            border: 1px solid #ccc;
-            padding: 5px;
-            border-radius: 4px;
-            margin-top: 10px;
-            margin-left: 60px; /* Indentation to align to the right */
-            display: flex;
-            flex-direction: column;
-        }
-        .reply-box::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: -15px;
-            border-width: 10px;
-            border-style: solid;
-            border-color: transparent #d3d3d3 transparent transparent;
-        }
-        .reply-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        .reply-info img {
-            width: 20px;
-            height: 20px;
-            margin-right: 5px;
-        }
-        .reply-info span {
-            font-size: 0.9em;
-            font-weight: bold;
-        }
-        .reply-text {
-            margin-top: 5px;
-        }
-        .reply-btn {
-            cursor: pointer;
-            padding: 2px 6px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 0.7em;
-            position: absolute;
-            right: 10px;
-            bottom: 10px;
-        }
-        .reply-btn:hover {
-            background-color: #0056b3;
-        }
-        .delete-btn {
-            cursor: pointer;
-            padding: 2px 6px;
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 0.7em;
-            position: absolute;
-            right: 60px;
-            bottom: 10px;
-        }
-        .delete-btn:hover {
-            background-color: #c82333;
-        }
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            margin: 5px;
-        }
-        .selected {
-            border: 2px solid #007bff;
-        }
-        #messageInput {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-        }
-        #sendMessage {
-            padding: 10px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        #sendMessage:hover {
-            background-color: #0056b3;
-        }
-        #avatarUpload {
-            display: none;
-        }
-        #uploadedAvatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: none;
-        }
-        #logout-btn {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        #logout-btn:hover {
-            background-color: #c82333;
-        }
-        #password-container {
-            display: none;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
@@ -236,10 +185,13 @@
             <input type="file" id="avatar-upload">
             <img id="uploaded-avatar">
             <div>
-                <h2>Izaberite Avatar</h2>
-                <img src="avatar1.png" class="avatar" data-avatar="avatar1.png" alt="Avatar 1">
-                <img src="avatar2.png" class="avatar" data-avatar="avatar2.png" alt="Avatar 2">
-                <img src="avatar3.png" class="avatar" data-avatar="avatar3.png" alt="Avatar 3">
+                <h2>Izaberite Sliku</h2>
+                <img src="https://static.vecteezy.com/system/resources/previews/001/993/889/non_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg" class="avatar" data-avatar="https://static.vecteezy.com/system/resources/previews/001/993/889/non_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg" alt="Avatar 1">
+                <img src="https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg" class="avatar" data-avatar="https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg" alt="Avatar 2">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOXbOWUPYSg9U7KFrXG0fYPGtHapXfmqpjoRJ7W-zEWDMo3dyaMbxwnYbR8tVlbP09nbw&usqp=CAU" class="avatar" data-avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOXbOWUPYSg9U7KFrXG0fYPGtHapXfmqpjoRJ7W-zEWDMo3dyaMbxwnYbR8tVlbP09nbw&usqp=CAU" alt="Avatar 3">
+                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNI3kQLeYMnpy05PhEiuzS1rtRmNVL7VKvwcE4ACmQSQT1rRmUO5mHLyjH-mGHq0ueUQY&usqp=CAU" class="avatar" data-avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNI3kQLeYMnpy05PhEiuzS1rtRmNVL7VKvwcE4ACmQSQT1rRmUO5mHLyjH-mGHq0ueUQY&usqp=CAU" alt="Avatar 3">
+                  <img src="https://www.shutterstock.com/image-vector/avatar-girls-icon-vector-woman-260nw-433429546.jpg" class="avatar" data-avatar="https://www.shutterstock.com/image-vector/avatar-girls-icon-vector-woman-260nw-433429546.jpg" alt="Avatar 3">
+                   <img src="https://as1.ftcdn.net/v2/jpg/01/12/70/16/1000_F_112701616_X71EL4aiwMMv6y8hmjpXcwpKGqDqSm7q.jpg" class="avatar" data-avatar="https://as1.ftcdn.net/v2/jpg/01/12/70/16/1000_F_112701616_X71EL4aiwMMv6y8hmjpXcwpKGqDqSm7q.jpg" alt="Avatar 3">
                 <!-- Add more avatars as needed -->
             </div>
         </div>
@@ -294,180 +246,159 @@
         // Admin credentials
         const ADMIN_PASSWORD = 'admin123';
 
-        // On page load, check for stored username and avatar
-        window.addEventListener('load', () => {
-            const storedUsername = localStorage.getItem('username');
-            const storedAvatar = localStorage.getItem('avatar');
-            if (storedUsername) {
-                userDisplay.textContent = storedUsername;
+        // On page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('username')) {
                 loginScreen.style.display = 'none';
                 chatScreen.style.display = 'block';
-                if (storedAvatar) {
-                    const avatarImg = document.createElement('img');
-                    avatarImg.src = storedAvatar;
-                    avatarImg.style.width = '40px';
-                    avatarImg.style.height = '40px';
-                    userDisplay.prepend(avatarImg);
-                }
-                loadMessages();
+                userDisplay.textContent = `Prijavljeni ste kao: ${localStorage.getItem('username')}`;
             }
         });
 
-        // Handle login
+        // Login button click handler
         loginBtn.addEventListener('click', () => {
             const username = usernameInput.value.trim();
             const password = passwordInput.value.trim();
 
-            if (username === 'admin') {
-                passwordContainer.style.display = 'block';
-                if (password === ADMIN_PASSWORD) {
-                    localStorage.setItem('username', username);
-                    localStorage.setItem('avatar', selectedAvatar || 'default-avatar.png');
-                    localStorage.setItem('isAdmin', 'true');
-                    userDisplay.textContent = username;
-                    loginScreen.style.display = 'none';
-                    chatScreen.style.display = 'block';
-                    loadMessages();
-                } else {
-                    alert('Nepoznata lozinka!');
-                }
-            } else if (username) {
-                localStorage.setItem('username', username);
-                localStorage.setItem('avatar', selectedAvatar || 'default-avatar.png');
-                localStorage.setItem('isAdmin', 'false');
-                userDisplay.textContent = username;
-                loginScreen.style.display = 'none';
-                chatScreen.style.display = 'block';
-                loadMessages();
+            if (username === '') {
+                alert('Unesite svoje ime');
+                return;
             }
+
+            if (password !== ADMIN_PASSWORD && password !== '') {
+                alert('Neispravna lozinka');
+                return;
+            }
+
+            localStorage.setItem('username', username);
+            loginScreen.style.display = 'none';
+            chatScreen.style.display = 'block';
+            userDisplay.textContent = `Prijavljeni ste kao: ${username}`;
         });
 
-        // Handle logout
+        // Logout button click handler
         logoutBtn.addEventListener('click', () => {
             localStorage.removeItem('username');
-            localStorage.removeItem('avatar');
-            localStorage.removeItem('isAdmin');
-            loginScreen.style.display = 'flex';
+            loginScreen.style.display = 'block';
             chatScreen.style.display = 'none';
-            usernameInput.value = '';
-            passwordInput.value = '';
-            passwordContainer.style.display = 'none';
             userDisplay.textContent = '';
         });
 
-        // Handle message sending
-        sendBtn.addEventListener('click', () => {
-            const user = localStorage.getItem('username');
-            const avatar = localStorage.getItem('avatar');
-            const message = messageInput.value.trim();
-
-            if (user && message) {
-                const newMessage = {
-                    user,
-                    avatar,
-                    text: message,
-                    replyTo: replyToMessage,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                };
-
-                db.collection('messages').add(newMessage)
-                    .then(() => {
-                        messageInput.value = '';
-                        replyToMessage = null;
-                    })
-                    .catch((error) => {
-                        console.error('Error adding message: ', error);
-                    });
-            }
-        });
-
-        // Handle message reply
-        chatBox.addEventListener('click', (e) => {
-            if (e.target.classList.contains('reply-btn')) {
-                replyToMessage = e.target.getAttribute('data-id');
-                messageInput.focus();
-            }
-        });
-
-        // Handle delete message (admin only)
-        function handleDeleteMessage(messageId) {
-            const isAdmin = localStorage.getItem('isAdmin') === 'true';
-            if (isAdmin) {
-                db.collection('messages').doc(messageId).delete()
-                    .then(() => {
-                        console.log('Message successfully deleted!');
-                    })
-                    .catch((error) => {
-                        console.error('Error removing message: ', error);
-                    });
-            } else {
-                alert('Niste ovlašćeni za brisanje poruka.');
-            }
-        }
-
-        // Add delete button to each message if user is admin
-        function loadMessages() {
-            db.collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
-                chatBox.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'message';
-                    messageDiv.id = `msg-${doc.id}`;
-                    messageDiv.innerHTML = `
-                        <div class="message-info">
-                            <img src="${data.avatar}" alt="${data.user}">
-                            <span>${data.user}</span>
-                        </div>
-                        <div class="message-text">
-                            ${data.text}
-                        </div>
-                        ${data.replyTo ? `<div class="reply-box">
-                            <div class="reply-info">
-                                <img src="${data.avatar}" alt="${data.user}">
-                                <span>${data.user} odgovara:</span>
-                            </div>
-                            <div class="reply-text">
-                                ${data.text}
-                            </div>
-                        </div>` : ''}
-                        <button class="reply-btn" data-id="${doc.id}">Odgovori</button>
-                        ${localStorage.getItem('isAdmin') === 'true' ? `<button class="delete-btn" data-id="${doc.id}">Obriši</button>` : ''}
-                    `;
-                    chatBox.appendChild(messageDiv);
-                });
-            });
-        }
-
-        // Handle delete button click
-        chatBox.addEventListener('click', (e) => {
-            if (e.target.classList.contains('delete-btn')) {
-                const messageId = e.target.getAttribute('data-id');
-                handleDeleteMessage(messageId);
-            }
-        });
-
-        // Handle avatar selection
-        avatars.forEach(avatar => {
-            avatar.addEventListener('click', () => {
-                avatars.forEach(av => av.classList.remove('selected'));
-                avatar.classList.add('selected');
-                selectedAvatar = avatar.getAttribute('data-avatar');
-            });
-        });
-
-        // Handle avatar upload
+        // Avatar upload
         avatarUpload.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = () => {
-                    uploadedAvatar.src = reader.result;
+                reader.onload = (e) => {
+                    uploadedAvatar.src = e.target.result;
                     uploadedAvatar.style.display = 'block';
-                    selectedAvatar = reader.result;
+                    selectedAvatar = uploadedAvatar.src;
                 };
                 reader.readAsDataURL(file);
             }
+        });
+
+        // Avatar selection
+        avatars.forEach(avatar => {
+            avatar.addEventListener('click', () => {
+                avatars.forEach(a => a.classList.remove('selected'));
+                avatar.classList.add('selected');
+                selectedAvatar = avatar.getAttribute('data-avatar');
+                uploadedAvatar.src = selectedAvatar;
+                uploadedAvatar.style.display = 'block';
+            });
+        });
+
+        // Send message
+        sendBtn.addEventListener('click', () => {
+            const message = messageInput.value.trim();
+            if (message === '') return;
+
+            const username = localStorage.getItem('username');
+            const timestamp = new Date();
+            const messageData = {
+                username,
+                text: message,
+                timestamp,
+                avatar: selectedAvatar,
+                replyTo: replyToMessage
+            };
+
+            db.collection('messages').add(messageData)
+                .then(() => {
+                    messageInput.value = '';
+                    replyToMessage = null;
+                })
+                .catch(error => console.error('Error adding message: ', error));
+        });
+
+        // Load messages from Firestore
+        db.collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
+            chatBox.innerHTML = '';
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                
+                if (data.avatar) {
+                    const avatarImg = document.createElement('img');
+                    avatarImg.src = data.avatar;
+                    messageDiv.appendChild(avatarImg);
+                }
+                
+                const messageText = document.createElement('div');
+                messageText.textContent = `${data.username}: ${data.text}`;
+                messageDiv.appendChild(messageText);
+
+                if (data.replyTo) {
+                    db.collection('messages').doc(data.replyTo).get().then(replyDoc => {
+                        const replyData = replyDoc.data();
+                        if (replyData) {
+                            const replyBox = document.createElement('div');
+                            replyBox.classList.add('reply-box');
+
+                            const replyInfo = document.createElement('div');
+                            replyInfo.classList.add('reply-info');
+                            if (replyData.avatar) {
+                                const replyAvatar = document.createElement('img');
+                                replyAvatar.src = replyData.avatar;
+                                replyInfo.appendChild(replyAvatar);
+                            }
+                            const replyUser = document.createElement('span');
+                            replyUser.textContent = replyData.username;
+                            replyInfo.appendChild(replyUser);
+                            replyBox.appendChild(replyInfo);
+
+                            const replyText = document.createElement('div');
+                            replyText.classList.add('reply-text');
+                            replyText.textContent = replyData.text;
+                            replyBox.appendChild(replyText);
+
+                            messageDiv.appendChild(replyBox);
+                        }
+                    });
+                }
+
+                const replyBtn = document.createElement('button');
+                replyBtn.textContent = 'Odgovori';
+                replyBtn.classList.add('reply-btn');
+                replyBtn.addEventListener('click', () => {
+                    replyToMessage = doc.id;
+                });
+                messageDiv.appendChild(replyBtn);
+
+                if (localStorage.getItem('username') === data.username) {
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'Obriši';
+                    deleteBtn.classList.add('delete-btn');
+                    deleteBtn.addEventListener('click', () => {
+                        db.collection('messages').doc(doc.id).delete();
+                    });
+                    messageDiv.appendChild(deleteBtn);
+                }
+
+                chatBox.appendChild(messageDiv);
+            });
         });
     </script>
 </body>
