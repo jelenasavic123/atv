@@ -46,17 +46,19 @@
             const message = document.getElementById('messageInput').value;
 
             // Add message to Firestore
-            db.collection("messages").add({
-                text: message,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            })
-            .then(() => {
-                console.log("Message sent!");
-                document.getElementById('messageInput').value = ''; // Clear the input field
-            })
-            .catch((error) => {
-                console.error("Error adding message: ", error);
-            });
+            if(message.trim()) {
+                db.collection("messages").add({
+                    text: message,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                })
+                .then(() => {
+                    console.log("Message sent!");
+                    document.getElementById('messageInput').value = ''; // Clear the input field
+                })
+                .catch((error) => {
+                    console.error("Error adding message: ", error);
+                });
+            }
         });
 
         // Retrieve and display messages in real-time
@@ -71,6 +73,7 @@
                 chatMessages.appendChild(messageElement);
             });
         });
+
     </script>
 </body>
 </html>
