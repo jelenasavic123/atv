@@ -26,6 +26,112 @@
             display: none;
             width: 80%;
         }
+        #loginScreen {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 350px;
+    width: 100%;
+    text-align: center;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Hide elements when needed */
+.hidden {
+    display: none;
+}
+
+/* Input fields styling */
+input[type="text"], input[type="password"] {
+    width: 70%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    outline: none;
+    border-color: #007BFF;
+}
+
+/* Smaller login button */
+button {
+    padding: 8px 15px;
+    margin-top: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: fit-content; /* Make button size based on content */
+    align-self: center; /* Center button within form */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Chat screen styling (hidden initially) */
+#chatScreen {
+    display: none;
+    padding: 20px;
+}
+
+/* User display styling */
+#userDisplay {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Message box styling */
+.message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+    z-index: 1000;
+    animation: fadeInOut 3s forwards;
+}
+
+.message.success {
+    background-color: #28a745;
+    color: white;
+}
+
+.message.error {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Fade in and fade out animation for messages */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
       .message {
     display: flex;
     flex-direction: column;
@@ -217,10 +323,10 @@
                 <input type="password" id="password" placeholder="Unesite lozinku">
             </div>
             <button id="login-btn">Prijavi se</button>
-            <input type="file" id="avatar-upload">
+      
             <img id="uploaded-avatar">
             <div>
-                <h2>Izaberite Sliku</h2>
+                <h2>Izaberite Avatara pre neko sto se ulogujete</h2>
                 <img src="https://static.vecteezy.com/system/resources/previews/001/993/889/non_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg" class="avatar" data-avatar="https://static.vecteezy.com/system/resources/previews/001/993/889/non_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg" alt="Avatar 1">
                 <img src="https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg" class="avatar" data-avatar="https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg" alt="Avatar 2">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOXbOWUPYSg9U7KFrXG0fYPGtHapXfmqpjoRJ7W-zEWDMo3dyaMbxwnYbR8tVlbP09nbw&usqp=CAU" class="avatar" data-avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOXbOWUPYSg9U7KFrXG0fYPGtHapXfmqpjoRJ7W-zEWDMo3dyaMbxwnYbR8tVlbP09nbw&usqp=CAU" alt="Avatar 3">
