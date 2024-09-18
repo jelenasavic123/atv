@@ -394,6 +394,51 @@ button {
     text-decoration: underline; /* Dodaje podvučenu liniju na hover */
 }
 
+/* Stil za online korisnike */
+#online-users {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    width: 150px;
+    position: fixed; /* Fiksiraj u odnosu na prozor pretraživača */
+    top: 5px; /* Razmak od vrha prozora */
+    left: 50%; /* Postavi horizontalno u centar */
+    transform: translateX(-50%); /* Pomeri u centar ekrana */
+    z-index: 1000; /* Postavi visoki z-index da bi bio iznad drugih elemenata */
+    transition: transform 0.3s; /* Animacija za otvaranje i zatvaranje */
+}
+
+#online-users h2 {
+    margin: 0;
+    font-size: 10px;
+    color: green; /* Zeleni tekst */
+    cursor: pointer; /* Promeni kursor u ruku kada se pređe preko naslova */
+}
+
+#online-users-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: none; /* Početno stanje je sakriveno */
+}
+
+#online-users-list li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+
+#online-users-list img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+#online-users-list li.online {
+    color: green;
+}
 
     </style>
 </head>
@@ -419,6 +464,11 @@ button {
                     <button id="send-btn">Pošalji</button>
                           <button id="logout-btn">Odjavi se</button>
                     <!-- HTML for delete button in each message -->
+                    <!-- Dodaj ovo u HTML gde želiš da prikažeš online korisnike -->
+<div id="online-users">
+    <h2 id="online-toggle">Online</h2>
+    <ul id="online-users-list"></ul>
+</div>
                 </div>
             </div>
         </div>
@@ -820,6 +870,53 @@ function renderMessages() {
         });
     });
 }
+
+// Dodaj ovo u tvoj postojeći JavaScript kod
+
+// Ref za kolekciju online korisnika
+const onlineUsersRef = db.collection('onlineUsers');
+
+// Element za prikaz online korisnika
+const onlineUsersList = document.getElementById('online-users-list');
+
+// Funkcija za prikaz online korisnika
+function loadOnlineUsers() {
+    onlineUsersRef.onSnapshot(snapshot => {
+        onlineUsersList.innerHTML = ''; // Očisti listu pre nego što je popunimo
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const userItem = document.createElement('li');
+            userItem.textContent = data.username;
+
+            const avatarImg = document.createElement('img');
+            avatarImg.src = data.avatar;
+            avatarImg.className = 'message-avatar'; // Pretpostavljamo da već imaš stil za avatara
+
+            userItem.prepend(avatarImg); // Dodaj avatar ispred imena
+            onlineUsersList.appendChild(userItem);
+        });
+    });
+}
+
+// Pozovi funkciju za učitavanje online korisnika kada se aplikacija učita
+document.addEventListener('DOMContentLoaded', () => {
+    loadOnlineUsers();
+});
+
+// JavaScript za prikazivanje i sakrivanje online korisnika
+document.getElementById('online-toggle').addEventListener('click', function() {
+    var onlineUsersDiv = document.getElementById('online-users');
+    var onlineUsersList = document.getElementById('online-users-list');
+    
+    // Ako je lista trenutno prikazana, sakrij je
+    if (onlineUsersList.style.display === 'block') {
+        onlineUsersList.style.display = 'none';
+        onlineUsersDiv.style.transform = 'translate(-50%, -50%)'; // Pomeri div nazad u sredinu
+    } else {
+        onlineUsersList.style.display = 'block';
+        onlineUsersDiv.style.transform = 'translate(-50%, -50%)'; // Pomeri div u sredinu
+    }
+});
 
 
 </script>
