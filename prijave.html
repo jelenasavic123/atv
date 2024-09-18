@@ -352,233 +352,161 @@
     <!-- Firebase Firestore -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
-    <script>
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAcp6ogJFrSnw2U6kTW0isDtSuWR7i20bs",
-            authDomain: "chat-4a2d6.firebaseapp.com",
-            projectId: "chat-4a2d6",
-            storageBucket: "chat-4a2d6.appspot.com",
-            messagingSenderId: "1045553997806",
-            appId: "1:1045553997806:web:bdffccdb2bd9f3bb9510ff",
-            measurementId: "G-X0564DDDLZ"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        let selectedAvatar = '';
-        let replyToMessage = null;
-
-        const loginScreen = document.getElementById('login-screen');
-        const chatScreen = document.getElementById('chat-screen');
-        const loginBtn = document.getElementById('login-btn');
-        const messageInput = document.getElementById('message-input');
-        const chatBox = document.getElementById('chat-box');
-        const sendBtn = document.getElementById('send-btn');
-        const userDisplay = document.getElementById('user-display');
-        const logoutBtn = document.getElementById('logout-btn');
-        const avatars = document.querySelectorAll('.avatar');
-        const avatarModal = document.getElementById('avatar-modal');
-        const closeModal = document.getElementById('close-modal');
-        const avatarsContainer = document.getElementById('avatars-container');
-        
-        
-
-        loginBtn.addEventListener('click', () => {
-            const username = document.getElementById('username').value.trim();
-            if (username) {
-                localStorage.setItem('username', username);
-                loginScreen.style.display = 'none';
-                avatarModal.style.display = 'flex'; // Show avatar selection modal
-            }
-        });
-
-        avatarsContainer.addEventListener('click', (event) => {
-            if (event.target.classList.contains('avatar')) {
-                selectedAvatar = event.target.getAttribute('data-avatar');
-                avatarModal.style.display = 'none'; // Hide avatar modal
-                chatScreen.style.display = 'block'; // Show chat screen
-                userDisplay.textContent = `Korisnik: ${localStorage.getItem('username')}`;
-            }
-        });
-
-        closeModal.addEventListener('click', () => {
-            avatarModal.style.display = 'none'; // Hide avatar modal
-        });
-
-        sendBtn.addEventListener('click', () => {
-            const message = messageInput.value.trim();
-            if (message === '') return;
-
-            const username = localStorage.getItem('username');
-            const avatar = selectedAvatar || ''; // Use selected avatar or empty string
-
-            const messageData = {
-                username: username,
-                avatar: avatar,
-                message: message,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                replyTo: replyToMessage ? replyToMessage.id : null
-            };
-
-            // Save message to Firestore
-            db.collection('messages').add(messageData)
-                .then(() => {
-                    messageInput.value = '';
-                    replyToMessage = null;
-                })
-                .catch((error) => {
-                    console.error('Error sending message: ', error);
-                });
-        });
-
-        // Display messages from Firestore
-        db.collection('messages').orderBy('timestamp').onSnapshot((snapshot) => {
-            chatBox.innerHTML = ''; // Clear chat box
-            snapshot.forEach(doc => {
-                const message = doc.data();
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message');
-                messageElement.innerHTML = `
-                    <div class="message-header">
-                        <img src="${message.avatar}" alt="Avatar" class="message-avatar">
-                        <span class="message-user">${message.username}</span>
-                        <span class="message-timestamp">${message.timestamp ? message.timestamp.toDate().toLocaleTimeString() : ''}</span>
-                    </div>
-                    <p>${message.message}</p>
-                `;
-                chatBox.appendChild(messageElement);
-            });
-        });
-        
-        sendBtn.addEventListener('click', () => {
-    const message = messageInput.value.trim();
-    if (message === '') return;
-
-    const username = localStorage.getItem('username');
-    const avatar = selectedAvatar || 'default-avatar.png'; // Use selected avatar or default avatar
-
-    const messageData = {
-        username: username,
-        avatar: avatar,
-        message: message,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        replyTo: replyToMessage ? replyToMessage.id : null
+<script>
+    // Firebase Configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAcp6ogJFrSnw2U6kTW0isDtSuWR7i20bs",
+        authDomain: "chat-4a2d6.firebaseapp.com",
+        projectId: "chat-4a2d6",
+        storageBucket: "chat-4a2d6.appspot.com",
+        messagingSenderId: "1045553997806",
+        appId: "1:1045553997806:web:bdffccdb2bd9f3bb9510ff",
+        measurementId: "G-X0564DDDLZ"
     };
 
-    // Save message to Firestore
-    db.collection('messages').add(messageData)
-        .then(() => {
-            messageInput.value = '';
-            replyToMessage = null;
-        })
-        .catch((error) => {
-            console.error('Error sending message: ', error);
-        });
-});
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
+    let selectedAvatar = '';
+    let replyToMessage = null;
 
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('username');
-            chatScreen.style.display = 'none';
-            loginScreen.style.display = 'block';
-        });
-        
-                // Send message
-        sendBtn.addEventListener('click', () => {
-            const message = messageInput.value.trim();
-            if (message === '') return;
+    const loginScreen = document.getElementById('login-screen');
+    const chatScreen = document.getElementById('chat-screen');
+    const loginBtn = document.getElementById('login-btn');
+    const messageInput = document.getElementById('message-input');
+    const chatBox = document.getElementById('chat-box');
+    const sendBtn = document.getElementById('send-btn');
+    const userDisplay = document.getElementById('user-display');
+    const logoutBtn = document.getElementById('logout-btn');
+    const avatars = document.querySelectorAll('.avatar');
+    const avatarModal = document.getElementById('avatar-modal');
+    const closeModal = document.getElementById('close-modal');
+    const avatarsContainer = document.getElementById('avatars-container');
 
-            const username = localStorage.getItem('username');
-            const timestamp = new Date();
-            const messageData = {
-                username,
-                text: message,
-                timestamp,
-                avatar: selectedAvatar,
-                replyTo: replyToMessage
-            };
+    loginBtn.addEventListener('click', () => {
+        const username = document.getElementById('username').value.trim();
+        if (username) {
+            localStorage.setItem('username', username);
+            loginScreen.style.display = 'none';
+            avatarModal.style.display = 'flex'; // Show avatar selection modal
+        }
+    });
 
-            db.collection('messages').add(messageData)
-                .then(() => {
-                    messageInput.value = '';
-                    replyToMessage = null;
-                })
-                .catch(error => console.error('Error adding message: ', error));
-        });
+    avatarsContainer.addEventListener('click', (event) => {
+        if (event.target.classList.contains('avatar')) {
+            selectedAvatar = event.target.getAttribute('data-avatar');
+            avatarModal.style.display = 'none'; // Hide avatar modal
+            chatScreen.style.display = 'block'; // Show chat screen
+            userDisplay.textContent = `Korisnik: ${localStorage.getItem('username')}`;
+        }
+    });
 
-        // Load messages from Firestore
-        db.collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
-            chatBox.innerHTML = '';
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('message');
-                
-                if (data.avatar) {
-                    const avatarImg = document.createElement('img');
-                    avatarImg.src = data.avatar;
-                    messageDiv.appendChild(avatarImg);
-                }
-                
-                const messageText = document.createElement('div');
-                messageText.textContent = `${data.username}: ${data.text}`;
-                messageDiv.appendChild(messageText);
+    closeModal.addEventListener('click', () => {
+        avatarModal.style.display = 'none'; // Hide avatar modal
+    });
 
-                if (data.replyTo) {
-                    db.collection('messages').doc(data.replyTo).get().then(replyDoc => {
-                        const replyData = replyDoc.data();
-                        if (replyData) {
-                            const replyBox = document.createElement('div');
-                            replyBox.classList.add('reply-box');
+    sendBtn.addEventListener('click', () => {
+        const message = messageInput.value.trim();
+        if (message === '') return;
 
-                            const replyInfo = document.createElement('div');
-                            replyInfo.classList.add('reply-info');
-                            if (replyData.avatar) {
-                                const replyAvatar = document.createElement('img');
-                                replyAvatar.src = replyData.avatar;
-                                replyInfo.appendChild(replyAvatar);
-                            }
-                            const replyUser = document.createElement('span');
-                            replyUser.textContent = replyData.username;
-                            replyInfo.appendChild(replyUser);
-                            replyBox.appendChild(replyInfo);
+        const username = localStorage.getItem('username');
+        const avatar = selectedAvatar || 'default-avatar.png'; // Use selected avatar or default avatar
 
-                            const replyText = document.createElement('div');
-                            replyText.classList.add('reply-text');
-                            replyText.textContent = replyData.text;
-                            replyBox.appendChild(replyText);
+        const messageData = {
+            username: username,
+            avatar: avatar,
+            text: message, // Use 'text' here for consistency
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            replyTo: replyToMessage ? replyToMessage : null // Ensure replyTo is consistent
+        };
 
-                            messageDiv.appendChild(replyBox);
-                        }
-                    });
-                }
-
-                const replyBtn = document.createElement('button');
-                replyBtn.textContent = 'Odgovori';
-                replyBtn.classList.add('reply-btn');
-                replyBtn.addEventListener('click', () => {
-                    replyToMessage = doc.id;
-                });
-                messageDiv.appendChild(replyBtn);
-
-                if (localStorage.getItem('username') === data.username) {
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.textContent = 'Obriši';
-                    deleteBtn.classList.add('delete-btn');
-                    deleteBtn.addEventListener('click', () => {
-                        db.collection('messages').doc(doc.id).delete();
-                    });
-                    messageDiv.appendChild(deleteBtn);
-                }
-
-                chatBox.appendChild(messageDiv);
+        // Save message to Firestore
+        db.collection('messages').add(messageData)
+            .then(() => {
+                messageInput.value = '';
+                replyToMessage = null;
+            })
+            .catch((error) => {
+                console.error('Error sending message: ', error);
             });
+    });
+
+    // Load messages from Firestore
+    db.collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
+        chatBox.innerHTML = '';
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            
+            if (data.avatar) {
+                const avatarImg = document.createElement('img');
+                avatarImg.src = data.avatar;
+                messageDiv.appendChild(avatarImg);
+            }
+            
+            const messageText = document.createElement('div');
+            messageText.textContent = `${data.username}: ${data.text}`; // Use 'text' here for consistency
+            messageDiv.appendChild(messageText);
+
+            if (data.replyTo) {
+                db.collection('messages').doc(data.replyTo).get().then(replyDoc => {
+                    const replyData = replyDoc.data();
+                    if (replyData) {
+                        const replyBox = document.createElement('div');
+                        replyBox.classList.add('reply-box');
+
+                        const replyInfo = document.createElement('div');
+                        replyInfo.classList.add('reply-info');
+                        if (replyData.avatar) {
+                            const replyAvatar = document.createElement('img');
+                            replyAvatar.src = replyData.avatar;
+                            replyInfo.appendChild(replyAvatar);
+                        }
+                        const replyUser = document.createElement('span');
+                        replyUser.textContent = replyData.username;
+                        replyInfo.appendChild(replyUser);
+                        replyBox.appendChild(replyInfo);
+
+                        const replyText = document.createElement('div');
+                        replyText.classList.add('reply-text');
+                        replyText.textContent = replyData.text; // Use 'text' here for consistency
+                        replyBox.appendChild(replyText);
+
+                        messageDiv.appendChild(replyBox);
+                    }
+                });
+            }
+
+            const replyBtn = document.createElement('button');
+            replyBtn.textContent = 'Odgovori';
+            replyBtn.classList.add('reply-btn');
+            replyBtn.addEventListener('click', () => {
+                replyToMessage = doc.id;
+            });
+            messageDiv.appendChild(replyBtn);
+
+            if (localStorage.getItem('username') === data.username) {
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Obriši';
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.addEventListener('click', () => {
+                    db.collection('messages').doc(doc.id).delete();
+                });
+                messageDiv.appendChild(deleteBtn);
+            }
+
+            chatBox.appendChild(messageDiv);
         });
-        
-        
-    </script>
+    });
+
+    logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('username');
+        chatScreen.style.display = 'none';
+        loginScreen.style.display = 'block';
+    });
+</script>
+
 </body>
 </html>
