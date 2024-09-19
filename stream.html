@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brojač za Livestream</title>
+    <style>
+        body {
+            background-image: url('https://m.media-amazon.com/images/M/MV5BNjBjYzRkZjYtMDIwYy00Y2ZlLTg0Y2QtOWZiYzc2OTE1YjIzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg'); /* URL pozadinske slike */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Stil za okvir sa pozadinom slike */
+        .stream-container {
+            position: relative;
+            width: 90%;
+            max-width: 500px; /* Manje za mobilne uređaje */
+            background-image: url('https://www.epiphan.com/wp-content/uploads/2019/04/How-to-live-stream-an-event-well_FB.jpg'); /* URL slike za okvir */
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            padding: 15px; /* Smanjen padding za mobilne uređaje */
+            text-align: center;
+            border: 4px solid #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Smanjena senka oko okvira */
+        }
+
+        /* Stil za "LIVE" indikator */
+        .live-indicator {
+            color: white;
+            font-size: 16px; /* Manji font za mobilne uređaje */
+            background-color: red;
+            padding: 4px 8px; /* Manje padding za mobilne uređaje */
+            border-radius: 5px;
+            animation: blink 1s infinite;
+            display: inline-block;
+            margin-top: 10px; /* Razmak od ostalih elemenata */
+        }
+
+        /* Animacija za trepćući tekst */
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Stil za odbrojavanje */
+        .countdown {
+            font-size: 20px; /* Manji font za mobilne uređaje */
+            margin-top: 15px; /* Manji razmak od drugih elemenata */
+        }
+
+        /* Stil za tekstualni oblak */
+        .text-bubble {
+            position: absolute;
+            top: -150px; /* Manji razmak za mobilne uređaje */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.9); /* Intenzivnija pozadina */
+            color: white;
+            padding: 15px 20px; /* Veći padding za bolju vidljivost */
+            border-radius: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Veća senka oko oblaka */
+            font-size: 18px; /* Veći font za bolju čitljivost */
+            max-width: 250px; /* Veća širina za više teksta */
+            text-align: center;
+            font-weight: bold; /* Podebljan font */
+        }
+
+        /* Trogao za oblak */
+        .text-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -12px; /* Veći razmak za trokut */
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 12px; /* Veći trokut */
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+        }
+    </style>
+</head>
+<body>
+
+<div class="stream-container">
+    <!-- Tekstualni oblak za dodatne informacije -->
+    <div class="text-bubble">Crno Srce 2 Epizodu možete pratiti uživo</div>
+    
+    <!-- Trepćući LIVE indikator -->
+    <div class="live-indicator">LIVE</div>
+
+    <!-- Odbrojavanje vremena -->
+    <div class="countdown" id="countdown-timer">Preostalo vreme: 40 minuta</div>
+</div>
+
+<script>
+    // Postavljanje početnog vremena odbrojavanja (npr. 40 minuta)
+    let countdownTime = 40 * 60; // 40 minuta u sekundama
+
+    // Funkcija koja ažurira odbrojavanje
+    function updateCountdown() {
+        let minutes = Math.floor(countdownTime / 60);
+        let seconds = countdownTime % 60;
+
+        // Formatiranje sekundi
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        // Ažuriranje teksta odbrojavanja
+        document.getElementById('countdown-timer').textContent = `Prenos počinje za: ${minutes} minuta i ${seconds} sekundi`;
+
+        // Smanjivanje vremena
+        countdownTime--;
+
+        // Ako odbrojavanje dođe do kraja
+        if (countdownTime < 0) {
+            clearInterval(countdownInterval);
+            document.getElementById('countdown-timer').textContent = "Prenos je sada LIVE!";
+        }
+    }
+
+    // Ažuriranje odbrojavanja svakih 1 sekundu
+    let countdownInterval = setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
