@@ -1,535 +1,534 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: url('https://jelenasavic123.github.io/atv/pozadina2.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #fff;
-}
-
-/* Search Form Styles */
-#search-form {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
-    padding: 10px;
-    border-bottom: 1px solid #444;
-    display: flex;
-    justify-content: center;
-    z-index: 1000;
-}
-
-#search-form input[type="text"] {
-    padding: 5px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 5px;
-    width: 300px;
-}
-
-#search-form input[type="submit"] {
-    padding: 10px 5px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    background-color: #E50914; /* Netflix red */
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#search-form input[type="submit"]:hover {
-    background-color: #f40612; /* Darker Netflix red */
-}
-
-/* Container Styles */
-.container {
-    padding: 20px;
-    margin-top: 60px; /* Space below the fixed search form */
-}
-
-.container a {
-    float: left;
-    width: 48%;
-    margin-right: 4%; /* Space between images */
-    text-align: center;
-    color: #fff;
-    text-decoration: none;
-    box-sizing: border-box;
-}
-
-.container a:nth-child(2n) {
-    margin-right: 0; /* Remove margin for the second item in each row */
-}
-
-.container img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-/* Button and Section Styles */
-.section {
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.5); /* Overlay background */
-    background-image: url('https://jelenasavic123.github.io/atv/pozadina1.jpg'); /* Background image */
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative; /* Added for button positioning */
-}
-
-.section h2 {
-    margin-bottom: 10px;
-    font-size: 1.8em;
-    display: inline-block;
-}
-
-.section .button {
-    display: inline-block;
-    padding: 7px 10px;
-    font-size: 13px;
-    text-align: center;
-    text-decoration: none;
-    color: #fff; /* White text color */
-    border: 2px solid rgba(255, 255, 255, 0.9); /* Slightly more visible border */
-    border-radius: 15px;
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.3); /* Semi-transparent background for button */
-    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Smooth hover effects */
-    text-align: center; /* Center text */
-    margin-left: 20px; /* Space between title and button */
-}
-
-.carousel {
-    display: flex;
-    overflow-x: auto;
-    gap: 10px;
-    padding: 10px 0;
-}
-
-.carousel img {
-    height: 150px;
-    border-radius: 8px;
-}
-
-@media (max-width: 768px) {
-    .header img {
-        height: 30px;
-    }
-
-    .section h2 {
-        font-size: 1.5em;
-    }
-    .carousel img {
-        height: 120px;
-    }
-}
-
-.button-group {
-    display: flex;
-    justify-content: center; /* Center the buttons within the group */
-    margin-bottom: 15px; /* Space between rows */
-    padding: 5px; /* Padding within the group */
-    border-radius: 10px; /* Rounded corners */
-    background: rgba(255, 255, 255, 0.16);
-    position: relative; /* For positioning pseudo-elements */
-    overflow: hidden; /* Prevent background from overflowing */
-}
-
-.button-group .button {
-    display: inline-block;
-    padding: 8px;
-    font-size: 13px;
-    text-align: center;
-    text-decoration: none;
-    color: #fff; /* White text color */
-    border: 2px solid rgba(255, 255, 255, 0.9); /* Slightly more visible border */
-    border-radius: 15px;
-    cursor: pointer;
-    width: 150px; /* Fixed width for alignment */
-    box-sizing: border-box; /* Include padding in total width */
-    background: rgba(255, 255, 255, 0.3); /* Semi-transparent background for button */
-    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Smooth hover effects */
-    text-align: center; /* Center text */
-    margin: 0 10px; /* Space between buttons */
-}
-
-.button-group .button.left,
-.button-group .button.right {
-    background-color: rgba(255, 255, 255, 0.3); /* Button background */
-}
-
-.button-group:nth-child(1) .button {
-    background-color: rgba(216, 36, 120); /* More opaque background */
-    box-shadow: 0 4px 8px rgba(255, 87, 51, 0.7); /* Stronger shadow effect */
-}
-
-.button-group:nth-child(2) .button {
-    background-color: rgba(100, 255, 87, 0.5); /* More opaque background */
-    box-shadow: 0 4px 8px rgba(51, 255, 87, 0.7); /* Stronger shadow effect */
-}
-
-.button-group:nth-child(3) .button {
-    background-color: rgba(100, 87, 255, 0.5); /* More opaque background */
-    box-shadow: 0 4px 8px rgba(51, 87, 255, 0.7); /* Stronger shadow effect */
-}
-
-.button-group:nth-child(4) .button {
-    background-color: rgba(255, 51, 166, 0.5); /* More opaque background */
-    box-shadow: 0 4px 8px rgba(255, 51, 166, 0.7); /* Stronger shadow effect */
-}
-
-.button-group:nth-child(5) .button {
-    background-color: rgba(100, 100, 166, 0.5); /* More opaque background */
-    box-shadow: 0 4px 8px rgba(255, 51, 166, 0.7); /* Stronger shadow effect */
-}
-.button-group:nth-child(6) .button {
-    background-color: rgba(34, 153, 84); /* More opaque background */
-    box-shadow: 0 4px 8px rgba(223, 255, 0); /* Stronger shadow effect */
-}
-
+      /* General Styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url('https://jelenasavic123.github.io/atv/pozadina2.jpg') no-repeat center center fixed;
+        background-size: cover;
+        color: #fff;
+      }
+      /* Search Form Styles */
+      #search-form {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        /* Semi-transparent black */
+        padding: 10px;
+        border-bottom: 1px solid #444;
+        display: flex;
+        justify-content: center;
+        z-index: 1000;
+      }
+      #search-form input[type="text"] {
+        padding: 5px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 5px;
+        width: 300px;
+      }
+      #search-form input[type="submit"] {
+        padding: 10px 5px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        background-color: #E50914;
+        /* Netflix red */
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      #search-form input[type="submit"]:hover {
+        background-color: #f40612;
+        /* Darker Netflix red */
+      }
+      /* Container Styles */
+      .container {
+        padding: 20px;
+        margin-top: 60px;
+        /* Space below the fixed search form */
+      }
+      .container a {
+        float: left;
+        width: 48%;
+        margin-right: 4%;
+        /* Space between images */
+        text-align: center;
+        color: #fff;
+        text-decoration: none;
+        box-sizing: border-box;
+      }
+      .container a:nth-child(2n) {
+        margin-right: 0;
+        /* Remove margin for the second item in each row */
+      }
+      .container img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+      /* Button and Section Styles */
+      .section {
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        /* Overlay background */
+        background-image: url('https://jelenasavic123.github.io/atv/pozadina1.jpg');
+        /* Background image */
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        /* Added for button positioning */
+      }
+      .section h2 {
+        margin-bottom: 10px;
+        font-size: 1.8em;
+        display: inline-block;
+      }
+      .section .button {
+        display: inline-block;
+        padding: 7px 10px;
+        font-size: 13px;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        /* White text color */
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        /* Slightly more visible border */
+        border-radius: 15px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.3);
+        /* Semi-transparent background for button */
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        /* Smooth hover effects */
+        text-align: center;
+        /* Center text */
+        margin-left: 20px;
+        /* Space between title and button */
+      }
+      .carousel {
+        display: flex;
+        overflow-x: auto;
+        gap: 10px;
+        padding: 10px 0;
+      }
+      .carousel img {
+        height: 150px;
+        border-radius: 8px;
+      }
+      @media (max-width: 768px) {
+        .header img {
+          height: 30px;
+        }
+        .section h2 {
+          font-size: 1.5em;
+        }
+        .carousel img {
+          height: 120px;
+        }
+      }
+      .button-group {
+        display: flex;
+        justify-content: center;
+        /* Center the buttons within the group */
+        margin-bottom: 15px;
+        /* Space between rows */
+        padding: 5px;
+        /* Padding within the group */
+        border-radius: 10px;
+        /* Rounded corners */
+        background: rgba(255, 255, 255, 0.16);
+        position: relative;
+        /* For positioning pseudo-elements */
+        overflow: hidden;
+        /* Prevent background from overflowing */
+      }
+      .button-group .button {
+        display: inline-block;
+        padding: 8px;
+        font-size: 13px;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        /* White text color */
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        /* Slightly more visible border */
+        border-radius: 15px;
+        cursor: pointer;
+        width: 150px;
+        /* Fixed width for alignment */
+        box-sizing: border-box;
+        /* Include padding in total width */
+        background: rgba(255, 255, 255, 0.3);
+        /* Semi-transparent background for button */
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        /* Smooth hover effects */
+        text-align: center;
+        /* Center text */
+        margin: 0 10px;
+        /* Space between buttons */
+      }
+      .button-group .button.left,
+      .button-group .button.right {
+        background-color: rgba(255, 255, 255, 0.3);
+        /* Button background */
+      }
+      .button-group:nth-child(1) .button {
+        background-color: rgba(216, 36, 120);
+        /* More opaque background */
+        box-shadow: 0 4px 8px rgba(255, 87, 51, 0.7);
+        /* Stronger shadow effect */
+      }
+      .button-group:nth-child(2) .button {
+        background-color: rgba(100, 255, 87, 0.5);
+        /* More opaque background */
+        box-shadow: 0 4px 8px rgba(51, 255, 87, 0.7);
+        /* Stronger shadow effect */
+      }
+      .button-group:nth-child(3) .button {
+        background-color: rgba(100, 87, 255, 0.5);
+        /* More opaque background */
+        box-shadow: 0 4px 8px rgba(51, 87, 255, 0.7);
+        /* Stronger shadow effect */
+      }
+      .button-group:nth-child(4) .button {
+        background-color: rgba(255, 51, 166, 0.5);
+        /* More opaque background */
+        box-shadow: 0 4px 8px rgba(255, 51, 166, 0.7);
+        /* Stronger shadow effect */
+      }
+      .button-group:nth-child(5) .button {
+        background-color: rgba(100, 100, 166, 0.5);
+        /* More opaque background */
+        box-shadow: 0 4px 8px rgba(255, 51, 166, 0.7);
+        /* Stronger shadow effect */
+      }
+      .button-group:nth-child(6) .button {
+        background-color: rgba(34, 153, 84);
+        /* More opaque background */
+        box-shadow: 0 4px 8px rgba(223, 255, 0);
+        /* Stronger shadow effect */
+      }
     </style>
-</head>
-
-<body>
-
-<div id="search-form">
-  <form id="search-form" onsubmit="performSearch(event)">
-    <input type="text" id="search-input" name="q" placeholder="Pretraži serije..." required>
-    <input type="submit" value="Pretraži">
-  </form>
-</div>
-
-    <div class="container">
-        <div class="button-group">
-            <a href="https://www.svenadlanuplus.club/p/vase-omiljene-serije.html" class="button left">❤️Vaša lista omiljenih serija</a>
-        </div>
-        <div class="button-group">
-            <a href="https://www.svenadlanuplus.club/p/blog-page_2.html" class="button left">Turske Serije</a>
-            <a href="https://www.svenadlanuplus.club/p/recent-posts-dodatak-za-stiliziranje.html" class="button right">Zadnje Objave</a>
-        </div>
-         <div class="button-group">
-            <a href="https://www.svenadlanuplus.club/p/najgedanije.html" class="button left">Najgledanije</a>
-            <a href="https://www.svenadlanuplus.club/p/nasa-preporuka.html" class="button right">Preporučujemo</a>
-        </div>
-        <div class="button-group">
-            <a href="https://www.svenadlanuplus.club/p/zanr.html" class="button left">Pretraga žanra</a>
-            <a href="https://www.svenadlanuplus.club/p/function-renderlabelpostsjson-var-label.html" class="button right">Godine</a>
-        </div>
-        <div class="button-group">
-            <a href="https://turksifilmovi.blogspot.com" class="button left">Turski Filmovi</a>
-            <a href="https://www.svenadlanuplus.club/p/tv-uzivo.html" class="button right">TVuživo</a>
-        </div>
-        <div class="button-group">
-            <a href="https://jelenasavic123.github.io/atv/tvprogram.html" class="button left">Očekivane sledeće Epz</a>
-        </div>
-        <p><strong>Obaveštenje:</strong> Ako imate problema sa pristupom turskim serijama i najnovijim objavama, molimo vas da kliknete na Rezervni ulaz.</p>
-                <div class="button-group">
-                <a href="https://dmcfilmvi.blogspot.com/p/sve-serije.html" class="button left">Rezervni ulaz</a>
-        </div>
-        
-        
-            <div style="font:11px arial; color:gray; text-align:center" class="OPP-linkBack"><a style="text-decoration:none;" href="https://www.easypolls.net">online polls</a></div>
-            <script type='text/javascript' src='https://vote.easypolls.net/em.js' data-id='66ec01e365bb2c006190c4da' data-width="300px" data-height="300px"></script>
-          
+  </head>
+  <body>
+    <div id="search-form">
+      <form id="search-form" onsubmit="performSearch(event)">
+        <input type="text" id="search-input" name="q" placeholder="Pretraži serije..." required>
+        <input type="submit" value="Pretraži">
+      </form>
     </div>
+    <div class="container">
+      <div class="button-group">
+        <a href="https://www.svenadlanuplus.club/p/vase-omiljene-serije.html" class="button left">❤️Vaša lista omiljenih serija</a>
+      </div>
+      <div class="button-group">
+        <a href="https://www.svenadlanuplus.club/p/blog-page_2.html" class="button left">Turske Serije</a>
+        <a href="https://www.svenadlanuplus.club/p/recent-posts-dodatak-za-stiliziranje.html" class="button right">Zadnje Objave</a>
+      </div>
+      <div class="button-group">
+        <a href="https://www.svenadlanuplus.club/p/najgedanije.html" class="button left">Najgledanije</a>
+        <a href="https://www.svenadlanuplus.club/p/nasa-preporuka.html" class="button right">Preporučujemo</a>
+      </div>
+      <div class="button-group">
+        <a href="https://www.svenadlanuplus.club/p/zanr.html" class="button left">Pretraga žanra</a>
+        <a href="https://www.svenadlanuplus.club/p/function-renderlabelpostsjson-var-label.html" class="button right">Godine</a>
+      </div>
+      <div class="button-group">
+        <a href="https://turksifilmovi.blogspot.com" class="button left">Turski Filmovi</a>
+        <a href="https://www.svenadlanuplus.club/p/tv-uzivo.html" class="button right">TVuživo</a>
+      </div>
+      <div class="button-group">
+        <a href="https://jelenasavic123.github.io/atv/tvprogram.html" class="button left">Očekivane sledeće Epz</a>
+      </div>
+      <p><strong>Obaveštenje:</strong> Ako imate problema sa pristupom turskim serijama i najnovijim objavama, molimo vas da kliknete na Rezervni ulaz.</p>
+      <div class="button-group">
+        <a href="https://dmcfilmvi.blogspot.com/p/sve-serije.html" class="button left">Rezervni ulaz</a>
+      </div>
+      <div style="font:11px arial; color:gray; text-align:center" class="OPP-linkBack"><a style="text-decoration:none;" href="https://www.easypolls.net">online polls</a></div>
+    </div>
+
     <!-- Featured and Popular Section -->
     <div class="section">
-        <h2>Popularne Serije</h2>
-        <a href="https://www.svenadlanuplus.club/p/najgedanije.html" class="button">Otvori</a>
-        <div class="carousel">
-            <a href="https://www.svenadlanuplus.club/2024/09/nocna-prica-bir-gece-masali.html" data-content="content1" class="content-link">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh_f0wzK8YovkpnVq7833N7Cdvt1ma62bbAXqfBMHrxjH4-W2kwhqRK4mjlclDtPzxG93pbIFxYYRehzwWOkz-Rf9QTStymfoKX08Dmj7SEzF-YVLdQ2ly63YUnVJpLni9uODVdm8uDx2bLH7mv3eof4Nq7o_46cX1YPyIt5623kHflieLm8iA74zu2CuU9/w680/Nocna%20Prica.jpg" alt="Sanjalica">
-            </a><a href="https://www.svenadlanuplus.club/2022/12/iznajmljena-ljubav-kiralk-ask.html" data-content="content1" class="content-link">
-                <img src="https://blogger.googleusercontent.com/img/a/AVvXsEiGDWvYZhLiCrvcgRanzKbU_D5lwt4pErrE0Agf5CJbj_N0V-JHgjknHCb_Mc8W3bJDPZtsjsaJn4locMWeFV5C2RQCkCaPaymZM6wxbhUEj-EK4pNP3B4cs_k2U0Q9z-U2NWd333tB03736snXN1Htt8Dyt9LfZLUBcaQ3ODWcbBtdHA_wgpp79ZrmBg=w680" alt="Sanjalica">
-            </a><a href="https://www.svenadlanuplus.club/2023/09/divlji-yabani.html" data-content="content1" class="content-link">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh1pTj6FvcqZivs1Pv6aBl8MedjcK0PMn7Ia-vzKEMr4VEt0_EbGIH5Bpgg2W2CES4xqPrTrKJCvWHGAd_52-RnbNdmzbVOAtAmhJwYDtFwXYVn7cTCTG1IZcmDqC76qRshJBqUBwqBkOUXE5SXpKaEAeP9YMkiub0hFbxaf-BVIPKHOdoEkIpmer_ZeIcJ/s320-rw/DIVLJI.jpg" alt="Sanjalica">
-            </a> 
-            <a href="https://www.svenadlanuplus.club/2023/01/tri-sestre-uc-kz-kardeas.html" data-content="content1" class="content-link">
-                <img src="https://blogger.googleusercontent.com/img/a/AVvXsEiz8TTXsMYMWmpQg5OwLpeGb-I67MafM3RFBQli2ptexRg_tmRGNsJOAiLcHVKoAlx9AFXyG6r3dVvBlg1SIWxR_LphL9P1dZLuK1KaqaGNTqSFH63JXwW9tzp1-0ABk_PNCGzOE_JFzH324yaME9_zg3LxjpT5qXKuYK7RKR4_w_PcKHBCgmMVdjyfnA=s55-w680-c" alt="Vodomar">
-            </a>
-            <a href="https://www.svenadlanuplus.club/2023/08/rezervna-stranica-vodomar-36epz-vodomar_23.html" data-content="content1" class="content-link">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhdeA7xmyohiXxJrHZ0mOLVXZOn3DgpNqcnZB8fgT1vIHVmNG0h3UAuMvm3njRF7ZVRLZbmfMSNrNErOqUuuhlotKDbVRYvbTcMQRaeicXFGwe5viJm53Is03IMo1qeHQMSLD_ZC5ftRbT2tKaTmQ5JcpYDkdpNKE05pKUJisgMfAPDz4rtK3DhXIsveg/s320-rw/Vodomar.jpg" alt="Spasenje">
-            </a>
-            
-        </div>
-        
+      <h2>Popularne Serije</h2>
+      <a href="https://www.svenadlanuplus.club/p/najgedanije.html" class="button">Otvori</a>
+      <div class="carousel">
+        <a href="https://www.svenadlanuplus.club/2024/09/nocna-prica-bir-gece-masali.html" data-content="content1" class="content-link">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh_f0wzK8YovkpnVq7833N7Cdvt1ma62bbAXqfBMHrxjH4-W2kwhqRK4mjlclDtPzxG93pbIFxYYRehzwWOkz-Rf9QTStymfoKX08Dmj7SEzF-YVLdQ2ly63YUnVJpLni9uODVdm8uDx2bLH7mv3eof4Nq7o_46cX1YPyIt5623kHflieLm8iA74zu2CuU9/w680/Nocna%20Prica.jpg" alt="Sanjalica">
+        </a><a href="https://www.svenadlanuplus.club/2022/12/iznajmljena-ljubav-kiralk-ask.html" data-content="content1" class="content-link">
+          <img src="https://blogger.googleusercontent.com/img/a/AVvXsEiGDWvYZhLiCrvcgRanzKbU_D5lwt4pErrE0Agf5CJbj_N0V-JHgjknHCb_Mc8W3bJDPZtsjsaJn4locMWeFV5C2RQCkCaPaymZM6wxbhUEj-EK4pNP3B4cs_k2U0Q9z-U2NWd333tB03736snXN1Htt8Dyt9LfZLUBcaQ3ODWcbBtdHA_wgpp79ZrmBg=w680" alt="Sanjalica">
+        </a><a href="https://www.svenadlanuplus.club/2023/09/divlji-yabani.html" data-content="content1" class="content-link">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh1pTj6FvcqZivs1Pv6aBl8MedjcK0PMn7Ia-vzKEMr4VEt0_EbGIH5Bpgg2W2CES4xqPrTrKJCvWHGAd_52-RnbNdmzbVOAtAmhJwYDtFwXYVn7cTCTG1IZcmDqC76qRshJBqUBwqBkOUXE5SXpKaEAeP9YMkiub0hFbxaf-BVIPKHOdoEkIpmer_ZeIcJ/s320-rw/DIVLJI.jpg" alt="Sanjalica">
+        </a>
+        <a href="https://www.svenadlanuplus.club/2023/01/tri-sestre-uc-kz-kardeas.html" data-content="content1" class="content-link">
+          <img src="https://blogger.googleusercontent.com/img/a/AVvXsEiz8TTXsMYMWmpQg5OwLpeGb-I67MafM3RFBQli2ptexRg_tmRGNsJOAiLcHVKoAlx9AFXyG6r3dVvBlg1SIWxR_LphL9P1dZLuK1KaqaGNTqSFH63JXwW9tzp1-0ABk_PNCGzOE_JFzH324yaME9_zg3LxjpT5qXKuYK7RKR4_w_PcKHBCgmMVdjyfnA=s55-w680-c" alt="Vodomar">
+        </a>
+        <a href="https://www.svenadlanuplus.club/2023/08/rezervna-stranica-vodomar-36epz-vodomar_23.html" data-content="content1" class="content-link">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhdeA7xmyohiXxJrHZ0mOLVXZOn3DgpNqcnZB8fgT1vIHVmNG0h3UAuMvm3njRF7ZVRLZbmfMSNrNErOqUuuhlotKDbVRYvbTcMQRaeicXFGwe5viJm53Is03IMo1qeHQMSLD_ZC5ftRbT2tKaTmQ5JcpYDkdpNKE05pKUJisgMfAPDz4rtK3DhXIsveg/s320-rw/Vodomar.jpg" alt="Spasenje">
+        </a>
+      </div>
     </div>
-    
     <div class="section">
-        <h2>Predlazemo Vam</h2>
-        <a href="https://www.svenadlanuplus.club/p/izdvajamo-serije-koje-najcesce.html" class="button">Otvori</a>
-        <div class="carousel">
-            <a href="https://www.svenadlanuplus.club/2023/01/miris-jagoda-cilek-kokusu.html" data-content="content1" class="content-link">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjf_lIPM5XKXA7t3XtfEzLS3Fhh8HErCEwa9fsJWXmpuZSrpxHRksePgJkXqoWy_paaYIuSr91fTSPzJ2AyX9_kGfcRHEw1YK2Di9BoLK-El033CsJ7CFVCRbEb4ykPzcCTt75NGn9Rr9LnhNRbDBQ5LgH1tEOevjsR-IcOpDCVwDMdD7akgFZ5m5chElDU/w680/Miris%20jagoda.jpg" alt="Super Hero">
-            </a><a href="https://www.svenadlanuplus.club/2022/11/crno-more-ispricaj-im-ti-njena-sudbina.html" data-content="content1" class="content-link">
-                <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgLJ0o-u5EgigOQBrIPQUhV7xlxBoofHJGiNUDXFeUwqXQti7JexxKqR56S1m7cOJh-zRhassggsX0_G5JpDmF7XdiKAxn1OZofYJX8IObXJ9rIoKbUv7IpfvfU6pQxRjBpuYnskB2pzSdTr2E3MZ6Oyz6Y2C6gYQE-RIXzlFBnxa-5MkypUHIoONBC9w=s55-w680-c" alt="Super Hero">
-            </a><a href="https://www.svenadlanuplus.club/2023/07/ako-volis-previse-ya-cok-seversen_31.html" data-content="content1" class="content-link">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjSwVdeNjhryU1IlpMwOeNavC2X3F4s5-W1R5lMC3qcInaXYYK9Lsn9OdnpH2CTTVG6l9jOxt9KKc6xtqqplel2owU5rK5KEpciYXZxHa9X7rk6qHGr1ezHE9JsNE5aiO3__H7SX_D4F8o_jmueWv5nKvZd7_WE-zowaQBchKA9oiuZjmB7L2S7ET6_tezZ/s320-rw/Ako%20volis%20previse.jpg" alt="Super Hero">
-            </a><a href="https://www.svenadlanuplus.club/2023/01/caj-od-brusnice-kizilcik-serbeti.html" data-content="content1" class="content-link">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGHxXA20iDKkKuyKM51nVVk6ZrrHppfHktn3QB9N6Vlkr3X7z5w7xawUgP27TDl4TjOZ-GvrNUmhNsO3daqbrF-PKdU7GoWlVzyHgVX9ztrN3gPdx-GCsVuusWzA0Jyia8CiOW4QgufRJ1HmydltN6-v9RIGJKv6FN2M8A4HD0Jmdw6xNmu-xA7Z-BrQ/s320-rw/Caj%20od%20brusnice.JPG" alt="Super Hero">
-            </a>
-            <a href="https://www.svenadlanuplus.club/2023/01/zabranjena-jabuka-yasak-elma.html" data-content="content1" class="content-link">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjBOg6S6M8B455Z5SEn45qVSpCkWQUFBSmoCPmFn-rQgOzQP291I3k3C7ukDIyDBeVDKCWp1FEasTQk6cYFFrP9yto5ozh65CmGvg9KKLBmYcPRTgQP58g5JuKoS4qqncbebcKcrwoxQj4l/s0-rw/zabranjena.jba.jpg" alt="Super Hero">
-            </a>
-            <a href="https://www.svenadlanuplus.club/2023/01/spasenje-eserat.html" data-content="content1" class="content-link">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680-rw/Spasenje.jpg" alt="Super Hero">
-            </a>
-        </div>
-    <div class="container">
+      <h2>Predlazemo Vam</h2>
+      <a href="https://www.svenadlanuplus.club/p/izdvajamo-serije-koje-najcesce.html" class="button">Otvori</a>
+      <div class="carousel">
+        <a href="https://www.svenadlanuplus.club/2023/01/miris-jagoda-cilek-kokusu.html" data-content="content1" class="content-link">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjf_lIPM5XKXA7t3XtfEzLS3Fhh8HErCEwa9fsJWXmpuZSrpxHRksePgJkXqoWy_paaYIuSr91fTSPzJ2AyX9_kGfcRHEw1YK2Di9BoLK-El033CsJ7CFVCRbEb4ykPzcCTt75NGn9Rr9LnhNRbDBQ5LgH1tEOevjsR-IcOpDCVwDMdD7akgFZ5m5chElDU/w680/Miris%20jagoda.jpg" alt="Super Hero">
+        </a><a href="https://www.svenadlanuplus.club/2022/11/crno-more-ispricaj-im-ti-njena-sudbina.html" data-content="content1" class="content-link">
+          <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgLJ0o-u5EgigOQBrIPQUhV7xlxBoofHJGiNUDXFeUwqXQti7JexxKqR56S1m7cOJh-zRhassggsX0_G5JpDmF7XdiKAxn1OZofYJX8IObXJ9rIoKbUv7IpfvfU6pQxRjBpuYnskB2pzSdTr2E3MZ6Oyz6Y2C6gYQE-RIXzlFBnxa-5MkypUHIoONBC9w=s55-w680-c" alt="Super Hero">
+        </a><a href="https://www.svenadlanuplus.club/2023/07/ako-volis-previse-ya-cok-seversen_31.html" data-content="content1" class="content-link">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjSwVdeNjhryU1IlpMwOeNavC2X3F4s5-W1R5lMC3qcInaXYYK9Lsn9OdnpH2CTTVG6l9jOxt9KKc6xtqqplel2owU5rK5KEpciYXZxHa9X7rk6qHGr1ezHE9JsNE5aiO3__H7SX_D4F8o_jmueWv5nKvZd7_WE-zowaQBchKA9oiuZjmB7L2S7ET6_tezZ/s320-rw/Ako%20volis%20previse.jpg" alt="Super Hero">
+        </a><a href="https://www.svenadlanuplus.club/2023/01/caj-od-brusnice-kizilcik-serbeti.html" data-content="content1" class="content-link">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGHxXA20iDKkKuyKM51nVVk6ZrrHppfHktn3QB9N6Vlkr3X7z5w7xawUgP27TDl4TjOZ-GvrNUmhNsO3daqbrF-PKdU7GoWlVzyHgVX9ztrN3gPdx-GCsVuusWzA0Jyia8CiOW4QgufRJ1HmydltN6-v9RIGJKv6FN2M8A4HD0Jmdw6xNmu-xA7Z-BrQ/s320-rw/Caj%20od%20brusnice.JPG" alt="Super Hero">
+        </a>
+        <a href="https://www.svenadlanuplus.club/2023/01/zabranjena-jabuka-yasak-elma.html" data-content="content1" class="content-link">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjBOg6S6M8B455Z5SEn45qVSpCkWQUFBSmoCPmFn-rQgOzQP291I3k3C7ukDIyDBeVDKCWp1FEasTQk6cYFFrP9yto5ozh65CmGvg9KKLBmYcPRTgQP58g5JuKoS4qqncbebcKcrwoxQj4l/s0-rw/zabranjena.jba.jpg" alt="Super Hero">
+        </a>
+        <a href="https://www.svenadlanuplus.club/2023/01/spasenje-eserat.html" data-content="content1" class="content-link">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680-rw/Spasenje.jpg" alt="Super Hero">
+        </a>
+      </div>
+      <div class="container">
         <a href="https://www.svenadlanuplus.club/2023/01/ljubav-na-pomolu-afili-ask.html">
-            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgoFTw8N7QI2Ezg3SpEuDiv9sz4F7_H4IsNFuoVmoFhft78hgiPDPQk0lqz2gBtNJCGfw6EYMfLjK0-9DonBTzkHLKuaH_1Z_2Td5xV-LGq5vsNcG_pYj3vsXwv1fDwVZ5MoZ_m7J6U4sHYwArMJU4tPW6fcUuUqXg2DzPEAIErnfia005yMZyxhl33pw=w680-rw" alt="Image 1">
+          <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgoFTw8N7QI2Ezg3SpEuDiv9sz4F7_H4IsNFuoVmoFhft78hgiPDPQk0lqz2gBtNJCGfw6EYMfLjK0-9DonBTzkHLKuaH_1Z_2Td5xV-LGq5vsNcG_pYj3vsXwv1fDwVZ5MoZ_m7J6U4sHYwArMJU4tPW6fcUuUqXg2DzPEAIErnfia005yMZyxhl33pw=w680-rw" alt="Image 1">
         </a>
         <a href="https://www.svenadlanuplus.club/2024/08/crno-bela-ljubav-32-kraj-crno-bela.html">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj77JQ7t7updw-3LypGz67GOOb9-rgalxN59SBYcVRieT6FS4xk6E_oTVZihgDi6nuzS5MwVOKna5fPKM-CEVDAkUcFYLDFr5jogYBqgWLCjmia8XdlIN3zcjK-G2IfiG_vP3iHh14DzMaD4DeWsKa1YXTVtJcaxY7vIkkj7gOeF4oSjO0HS3fzffl1wF82/w680-rw/Crno%20bela.jpg" alt="Image 2">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj77JQ7t7updw-3LypGz67GOOb9-rgalxN59SBYcVRieT6FS4xk6E_oTVZihgDi6nuzS5MwVOKna5fPKM-CEVDAkUcFYLDFr5jogYBqgWLCjmia8XdlIN3zcjK-G2IfiG_vP3iHh14DzMaD4DeWsKa1YXTVtJcaxY7vIkkj7gOeF4oSjO0HS3fzffl1wF82/w680-rw/Crno%20bela.jpg" alt="Image 2">
         </a>
-    </div>
-    <div class="container">
+      </div>
+      <div class="container">
         <a href="https://www.svenadlanuplus.club/2024/07/sunce-nad-mrazom-ayazin-sonu-gunes-kraj.html">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiniGGpvVAcVq8OFa8dBlW8-W4GnqYiHNpRl8V84DSVWXSMtwBMGTpU7IBl9auk1qvyGepGnMXsC0jJ_3ExQpna70CfDdRlIOG-erYbGIbyoDl0hLo5teq8E2kv7zbwjECmdTMd7BQ30oAliL5UGOWzmFp1LsGjhM7qGU0MjufKt5iWVZ2hwxXCRrQytXtz/s55-w680-c/Sunce%20nad%20mrazom.jpg" alt="Image 1">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiniGGpvVAcVq8OFa8dBlW8-W4GnqYiHNpRl8V84DSVWXSMtwBMGTpU7IBl9auk1qvyGepGnMXsC0jJ_3ExQpna70CfDdRlIOG-erYbGIbyoDl0hLo5teq8E2kv7zbwjECmdTMd7BQ30oAliL5UGOWzmFp1LsGjhM7qGU0MjufKt5iWVZ2hwxXCRrQytXtz/s55-w680-c/Sunce%20nad%20mrazom.jpg" alt="Image 1">
         </a>
         <a href="https://www.svenadlanuplus.club/2024/02/nevesta-gelin.html">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s55-w680-c/Gelin1.jpg" alt="Image 2">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s55-w680-c/Gelin1.jpg" alt="Image 2">
         </a>
-    </div>
-
-    <div class="container">
+      </div>
+      <div class="container">
         <a href="https://www.svenadlanuplus.club/2024/05/ljubicasto-kao-more-viola-come-il-mare.html">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjCSiNEFsNJxVcP32Y527UJuSaBm2FVnk6IMkppYVXzSrCrT_I1xjuCybUQAfFfTarhUjAYGCA41h8UmVGEW7xVDdwume68CCQZfubNAfnsNzZJPHqukDhMHDCvLjfT5CJhRuRII5eAYC0Dj0Pr7q-J3iBXt1mT_wSQDyg8xeKAUfotG4rZLb6LV_u_AIch/s320-rw/LJUBI%C4%8CASTA%20KAO%20MORE.jpg" alt="Image 1">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjCSiNEFsNJxVcP32Y527UJuSaBm2FVnk6IMkppYVXzSrCrT_I1xjuCybUQAfFfTarhUjAYGCA41h8UmVGEW7xVDdwume68CCQZfubNAfnsNzZJPHqukDhMHDCvLjfT5CJhRuRII5eAYC0Dj0Pr7q-J3iBXt1mT_wSQDyg8xeKAUfotG4rZLb6LV_u_AIch/s320-rw/LJUBI%C4%8CASTA%20KAO%20MORE.jpg" alt="Image 1">
         </a>
         <a href="https://www.svenadlanuplus.club/2024/07/seti-se-gonul-hatirla-gonul.html">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi149d6Ahy3gyuNt_tNqt00d9PCpdtC-AD0XnP69KuK5ldKjH2WEnL7RvV8-WNV-jsh6holr5aqpfvkLlc3pbmvnOtsW4LhtL3dLiMNpelqh6rMvlsUbGt1D6H5cH7euACXlA-WpXvY8vsR15QZz5RCJpvX348ZNTwmefwkZVfL4ffjh0dp1PB-Z7X1l590/w680-rw/HATIRLA%20GONUL.JPG" alt="Image 2">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi149d6Ahy3gyuNt_tNqt00d9PCpdtC-AD0XnP69KuK5ldKjH2WEnL7RvV8-WNV-jsh6holr5aqpfvkLlc3pbmvnOtsW4LhtL3dLiMNpelqh6rMvlsUbGt1D6H5cH7euACXlA-WpXvY8vsR15QZz5RCJpvX348ZNTwmefwkZVfL4ffjh0dp1PB-Z7X1l590/w680-rw/HATIRLA%20GONUL.JPG" alt="Image 2">
         </a>
-    </div>
-
-    <div class="container">
+      </div>
+      <div class="container">
         <a href="https://www.svenadlanuplus.club/2022/12/sanjalica-erkenci-kus.html">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjFXzs8-LbtQ6ZPSnTZxYRblMbmWfXAAGObeI8zp9FjTb0BlOoQZGkYlo0QS5gHVgrosH-wAIk13WhfhXyHUyNd8bhO5FBXZe7HpQLaRdTTm9abRcDDTsow8HNEOjT4Xhy0OH6qpLILYNv0E59cjfozJeRLoi8NWXphwj4O-RC_8JBxZDeU7UBYDFWlVSXY/s320-rw/Sanalica1.jpg" alt="Image 1">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjFXzs8-LbtQ6ZPSnTZxYRblMbmWfXAAGObeI8zp9FjTb0BlOoQZGkYlo0QS5gHVgrosH-wAIk13WhfhXyHUyNd8bhO5FBXZe7HpQLaRdTTm9abRcDDTsow8HNEOjT4Xhy0OH6qpLILYNv0E59cjfozJeRLoi8NWXphwj4O-RC_8JBxZDeU7UBYDFWlVSXY/s320-rw/Sanalica1.jpg" alt="Image 1">
         </a>
         <a href="https://www.svenadlanuplus.club/2024/07/ru-1-epz-input-position-absolute-left.html">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhNvtAzIKCaNgMgUAC6CvcW3HzUrywHN8Dn1qVoyftRO39i9QM8DGGeCQyqFEFqgMlB9RYzABSM0_jhKgf6cynF1PKRezV4krtfIhiPrn_jU6f4CRa2jOQdkOVdDSBaLTX7PZmQEyzeXGAbjFWI2dZ0F6TU0yoWQRvN_ar95aOmOapdEauWdjXgdtAvErr4/w680-rw/ru.JPG" alt="Image 2">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhNvtAzIKCaNgMgUAC6CvcW3HzUrywHN8Dn1qVoyftRO39i9QM8DGGeCQyqFEFqgMlB9RYzABSM0_jhKgf6cynF1PKRezV4krtfIhiPrn_jU6f4CRa2jOQdkOVdDSBaLTX7PZmQEyzeXGAbjFWI2dZ0F6TU0yoWQRvN_ar95aOmOapdEauWdjXgdtAvErr4/w680-rw/ru.JPG" alt="Image 2">
         </a>
-    </div>
-    <div class="container">
+      </div>
+      <div class="container">
         <a href="https://www.svenadlanuplus.club/2024/08/drvo-masline-zeytin-agaci.html">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhicO14aSWmn8uIyqcHhfc5X5hnk20X0XH9Jcb6I_RJCJXgwRPHuXXYWJfyORDSgwmSN7bKpMSsRAotoKX8QGbus2v3wjHkPUDb7zJWUaoV6LxUZNjbruFTwAQfnFYuWQQde0G_VtMivXyDNjp953RlkVspNnOhfKe730y9S-0styxdj4orgUruMHfGwvjw/w680-rw/Drvo%20masline.jpg" alt="Image 1">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhicO14aSWmn8uIyqcHhfc5X5hnk20X0XH9Jcb6I_RJCJXgwRPHuXXYWJfyORDSgwmSN7bKpMSsRAotoKX8QGbus2v3wjHkPUDb7zJWUaoV6LxUZNjbruFTwAQfnFYuWQQde0G_VtMivXyDNjp953RlkVspNnOhfKe730y9S-0styxdj4orgUruMHfGwvjw/w680-rw/Drvo%20masline.jpg" alt="Image 1">
         </a>
         <a href="https://www.svenadlanuplus.club/2024/01/vetroviti-breg-ruzgarli-tepe.html">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjiKxEyXz64gcN3JoFjbRSN8Wf31SGlcEnqaMlENc6H_R87tO6wQLZfcX-CRb8B5gznEmvPDIz2fVcEr-qS8jRR2uT7fJ1sUdTo6GpjAN5uwNGcol5hBq33SFnOB8YGQJJk46pvFdb_o3AT_0OsDKNofYHRRKfo9zU8WXEuX5bkexc98TAgSesGP0-GVDPN/s320-rw/VETROVITI%20BREG.jpg" alt="Image 2">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjiKxEyXz64gcN3JoFjbRSN8Wf31SGlcEnqaMlENc6H_R87tO6wQLZfcX-CRb8B5gznEmvPDIz2fVcEr-qS8jRR2uT7fJ1sUdTo6GpjAN5uwNGcol5hBq33SFnOB8YGQJJk46pvFdb_o3AT_0OsDKNofYHRRKfo9zU8WXEuX5bkexc98TAgSesGP0-GVDPN/s320-rw/VETROVITI%20BREG.jpg" alt="Image 2">
         </a>
-    </div>
-    <div class="container">
+      </div>
+      <div class="container">
         <a href="https://www.svenadlanuplus.club/2024/06/vrata-sudbine-zamanin-kapilari.html">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiKi1mNZi0Med5PRvHBG3sRt4Xn1bCVYnaXzmOuF371PoWRFng_EqupEInBycMyN0qV0mOSvRuM7lZwZ3NGTDWVJ0PlwUWSk03k4CWO5CYQvkC-r7XNYMfJD-ieX4VAIBQYP4CD59-wYC_k-i5lFiXDLsBXr3-hTCcjZRg0S0fQ0ytXOOgGVbVycX3T_knb/s320-rw/Vrata%20sudbine.jpg" alt="Image 1">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiKi1mNZi0Med5PRvHBG3sRt4Xn1bCVYnaXzmOuF371PoWRFng_EqupEInBycMyN0qV0mOSvRuM7lZwZ3NGTDWVJ0PlwUWSk03k4CWO5CYQvkC-r7XNYMfJD-ieX4VAIBQYP4CD59-wYC_k-i5lFiXDLsBXr3-hTCcjZRg0S0fQ0ytXOOgGVbVycX3T_knb/s320-rw/Vrata%20sudbine.jpg" alt="Image 1">
         </a>
         <a href="https://www.svenadlanuplus.club/2021/11/pokucaj-na-moja-vrata-sen-cam-kamimi.html">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmP8NRiaUECgWfyecGIjWWRzNruG9rz6LYVWsgFDl-ef_ZSjt0nbSOu5-KVsKRPfyHxe933MZbj5NeheavSITbrTgL4ClUmGd0Tv59R0jjf8LjGoa_ooQHdTQj3r13eMhOwNwyQKpZGR3D/w680/pkc+na+moja+vrata.jpg" alt="Image 2">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmP8NRiaUECgWfyecGIjWWRzNruG9rz6LYVWsgFDl-ef_ZSjt0nbSOu5-KVsKRPfyHxe933MZbj5NeheavSITbrTgL4ClUmGd0Tv59R0jjf8LjGoa_ooQHdTQj3r13eMhOwNwyQKpZGR3D/w680/pkc+na+moja+vrata.jpg" alt="Image 2">
         </a>
+      </div>
     </div>
-</div>
-    
-<script>
-/* ------------------- */
-/* ACCESS DENIED ERROR */
-/* ------------------- */
-function display_access_denied_error() {
-    document.body.innerHTML
-        = '<div id="access-denied-error" style="display: flex; justify-content: center; align-items: center; height: 100vh; background: url(\'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEica0ohmmvadKEUM9RcEtQ3aZ7ZXEWeKYO_UOMZCaKbsVxDpnNVPqxhV2Z34SvQAqIRhHWxUNmzO2D6mxkwClKC7yugfBXZMIAhrMBiys2EUcZXvpcMBnDOsnNLrLs7BPu44nO-lpRPzgbljBfTkdB0CYzH0A-MJVravHOeJgD6RjbmYFhcxNX6EqXLuzA9/w362-h640/slikaza-Zemlje.JPG\') no-repeat center center; background-size: cover;">'
-        + '<div style="text-align: center; background-color: white; padding: 40px; border-radius: 12px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);">'
-        + '<h1 style="font-size: 32px; margin-bottom: 20px;">Latest Updates on Turkish Series</h1>' // Naslov iznad dugmeta
-        + '<button onclick="window.location.href=\'https://svenadlanuzemlje.blogspot.com\'" style="padding: 20px 40px; font-size: 24px; background-color: #f44336; color: white; border: none; border-radius: 8px; cursor: pointer;">'
-        + 'Poseti Sajt'
-        + '</button>'
-        + '<p style="margin-top: 20px; font-size: 18px; color: #333;">Follow the latest news, reviews, and trends in the world of series. Stay up-to-date with premieres.</p>' // Tekst ispod dugmeta
-        + '</div>'
-        + '</div>'
-}
-
-/* ------------------------- */
-/* BLOCK BLACKLIST COUNTRIES */
-/* ------------------------- */
-function block_blacklist_countries() {
-    // Blacklist countries
-    const blacklist_countries = [
-
-        "TR", // Turkey
-        "AN", // Ankara
-        "AD", // Adana
-        "IS", // Istanbul
-        "IZ", // Izmir
-        "US", // United States
-        "VN", // Vietnam
-        "UM", // United States Minor Outlying Islands
-        "GB", // United Kingdom
-        "SG", // Singapore
-        "PL", // Poland
-        "NZ", // New Zealand
-        "MX", // Mexico
-        "LR", // Liberia
-        "JP", // Japan
-        "IL", // Israel
-        "IE", // Ireland
-        "IS", // Iceland
-        "FI", // Finland
-        "EG", // Egypt
-        "KY", // Cayman Islands
-        "CA", // Canada
-        "BD", // Bangladesh
-        "AR", // Argentina
-        "AQ", // Antarctica
-        "AX", // Aland Islands
-        "AS", // American Samoa
-        "BD", // Bangladesh
-        "BR", // Brazil
-        "CN", // China 
-        "HK", // Hong Kong
-        "CX", // Christmas Island
-        "CC", // Cocos
-        "CK", // Cook Islands
-        "GF", // French Guiana
-        "IN", // India
-        "IL", // Israel
-        "KP", // Korea
-        "KR", // KR
-        "MY", // Malaysia
-        "MC", // Monaco
-        "NZ", // New Zealand
-        "PL", // Poland
-        "SA", // Saudi Arabia
-        "UM", // Ukrajina
-        "AE", // Ujedinjeni Arapski Emirati
-        "CA", // Kanada
-        "JP", // Japan
-        "AR", // Argentina
-        "CN", // China
-        "CK", // Cook Islands
-        "HK", // Hong Kong
-        "IN", // India
-        "MC", // Monaco
-        "NZ", // New Zealand
-    ]
-
-    // Detecting the users country
-    function get_country_code(api_url) {
-        fetch(api_url, { method: 'GET' })
+    <script>
+      /* ------------------- */
+      /* ACCESS DENIED ERROR */
+      /* ------------------- */
+      function display_access_denied_error() {
+        document.body.innerHTML = '<div id="access-denied-error" style="display: flex; justify-content: center; align-items: center; height: 100vh; background: url(\'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEica0ohmmvadKEUM9RcEtQ3aZ7ZXEWeKYO_UOMZCaKbsVxDpnNVPqxhV2Z34SvQAqIRhHWxUNmzO2D6mxkwClKC7yugfBXZMIAhrMBiys2EUcZXvpcMBnDOsnNLrLs7BPu44nO-lpRPzgbljBfTkdB0CYzH0A-MJVravHOeJgD6RjbmYFhcxNX6EqXLuzA9/w362-h640/slikaza-Zemlje.JPG\') no-repeat center center; background-size: cover;">' +
+          '<div style="text-align: center; background-color: white; padding: 40px; border-radius: 12px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);">' +
+          '<h1 style="font-size: 32px; margin-bottom: 20px;">Latest Updates on Turkish Series</h1>' // Naslov iznad dugmeta
+          +
+          '<button onclick="window.location.href=\'https://svenadlanuzemlje.blogspot.com\'" style="padding: 20px 40px; font-size: 24px; background-color: #f44336; color: white; border: none; border-radius: 8px; cursor: pointer;">' +
+          'Poseti Sajt' +
+          '</button>' +
+          '<p style="margin-top: 20px; font-size: 18px; color: #333;">Follow the latest news, reviews, and trends in the world of series. Stay up-to-date with premieres.</p>' // Tekst ispod dugmeta
+          +
+          '</div>' +
+          '</div>'
+      }
+      /* ------------------------- */
+      /* BLOCK BLACKLIST COUNTRIES */
+      /* ------------------------- */
+      function block_blacklist_countries() {
+        // Blacklist countries
+        const blacklist_countries = [
+          "TR", // Turkey
+          "AN", // Ankara
+          "AD", // Adana
+          "IS", // Istanbul
+          "IZ", // Izmir
+          "US", // United States
+          "VN", // Vietnam
+          "UM", // United States Minor Outlying Islands
+          "GB", // United Kingdom
+          "SG", // Singapore
+          "PL", // Poland
+          "NZ", // New Zealand
+          "MX", // Mexico
+          "LR", // Liberia
+          "JP", // Japan
+          "IL", // Israel
+          "IE", // Ireland
+          "IS", // Iceland
+          "FI", // Finland
+          "EG", // Egypt
+          "KY", // Cayman Islands
+          "CA", // Canada
+          "BD", // Bangladesh
+          "AR", // Argentina
+          "AQ", // Antarctica
+          "AX", // Aland Islands
+          "AS", // American Samoa
+          "BD", // Bangladesh
+          "BR", // Brazil
+          "CN", // China 
+          "HK", // Hong Kong
+          "CX", // Christmas Island
+          "CC", // Cocos
+          "CK", // Cook Islands
+          "GF", // French Guiana
+          "IN", // India
+          "IL", // Israel
+          "KP", // Korea
+          "KR", // KR
+          "MY", // Malaysia
+          "MC", // Monaco
+          "NZ", // New Zealand
+          "PL", // Poland
+          "SA", // Saudi Arabia
+          "UM", // Ukrajina
+          "AE", // Ujedinjeni Arapski Emirati
+          "CA", // Kanada
+          "JP", // Japan
+          "AR", // Argentina
+          "CN", // China
+          "CK", // Cook Islands
+          "HK", // Hong Kong
+          "IN", // India
+          "MC", // Monaco
+          "NZ", // New Zealand
+        ]
+        // Detecting the users country
+        function get_country_code(api_url) {
+          fetch(api_url, {
+              method: 'GET'
+            })
             .then(response => response.json()) // Getting ip info as json
             .then(result => {
-                if (blacklist_countries.includes(result.country)) { // If my ip country code is in blacklist
-                    display_access_denied_error() // Access denied error
-                }
+              if (blacklist_countries.includes(result.country)) { // If my ip country code is in blacklist
+                display_access_denied_error() // Access denied error
+              }
             })
             .catch(error => console.log('error', error))
-    }
-
-    // Getting country code from third party api
-    get_country_code("https://get.geojs.io/v1/ip/country.json")
-}
-
-/* ------------------------- */
-/* ALLOW WHITELIST COUNTRIES */
-/* ------------------------- */
-function allow_whitelist_countries() {
-    // Whitelist countries
-    const whitelist_countries = [
-       
-        "TR", // Turkey
-        "AN", // Ankara
-        "AD", // Adana
-        "IS", // Istanbul
-        "IZ", // Izmir
-        "US", // United States
-        "VN", // Vietnam
-        "UM", // United States Minor Outlying Islands
-        "GB", // United Kingdom
-        "SG", // Singapore
-        "PL", // Poland
-        "NZ", // New Zealand
-        "MX", // Mexico
-        "LR", // Liberia
-        "JP", // Japan
-        "IL", // Israel
-        "IE", // Ireland
-        "IS", // Iceland
-        "FI", // Finland
-        "EG", // Egypt
-        "KY", // Cayman Islands
-        "CA", // Canada
-        "BD", // Bangladesh
-        "AR", // Argentina
-        "AQ", // Antarctica
-        "AX", // Aland Islands
-        "AS", // American Samoa
-        "BD", // Bangladesh
-        "BR", // Brazil
-        "CN", // China 
-        "HK", // Hong Kong
-        "CX", // Christmas Island
-        "CC", // Cocos
-        "CK", // Cook Islands
-        "GF", // French Guiana
-        "IN", // India
-        "IL", // Israel
-        "KP", // Korea
-        "KR", // KR
-        "MY", // Malaysia
-        "MC", // Monaco
-        "NZ", // New Zealand
-        "PL", // Poland
-        "SA", // Saudi Arabia
-        "UM", // Ukrajina
-        "AE", // Ujedinjeni Arapski Emirati
-        "CA", // Kanada
-        "JP", // Japan
-        "AR", // Argentina
-        "CN", // China
-        "CK", // Cook Islands
-        "HK", // Hong Kong
-        "IN", // India
-        "MC", // Monaco
-        "NZ", // New Zealand
-    ]
-
-    // Detecting the users country
-    function get_country_code(api_url) {
-        fetch(api_url, { method: 'GET' })
+        }
+        // Getting country code from third party api
+        get_country_code("https://get.geojs.io/v1/ip/country.json")
+      }
+      /* ------------------------- */
+      /* ALLOW WHITELIST COUNTRIES */
+      /* ------------------------- */
+      function allow_whitelist_countries() {
+        // Whitelist countries
+        const whitelist_countries = [
+          "TR", // Turkey
+          "AN", // Ankara
+          "AD", // Adana
+          "IS", // Istanbul
+          "IZ", // Izmir
+          "US", // United States
+          "VN", // Vietnam
+          "UM", // United States Minor Outlying Islands
+          "GB", // United Kingdom
+          "SG", // Singapore
+          "PL", // Poland
+          "NZ", // New Zealand
+          "MX", // Mexico
+          "LR", // Liberia
+          "JP", // Japan
+          "IL", // Israel
+          "IE", // Ireland
+          "IS", // Iceland
+          "FI", // Finland
+          "EG", // Egypt
+          "KY", // Cayman Islands
+          "CA", // Canada
+          "BD", // Bangladesh
+          "AR", // Argentina
+          "AQ", // Antarctica
+          "AX", // Aland Islands
+          "AS", // American Samoa
+          "BD", // Bangladesh
+          "BR", // Brazil
+          "CN", // China 
+          "HK", // Hong Kong
+          "CX", // Christmas Island
+          "CC", // Cocos
+          "CK", // Cook Islands
+          "GF", // French Guiana
+          "IN", // India
+          "IL", // Israel
+          "KP", // Korea
+          "KR", // KR
+          "MY", // Malaysia
+          "MC", // Monaco
+          "NZ", // New Zealand
+          "PL", // Poland
+          "SA", // Saudi Arabia
+          "UM", // Ukrajina
+          "AE", // Ujedinjeni Arapski Emirati
+          "CA", // Kanada
+          "JP", // Japan
+          "AR", // Argentina
+          "CN", // China
+          "CK", // Cook Islands
+          "HK", // Hong Kong
+          "IN", // India
+          "MC", // Monaco
+          "NZ", // New Zealand
+        ]
+        // Detecting the users country
+        function get_country_code(api_url) {
+          fetch(api_url, {
+              method: 'GET'
+            })
             .then(response => response.json()) // Getting ip info as json
             .then(result => {
-                if (!whitelist_countries.includes(result.country)) { // If my ip country code is not in whitelist
-                    display_access_denied_error() // Access denied error
-                }
+              if (!whitelist_countries.includes(result.country)) { // If my ip country code is not in whitelist
+                display_access_denied_error() // Access denied error
+              }
             })
             .catch(error => console.log('error', error))
-    }
-
-    // Getting country code from third party api
-    get_country_code("https://get.geojs.io/v1/ip/country.json")
-}
-
-/* -------------- */
-/* CALL FUNCTIONS */
-/* -------------- */
-block_blacklist_countries() // Block blacklist countries
-
-// allow_whitelist_countries() // Allow whitelist countries
-
-  function performSearch(event) {
-    event.preventDefault();
-    var query = document.getElementById('search-input').value;
-    var searchUrl = 'https://www.svenadlanuplus.club/search?q=' + encodeURIComponent(query);
-    
-    // Preusmeravanje na URL za pretragu
-    window.location.href = searchUrl;
-  }
-</script>
-</body>
+        }
+        // Getting country code from third party api
+        get_country_code("https://get.geojs.io/v1/ip/country.json")
+      }
+      /* -------------- */
+      /* CALL FUNCTIONS */
+      /* -------------- */
+      block_blacklist_countries() // Block blacklist countries
+      // allow_whitelist_countries() // Allow whitelist countries
+      function performSearch(event) {
+        event.preventDefault();
+        var query = document.getElementById('search-input').value;
+        var searchUrl = 'https://www.svenadlanuplus.club/search?q=' + encodeURIComponent(query);
+        // Preusmeravanje na URL za pretragu
+        window.location.href = searchUrl;
+      }
+    </script>
+  </body>
 </html>
