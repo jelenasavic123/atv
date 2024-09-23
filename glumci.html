@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pretraži Serije po Glumcima</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+        }
+        .search-container {
+            margin-bottom: 30px;
+        }
+        input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            font-size: 1.2rem;
+            outline: none;
+            margin-bottom: 20px;
+        }
+        .button-group {
+            margin-bottom: 20px;
+        }
+        .button-group button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            margin: 5px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .button-group button:hover {
+            background-color: #0056b3;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            display: none;
+        }
+        .actor-card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .actor-card:hover {
+            transform: scale(1.05);
+        }
+        .actor-card img {
+            width: 100%;
+            border-radius: 50%;
+        }
+        .actor-name {
+            margin-top: 10px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .actor-series {
+            display: none;
+            margin-top: 15px;
+            text-align: left;
+            color: #666;
+        }
+        .actor-series ul {
+            list-style: none;
+            padding: 0;
+        }
+        .actor-series ul li {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pretraži Serije po Glumcima</h1>
+    <div class="search-container">
+        <input type="text" placeholder="Unesite ime glumca...">
+    </div>
+
+    <div class="button-group">
+        <button onclick="showActors('male')">Muški Glumci</button>
+        <button onclick="showActors('female')">Ženski Glumci</button>
+    </div>
+
+    <div id="male-actors" class="grid">
+        <!-- Muški glumci -->
+        <div class="actor-card" onclick="toggleSeries(this)">
+            <img src="https://via.placeholder.com/150" alt="Muški Glumac 1">
+            <div class="actor-name">Muški Glumac 1</div>
+            <div class="actor-series">
+                <h3>Serije:</h3>
+                <ul>
+                    <li>Serija 1</li>
+                    <li>Serija 2</li>
+                    <li>Serija 3</li>
+                </ul>
+            </div>
+        </div>
+        <div class="actor-card" onclick="toggleSeries(this)">
+            <img src="https://via.placeholder.com/150" alt="Muški Glumac 2">
+            <div class="actor-name">Muški Glumac 2</div>
+            <div class="actor-series">
+                <h3>Serije:</h3>
+                <ul>
+                    <li>Serija 4</li>
+                    <li>Serija 5</li>
+                    <li>Serija 6</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="female-actors" class="grid">
+        <!-- Ženski glumci -->
+        <div class="actor-card" onclick="toggleSeries(this)">
+            <img src="https://via.placeholder.com/150" alt="Ženska Glumica 1">
+            <div class="actor-name">Ženska Glumica 1</div>
+            <div class="actor-series">
+                <h3>Serije:</h3>
+                <ul>
+                    <li>Serija 7</li>
+                    <li>Serija 8</li>
+                    <li>Serija 9</li>
+                </ul>
+            </div>
+        </div>
+        <div class="actor-card" onclick="toggleSeries(this)">
+            <img src="https://via.placeholder.com/150" alt="Ženska Glumica 2">
+            <div class="actor-name">Ženska Glumica 2</div>
+            <div class="actor-series">
+                <h3>Serije:</h3>
+                <ul>
+                    <li>Serija 10</li>
+                    <li>Serija 11</li>
+                    <li>Serija 12</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showActors(gender) {
+            document.getElementById('male-actors').style.display = 'none';
+            document.getElementById('female-actors').style.display = 'none';
+            
+            if (gender === 'male') {
+                document.getElementById('male-actors').style.display = 'grid';
+            } else if (gender === 'female') {
+                document.getElementById('female-actors').style.display = 'grid';
+            }
+        }
+
+        function toggleSeries(card) {
+            const seriesDiv = card.querySelector('.actor-series');
+            const isVisible = seriesDiv.style.display === 'block';
+            seriesDiv.style.display = isVisible ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>
