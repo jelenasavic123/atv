@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RY30KTPZCB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-RY30KTPZCB');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RY30KTPZCB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RY30KTPZCB');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TV program</title>
@@ -46,7 +46,7 @@
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
-        }a
+        }
 
         .dropdown-content a {
             color: #fff;
@@ -161,12 +161,12 @@
             font-size: 1.5rem;
             color: #fff;
         }
+
         .episode-details .content img {
-    max-width: 80px;   /* Maksimalna širina slike u modalnom prozoru */
-    max-height: 80vh;  /* Maksimalna visina slike u odnosu na visinu viewporta */
-    object-fit: contain; /* Prilagodite sliku da stane u prostor, zadržavajući proporcije */
-}
-        
+            max-width: 80px;   /* Maksimalna širina slike u modalnom prozoru */
+            max-height: 80vh;  /* Maksimalna visina slike u odnosu na visinu viewporta */
+            object-fit: contain; /* Prilagodite sliku da stane u prostor, zadržavajući proporcije */
+        }
 
         .popup {
             position: fixed;
@@ -208,24 +208,25 @@
         .popup-content button:hover {
             background: #575757;
         }
-        .dropbtn {
-    background-color: #b81717;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
 
-.dropbtn:hover {
-    background-color: #575757;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
+        .dropbtn {
+            background-color: #b81717;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .dropbtn:hover {
+            background-color: #575757;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
 
         .container {
             text-align: center;
@@ -445,22 +446,6 @@
             <img id="episode-image" src="" alt="Epizoda">
         </div>
     </div>
-    
-    <div class="popup" id="first-time-popup">
-        <div class="popup-content">
-            <h2>Uputstvo:</h2>
-            <p>Izaberite dan sa padajućeg menija gore. Takođe, možete pomerati slider levo-desno da biste videli sve dane u nedelji.Kliknite na sliku za vise informacija.</p>
-            <button onclick="hidePopup('first-time-popup')">Razumem</button>
-        </div>
-    </div>
-
-    <div class="popup" id="second-time-popup">
-        <div class="popup-content">
-            <h2>Još jedna napomena!</h2>
-            <p>Ne zaboravite da možete pomerati slider levo-desno kako biste videli sve dane u nedelji. Prikazani dani možete izabrati klikom na njih.</p>
-            <button onclick="hidePopup('second-time-popup')">Razumem</button>
-        </div>
-    </div>
 
     <script>
         function filterByDay(day) {
@@ -490,43 +475,7 @@
             document.getElementById(popupId).style.display = 'none';
         }
 
-document.addEventListener('DOMContentLoaded', () => {
-    let popupCount = localStorage.getItem('popupCount') ? parseInt(localStorage.getItem('popupCount')) : 0;
 
-    if (popupCount === 0) {
-        showPopup('first-time-popup');
-    } else if (popupCount === 1) {
-        showPopup('second-time-popup');
-    }
-
-    // Increment the popup count
-    if (popupCount < 2) {
-        popupCount++;
-        localStorage.setItem('popupCount', popupCount);
-    }
-});
-
-function showPopup(popupId) {
-    document.getElementById(popupId).style.display = 'flex';
-}
-
-function hidePopup(popupId) {
-    document.getElementById(popupId).style.display = 'none';
-}
-
- document.addEventListener('DOMContentLoaded', () => {
-            const likeButton = document.getElementById('like-button');
-            const likeCountSpan = document.getElementById('like-count');
-            let likeCount = localStorage.getItem('likeCount') || 0;
-
-            likeCountSpan.textContent = likeCount;
-
-            likeButton.addEventListener('click', () => {
-                likeCount++;
-                likeCountSpan.textContent = likeCount;
-                localStorage.setItem('likeCount', likeCount);
-            });
-        });
     </script>
 </body>
 </html>
