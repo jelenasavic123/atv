@@ -201,7 +201,7 @@ button {
 }
 #message-input-container {
     position: fixed;
-    bottom: 0;
+    bottom: calc(0% + 5%); /* Podižemo element za 20% od visine ekrana */
     left: 0;
     width: 100%;
     background-color: #fff;
@@ -210,8 +210,8 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
 }
+
 #message-input {
     width: 75%; /* Povećajte širinu inputa za poruke */
     padding: 7px;
@@ -319,32 +319,30 @@ button {
 </head>
 <body>
 
-<div class="container">
-    <div id="login-screen">
-        <h1>Prijava</h1>
-        <input type="text" id="username" placeholder="Unesite svoje ime">
-        <button id="login-btn">Prijavi se</button>
-
-        <div id="welcome-text">         
-            <p>Nakon što se prijavite, bićete u mogućnosti da prijavite eventualne greške i neispravne epizode. Takođe, možete se povezati sa drugim korisnicima putem našeg chat sistema za bilo kakva pitanja ili diskusije u vezi sa aplikacijom.</p>
-        </div>
-
-        <input type="file" id="avatar-upload" accept="image/*">
-        <img id="uploaded-avatar" src="" alt="Avatar" style="display:none;"> <!-- Hide the image initially -->
+    <div class="container">
+        <div id="login-screen">
+            <h1>Prijava</h1>
+            <input type="text" id="username" placeholder="Unesite svoje ime">
+                 <button id="login-btn">Prijavi se</button>
+                        <div id="welcome-text">         
+        <p>Nakon što se prijavite, bićete u mogućnosti da prijavite eventualne greške i neispravne epizode. Takođe, možete se povezati sa drugim korisnicima putem našeg chat sistema za bilo kakva pitanja ili diskusije u vezi sa aplikacijom.</p>
     </div>
-
-    <div id="chat-screen" class="hidden"> <!-- Added 'hidden' class to hide chat screen initially -->
-        <div id="chat-container">
-            <div id="chat-box"></div>
-            <div id="message-input-container">
-                <input type="text" id="message-input" placeholder="Unesite poruku...">
-                <button id="send-btn">Pošalji</button>
-                <button id="logout-btn">Odjavi se</button>
+           
+            <input type="file" id="avatar-upload" accept="image/*">
+            <img id="uploaded-avatar" src="" alt="Avatar">
+        </div>
+        <div id="chat-screen">
+            <div id="chat-container">
+                <div id="chat-box"></div>
+                <div id="message-input-container">
+                    <input type="text" id="message-input" placeholder="Unesite poruku...">
+                    <button id="send-btn">Pošalji</button>
+                          <button id="logout-btn">Odjavi se</button>
+                    <!-- HTML for delete button in each message -->
+                </div>
             </div>
         </div>
     </div>
-</div>
-
 
     <!-- Modal for avatar selection -->
     <div id="avatar-modal">
