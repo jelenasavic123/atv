@@ -210,10 +210,11 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+    z-index: 1000; /* Dodaj ovo da se osigura da bude iznad drugih elemenata */
 }
+
 #message-input {
-    width: 75%; /* Povećajte širinu inputa za poruke */
+    width: 70%; /* Povećajte širinu inputa za poruke */
     padding: 7px;
     font-size: 13px;
     border: 1px solid #ccc;
@@ -221,7 +222,7 @@ button {
     
 }
 #send-btn {
-    padding: 7px;
+    padding: 5px;
     cursor: pointer;
     background-color: #007bff;
     color: white;
@@ -229,7 +230,7 @@ button {
     border-radius: 4px;
     font-size: 10px;
     position: absolute; /* Apsolutno pozicioniranje */
-    right: 25px; /* Postavlja dugme 10px od desne strane */
+    right: 30px; /* Postavlja dugme 10px od desne strane */
     top: 10px; /* Ako želiš da bude bliže vrhu */
 }
 
@@ -366,9 +367,6 @@ button {
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <!-- Firebase Firestore -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
 
 <script>
     // Firebase Configuration
@@ -770,11 +768,6 @@ function loadOnlineUsers() {
         });
     });
 }
-
-document.getElementById('odgovoriBtn').addEventListener('click', function() {
-    document.getElementById('odgovor').focus();
-});
-
 
 </script>
 
