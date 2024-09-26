@@ -10,15 +10,15 @@
     <!-- Firebase Firestore -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <!-- CSS -->
-<style>
+    <style>
 /* Existing styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    
 }
-
 .container {
     display: flex;
     flex-direction: column;
@@ -27,19 +27,17 @@ body {
     height: 100vh;
     margin-top: 0;
     background: linear-gradient(135deg, #e0f7f1, #b2dfdb); /* Blagi mint prelaz */
+    
 }
-
 #login-screen {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
 #chat-screen {
     display: none;
     width: 95%;
 }
-
 #loginScreen {
     display: flex;
     flex-direction: column;
@@ -52,11 +50,9 @@ body {
     text-align: center;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
-
 .hidden {
     display: none;
 }
-
 input[type="text"], input[type="password"] {
     width: 70%;
     padding: 10px;
@@ -65,12 +61,10 @@ input[type="text"], input[type="password"] {
     border-radius: 5px;
     font-size: 16px;
 }
-
 input[type="text"]:focus, input[type="password"]:focus {
     outline: none;
     border-color: #007BFF;
 }
-
 button {
     padding: 8px 15px;
     margin-top: 10px;
@@ -84,7 +78,6 @@ button {
     width: fit-content;
     align-self: center;
 }
-
 .message {
     display: flex;
     flex-direction: column;
@@ -96,14 +89,12 @@ button {
     border-radius: 8px;
     max-width: 95%;
 }
-
 .message img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
-
 .reply-box {
     background-color: #d3d3d3;
     border: 1px solid #ccc;
@@ -115,7 +106,6 @@ button {
     flex-direction: column;
     position: relative;
 }
-
 .reply-box::before {
     content: '';
     position: absolute;
@@ -126,56 +116,47 @@ button {
     border-color: #d3d3d3 transparent transparent transparent;
     transform: translateX(-50%);
 }
-
 .reply-info {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
 }
-
 .reply-info img {
     width: 20px;
     height: 20px;
     margin-right: 5px;
 }
-
 .reply-info span {
     font-size: 0.9em;
     font-weight: bold;
 }
-
 .reply-text {
     margin-top: 5px;
 }
-
 .message-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-
 .message-avatar {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     margin-right: 10px;
 }
-
 .message-user {
     font-weight: bold;
 }
-
 .message-timestamp {
-    font-size: 0.7rem;
+    font-size: 0.7rem; /* Smanjite veličinu teksta ako je potrebno */
     color: #999;
     position: absolute;
-    top: 5px;
-    right: 10px;
+    top: 5px; /* Premestite vreme u gornji deo poruke */
+    right: 10px; /* Povećajte prostor od desnog ruba */
 }
-
 .reply-btn, .delete-btn {
     cursor: pointer;
-    padding: 1px 1px;
+    padding: 1px 1px; /* Smanjena veličina dugmeta za odgovor */
     color: white;
     border: none;
     border-radius: 4px;
@@ -184,24 +165,19 @@ button {
     right: 4px;
     bottom: 4px;
 }
-
 .reply-btn {
     background-color: #007bff;
 }
-
 .reply-btn:hover {
     background-color: #0056b3;
 }
-
 .delete-btn {
     background-color: #dc3545;
     right: 60px;
 }
-
 .delete-btn:hover {
     background-color: #c82333;
 }
-
 .avatar {
     width: 40px;
     height: 40px;
@@ -209,24 +185,20 @@ button {
     cursor: pointer;
     margin: 5px;
 }
-
 .selected {
     border: 2px solid #007bff;
 }
-
 #chat-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
     margin-top: -50%;
 }
-
 #chat-box {
     flex: 1;
     overflow-y: auto;
-    padding-bottom: 60px; /* Dodaj padding da poruke ne preklapaju unos */
-}
 
+}
 #message-input-container {
     position: fixed;
     bottom: 0;
@@ -238,32 +210,32 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 1000; /* Dodaj ovo da se osigura da bude iznad drugih elemenata */
+    
 }
-
 #message-input {
-    width: 70%; /* Povećajte širinu inputa za poruke */
+    width: 75%; /* Povećajte širinu inputa za poruke */
     padding: 7px;
     font-size: 13px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    
 }
-
 #send-btn {
-    padding: 5px;
+    padding: 7px;
     cursor: pointer;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     font-size: 10px;
-    margin-left: 10px; /* Razmak između inputa i dugmeta */
+    position: absolute; /* Apsolutno pozicioniranje */
+    right: 25px; /* Postavlja dugme 10px od desne strane */
+    top: 10px; /* Ako želiš da bude bliže vrhu */
 }
 
 #send-btn:hover {
     background-color: #0056b3;
 }
-
 #logout-btn {
     padding: 1px;
     background-color: #dc3545;
@@ -275,27 +247,22 @@ button {
     top: 4px;
     right: 1px;
 }
-
 #logout-btn:hover {
     background-color: #c82333;
 }
-
 #avatar-upload {
     display: none;
 }
-
 #uploaded-avatar {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     display: none;
 }
-
 #password-container {
     display: none;
     margin-top: 10px;
 }
-
 /* Styles for the modal */
 #avatar-modal {
     display: none;
@@ -308,7 +275,6 @@ button {
     justify-content: center;
     align-items: center;
 }
-
 #avatar-modal-content {
     background-color: white;
     padding: 20px;
@@ -317,15 +283,12 @@ button {
     width: 100%;
     text-align: center;
 }
-
 #avatar-modal-content h2 {
     margin: 0 0 10px;
 }
-
 #avatar-modal-content .avatar {
     margin: 10px;
 }
-
 #close-modal {
     background-color: #dc3545;
     color: white;
@@ -335,11 +298,9 @@ button {
     cursor: pointer;
     margin-top: 10px;
 }
-
 #close-modal:hover {
     background-color: #c82333;
 }
-
 #welcome-text {
     background-color: #ffffff; /* Belo pozadinsko boje za čist izgled */
     border: 1px solid #ddd; /* Suptilna ivica oko teksta */
@@ -350,36 +311,40 @@ button {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Suptilna senka oko elemenata */
     font-family: Arial, sans-serif; /* Font za lakše čitanje */
     color: #333; /* Tamnija boja teksta za bolju čitljivost */
+    
 }
-</style>
 
+
+    </style>
 </head>
 <body>
 
-    <div class="container">
-        <div id="login-screen">
-            <h1>Prijava</h1>
-            <input type="text" id="username" placeholder="Unesite svoje ime">
-                 <button id="login-btn">Prijavi se</button>
-                        <div id="welcome-text">         
-        <p>Nakon što se prijavite, bićete u mogućnosti da prijavite eventualne greške i neispravne epizode. Takođe, možete se povezati sa drugim korisnicima putem našeg chat sistema za bilo kakva pitanja ili diskusije u vezi sa aplikacijom.</p>
-    </div>
-           
-            <input type="file" id="avatar-upload" accept="image/*">
-            <img id="uploaded-avatar" src="" alt="Avatar">
+<div class="container">
+    <div id="login-screen">
+        <h1>Prijava</h1>
+        <input type="text" id="username" placeholder="Unesite svoje ime">
+        <button id="login-btn">Prijavi se</button>
+
+        <div id="welcome-text">         
+            <p>Nakon što se prijavite, bićete u mogućnosti da prijavite eventualne greške i neispravne epizode. Takođe, možete se povezati sa drugim korisnicima putem našeg chat sistema za bilo kakva pitanja ili diskusije u vezi sa aplikacijom.</p>
         </div>
-        <div id="chat-screen">
-            <div id="chat-container">
-                <div id="chat-box"></div>
-                <div id="message-input-container">
-                    <input type="text" id="message-input" placeholder="Unesite poruku...">
-                    <button id="send-btn">Pošalji</button>
-                          <button id="logout-btn">Odjavi se</button>
-                    <!-- HTML for delete button in each message -->
-                </div>
+
+        <input type="file" id="avatar-upload" accept="image/*">
+        <img id="uploaded-avatar" src="" alt="Avatar" style="display:none;"> <!-- Hide the image initially -->
+    </div>
+
+    <div id="chat-screen" class="hidden"> <!-- Added 'hidden' class to hide chat screen initially -->
+        <div id="chat-container">
+            <div id="chat-box"></div>
+            <div id="message-input-container">
+                <input type="text" id="message-input" placeholder="Unesite poruku...">
+                <button id="send-btn">Pošalji</button>
+                <button id="logout-btn">Odjavi se</button>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Modal for avatar selection -->
     <div id="avatar-modal">
