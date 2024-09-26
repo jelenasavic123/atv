@@ -466,9 +466,9 @@
 
     <!-- Firebase Firestore -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script>
-      // Firebase Configuration
-      const firebaseConfig = {
+<script>
+    // Firebase Configuration
+    const firebaseConfig = {
         apiKey: "AIzaSyAcp6ogJFrSnw2U6kTW0isDtSuWR7i20bs",
         authDomain: "chat-4a2d6.firebaseapp.com",
         projectId: "chat-4a2d6",
@@ -476,351 +476,186 @@
         messagingSenderId: "1045553997806",
         appId: "1:1045553997806:web:bdffccdb2bd9f3bb9510ff",
         measurementId: "G-X0564DDDLZ"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
-      let selectedAvatar = '';
-      let replyToMessage = null;
-      const loginScreen = document.getElementById('login-screen');
-      const chatScreen = document.getElementById('chat-screen');
-      const loginBtn = document.getElementById('login-btn');
-      const messageInput = document.getElementById('message-input');
-      const chatBox = document.getElementById('chat-box');
-      const sendBtn = document.getElementById('send-btn');
-      const userDisplay = document.getElementById('user-display');
-      const logoutBtn = document.getElementById('logout-btn');
-      const avatars = document.querySelectorAll('.avatar');
-      const avatarModal = document.getElementById('avatar-modal');
-      const closeModal = document.getElementById('close-modal');
-      const avatarsContainer = document.getElementById('avatars-container');
-      loginBtn.addEventListener('click', () => {
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    let selectedAvatar = '';
+    let replyToMessage = null;
+
+    const loginScreen = document.getElementById('login-screen');
+    const chatScreen = document.getElementById('chat-screen');
+    const loginBtn = document.getElementById('login-btn');
+    const messageInput = document.getElementById('message-input');
+    const chatBox = document.getElementById('chat-box');
+    const sendBtn = document.getElementById('send-btn');
+    const userDisplay = document.getElementById('user-display');
+    const logoutBtn = document.getElementById('logout-btn');
+    const avatarsContainer = document.getElementById('avatars-container');
+    const avatarModal = document.getElementById('avatar-modal');
+    const closeModal = document.getElementById('close-modal');
+
+    loginBtn.addEventListener('click', () => {
         const username = document.getElementById('username').value.trim();
         if (username) {
-          localStorage.setItem('username', username);
-          loginScreen.style.display = 'none';
-          avatarModal.style.display = 'flex'; // Show avatar selection modal
+            localStorage.setItem('username', username);
+            loginScreen.style.display = 'none';
+            avatarModal.style.display = 'flex'; // Show avatar selection modal
         }
-      });
-      avatarsContainer.addEventListener('click', (event) => {
+    });
+
+    avatarsContainer.addEventListener('click', (event) => {
         if (event.target.classList.contains('avatar')) {
-          selectedAvatar = event.target.getAttribute('data-avatar');
-          avatarModal.style.display = 'none'; // Hide avatar modal
-          chatScreen.style.display = 'block'; // Show chat screen
-          userDisplay.textContent = `Korisnik: ${localStorage.getItem('username')}`;
+            selectedAvatar = event.target.getAttribute('data-avatar');
+            localStorage.setItem('avatar', selectedAvatar); // Save selected avatar
+            avatarModal.style.display = 'none'; // Hide avatar modal
+            chatScreen.style.display = 'block'; // Show chat screen
+            userDisplay.textContent = `Korisnik: ${localStorage.getItem('username')}`;
         }
-      });
-      closeModal.addEventListener('click', () => {
+    });
+
+    closeModal.addEventListener('click', () => {
         avatarModal.style.display = 'none'; // Hide avatar modal
-      });
-      sendBtn.addEventListener('click', () => {
+    });
+
+    sendBtn.addEventListener('click', () => {
         const message = messageInput.value.trim();
         if (message === '') return;
+
         const username = localStorage.getItem('username');
         const avatar = selectedAvatar || 'default-avatar.png'; // Use selected avatar or default avatar
+
         const messageData = {
-          username: username,
-          avatar: avatar,
-          text: message, // Use 'text' here for consistency
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          replyTo: replyToMessage ? replyToMessage : null // Ensure replyTo is consistent
+            username: username,
+            avatar: avatar,
+            text: message,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            replyTo: replyToMessage ? replyToMessage : null
         };
+
         // Save message to Firestore
         db.collection('messages').add(messageData)
-          .then(() => {
-            messageInput.value = '';
-            replyToMessage = null;
-          })
-          .catch((error) => {
-            console.error('Error sending message: ', error);
-          });
-      });
-      // Load messages from Firestore
-      db.collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
-        chatBox.innerHTML = '';
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const messageDiv = document.createElement('div');
-          messageDiv.classList.add('message');
-          if (data.avatar) {
-            const avatarImg = document.createElement('img');
-            avatarImg.src = data.avatar;
-            messageDiv.appendChild(avatarImg);
-          }
-          const messageText = document.createElement('div');
-          messageText.textContent = `${data.username}: ${data.text}`; // Use 'text' here for consistency
-          messageDiv.appendChild(messageText);
-          if (data.replyTo) {
-            db.collection('messages').doc(data.replyTo).get().then(replyDoc => {
-              const replyData = replyDoc.data();
-              if (replyData) {
-                const replyBox = document.createElement('div');
-                replyBox.classList.add('reply-box');
-                const replyInfo = document.createElement('div');
-                replyInfo.classList.add('reply-info');
-                if (replyData.avatar) {
-                  const replyAvatar = document.createElement('img');
-                  replyAvatar.src = replyData.avatar;
-                  replyInfo.appendChild(replyAvatar);
-                }
-                const replyUser = document.createElement('span');
-                replyUser.textContent = replyData.username;
-                replyInfo.appendChild(replyUser);
-                replyBox.appendChild(replyInfo);
-                const replyText = document.createElement('div');
-                replyText.classList.add('reply-text');
-                replyText.textContent = replyData.text; // Use 'text' here for consistency
-                replyBox.appendChild(replyText);
-                messageDiv.appendChild(replyBox);
-              }
+            .then(() => {
+                messageInput.value = '';
+                replyToMessage = null;
+            })
+            .catch((error) => {
+                console.error('Error sending message: ', error);
             });
-          }
-          const replyBtn = document.createElement('button');
-          replyBtn.textContent = 'Odgovori';
-          replyBtn.classList.add('reply-btn');
-          replyBtn.addEventListener('click', () => {
-            replyToMessage = doc.id;
-          });
-          messageDiv.appendChild(replyBtn);
-          if (localStorage.getItem('username') === data.username) {
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Obriši';
-            deleteBtn.classList.add('delete-btn');
-            deleteBtn.addEventListener('click', () => {
-              db.collection('messages').doc(doc.id).delete();
-            });
-            messageDiv.appendChild(deleteBtn);
-          }
-          chatBox.appendChild(messageDiv);
-        });
-      });
-      logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem('username');
-        chatScreen.style.display = 'none';
-        loginScreen.style.display = 'block';
-      });
-      // Function to render messages
-      function renderMessages() {
+    });
+
+    // Load messages from Firestore
+    function renderMessages() {
         db.collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
-          chatBox.innerHTML = '';
-          snapshot.forEach(doc => {
-            const data = doc.data();
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message');
-            if (data.avatar) {
-              const avatarImg = document.createElement('img');
-              avatarImg.src = data.avatar;
-              avatarImg.classList.add('message-avatar');
-              messageDiv.appendChild(avatarImg);
-            }
-            const messageHeader = document.createElement('div');
-            messageHeader.classList.add('message-header');
-            const messageUser = document.createElement('span');
-            messageUser.classList.add('message-user');
-            messageUser.textContent = data.username;
-            messageHeader.appendChild(messageUser);
-            const messageTimestamp = document.createElement('span');
-            messageTimestamp.classList.add('message-timestamp');
-            messageTimestamp.textContent = data.timestamp ? data.timestamp.toDate().toLocaleTimeString() : '';
-            messageHeader.appendChild(messageTimestamp);
-            messageDiv.appendChild(messageHeader);
-            const messageText = document.createElement('div');
-            messageText.textContent = data.text;
-            messageDiv.appendChild(messageText);
-            if (data.replyTo) {
-              db.collection('messages').doc(data.replyTo).get().then(replyDoc => {
-                const replyData = replyDoc.data();
-                if (replyData) {
-                  const replyBox = document.createElement('div');
-                  replyBox.classList.add('reply-box');
-                  const replyInfo = document.createElement('div');
-                  replyInfo.classList.add('reply-info');
-                  if (replyData.avatar) {
-                    const replyAvatar = document.createElement('img');
-                    replyAvatar.src = replyData.avatar;
-                    replyInfo.appendChild(replyAvatar);
-                  }
-                  const replyUser = document.createElement('span');
-                  replyUser.textContent = replyData.username;
-                  replyInfo.appendChild(replyUser);
-                  replyBox.appendChild(replyInfo);
-                  const replyText = document.createElement('div');
-                  replyText.classList.add('reply-text');
-                  replyText.textContent = replyData.text;
-                  replyBox.appendChild(replyText);
-                  messageDiv.appendChild(replyBox);
+            chatBox.innerHTML = '';
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+
+                if (data.avatar) {
+                    const avatarImg = document.createElement('img');
+                    avatarImg.src = data.avatar;
+                    avatarImg.classList.add('message-avatar');
+                    messageDiv.appendChild(avatarImg);
                 }
-              });
-            }
-            const replyBtn = document.createElement('button');
-            replyBtn.textContent = 'Odgovori';
-            replyBtn.classList.add('reply-btn');
-            replyBtn.addEventListener('click', () => {
-              replyToMessage = doc.id;
+
+                const messageHeader = document.createElement('div');
+                messageHeader.classList.add('message-header');
+
+                const messageUser = document.createElement('span');
+                messageUser.classList.add('message-user');
+                messageUser.textContent = data.username;
+                messageHeader.appendChild(messageUser);
+
+                const messageTimestamp = document.createElement('span');
+                messageTimestamp.classList.add('message-timestamp');
+                messageTimestamp.textContent = data.timestamp ? data.timestamp.toDate().toLocaleTimeString() : '';
+                messageHeader.appendChild(messageTimestamp);
+
+                messageDiv.appendChild(messageHeader);
+
+                const messageText = document.createElement('div');
+                messageText.textContent = data.text;
+                messageDiv.appendChild(messageText);
+
+                if (data.replyTo) {
+                    db.collection('messages').doc(data.replyTo).get().then(replyDoc => {
+                        const replyData = replyDoc.data();
+                        if (replyData) {
+                            const replyBox = document.createElement('div');
+                            replyBox.classList.add('reply-box');
+
+                            const replyInfo = document.createElement('div');
+                            replyInfo.classList.add('reply-info');
+                            if (replyData.avatar) {
+                                const replyAvatar = document.createElement('img');
+                                replyAvatar.src = replyData.avatar;
+                                replyInfo.appendChild(replyAvatar);
+                            }
+                            const replyUser = document.createElement('span');
+                            replyUser.textContent = replyData.username;
+                            replyInfo.appendChild(replyUser);
+                            replyBox.appendChild(replyInfo);
+
+                            const replyText = document.createElement('div');
+                            replyText.classList.add('reply-text');
+                            replyText.textContent = replyData.text;
+                            replyBox.appendChild(replyText);
+
+                            messageDiv.appendChild(replyBox);
+                        }
+                    });
+                }
+
+                const replyBtn = document.createElement('button');
+                replyBtn.textContent = 'Odgovori';
+                replyBtn.classList.add('reply-btn');
+                replyBtn.addEventListener('click', () => {
+                    replyToMessage = doc.id;
+                    messageInput.focus();  // Automatically focus the message input field
+                });
+                messageDiv.appendChild(replyBtn);
+
+                if (localStorage.getItem('username') === data.username) {
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'Obriši';
+                    deleteBtn.classList.add('delete-btn');
+                    deleteBtn.addEventListener('click', () => {
+                        db.collection('messages').doc(doc.id).delete();
+                    });
+                    messageDiv.appendChild(deleteBtn);
+                }
+
+                chatBox.appendChild(messageDiv);
             });
-            messageDiv.appendChild(replyBtn);
-            if (localStorage.getItem('username') === data.username) {
-              const deleteBtn = document.createElement('button');
-              deleteBtn.textContent = 'Obriši';
-              deleteBtn.classList.add('delete-btn');
-              deleteBtn.addEventListener('click', () => {
-                db.collection('messages').doc(doc.id).delete();
-              });
-              messageDiv.appendChild(deleteBtn);
-            }
-            chatBox.appendChild(messageDiv);
-          });
         });
-      }
-      renderMessages();
-      document.addEventListener('DOMContentLoaded', () => {
-        // Proverite da li su ime i avatar već sačuvani u localStorage
-        const savedUsername = localStorage.getItem('username');
-        const savedAvatar = localStorage.getItem('avatar');
-        if (savedUsername) {
-          selectedAvatar = savedAvatar || 'default-avatar.png'; // Koristi sačuvani avatar ili podrazumevani
-          loginScreen.style.display = 'none';
-          chatScreen.style.display = 'block';
-          userDisplay.textContent = `Korisnik: ${savedUsername}`;
-          // Postavite avatar ako postoji
-          if (savedAvatar) {
-            document.getElementById('uploaded-avatar').src = savedAvatar;
-            document.getElementById('uploaded-avatar').style.display = 'block';
-          }
-        }
-      });
-      // Dodajte kod za sačuvavanje avatara u localStorage prilikom izbora avatara
-      avatarsContainer.addEventListener('click', (event) => {
-        if (event.target.classList.contains('avatar')) {
-          selectedAvatar = event.target.getAttribute('data-avatar');
-          localStorage.setItem('avatar', selectedAvatar); // Sačuvaj avatar u localStorage
-          avatarModal.style.display = 'none'; // Sakrij modal
-          chatScreen.style.display = 'block'; // Prikaži chat ekran
-          userDisplay.textContent = `Korisnik: ${localStorage.getItem('username')}`;
-          document.getElementById('uploaded-avatar').src = selectedAvatar;
-          document.getElementById('uploaded-avatar').style.display = 'block';
-        }
-      });
-      // Dodajte kod za brisanje korisničkih podataka prilikom odjave
-      logoutBtn.addEventListener('click', () => {
+    }
+
+    logoutBtn.addEventListener('click', () => {
         localStorage.removeItem('username');
         localStorage.removeItem('avatar');
-        loginScreen.style.display = 'flex';
         chatScreen.style.display = 'none';
-      });
-      // Function to render messages
-      function renderMessages() {
-        db.collection('messages').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
-          chatBox.innerHTML = '';
-          snapshot.forEach(doc => {
-            const data = doc.data();
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message');
-            if (data.avatar) {
-              const avatarImg = document.createElement('img');
-              avatarImg.src = data.avatar;
-              avatarImg.classList.add('message-avatar');
-              messageDiv.appendChild(avatarImg);
-            }
-            const messageHeader = document.createElement('div');
-            messageHeader.classList.add('message-header');
-            const messageUser = document.createElement('span');
-            messageUser.classList.add('message-user');
-            messageUser.textContent = data.username;
-            messageHeader.appendChild(messageUser);
-            const messageTimestamp = document.createElement('span');
-            messageTimestamp.classList.add('message-timestamp');
-            messageTimestamp.textContent = data.timestamp ? data.timestamp.toDate().toLocaleTimeString() : '';
-            messageHeader.appendChild(messageTimestamp);
-            messageDiv.appendChild(messageHeader);
-            const messageText = document.createElement('div');
-            messageText.textContent = data.text;
-            messageDiv.appendChild(messageText);
-            if (data.replyTo) {
-              db.collection('messages').doc(data.replyTo).get().then(replyDoc => {
-                const replyData = replyDoc.data();
-                if (replyData) {
-                  const replyBox = document.createElement('div');
-                  replyBox.classList.add('reply-box');
-                  const replyInfo = document.createElement('div');
-                  replyInfo.classList.add('reply-info');
-                  if (replyData.avatar) {
-                    const replyAvatar = document.createElement('img');
-                    replyAvatar.src = replyData.avatar;
-                    replyInfo.appendChild(replyAvatar);
-                  }
-                  const replyUser = document.createElement('span');
-                  replyUser.textContent = replyData.username;
-                  replyInfo.appendChild(replyUser);
-                  replyBox.appendChild(replyInfo);
-                  const replyText = document.createElement('div');
-                  replyText.classList.add('reply-text');
-                  replyText.textContent = replyData.text;
-                  replyBox.appendChild(replyText);
-                  messageDiv.appendChild(replyBox);
-                }
-              });
-            }
-            const replyBtn = document.createElement('button');
-            replyBtn.textContent = 'Odgovori';
-            replyBtn.classList.add('reply-btn');
-            replyBtn.addEventListener('click', () => {
-              replyToMessage = doc.id;
-            });
-            messageDiv.appendChild(replyBtn);
-            if (localStorage.getItem('username') === data.username) {
-              const deleteBtn = document.createElement('button');
-              deleteBtn.textContent = 'Obriši';
-              deleteBtn.classList.add('delete-btn');
-              deleteBtn.addEventListener('click', () => {
-                db.collection('messages').doc(doc.id).delete();
-              });
-              messageDiv.appendChild(deleteBtn);
-            }
-            chatBox.prepend(messageDiv); // Add new messages to the top
-            // Scroll to the bottom after appending new messages
-            chatBox.scrollTop = chatBox.scrollHeight;
-          });
-        });
-      }
-      // Dodaj ovo u tvoj postojeći JavaScript kod
-      // Ref za kolekciju online korisnika
-      const onlineUsersRef = db.collection('onlineUsers');
-      // Element za prikaz online korisnika
-      const onlineUsersList = document.getElementById('online-users-list');
-      // Funkcija za prikaz online korisnika
-      function loadOnlineUsers() {
-        onlineUsersRef.onSnapshot(snapshot => {
-          onlineUsersList.innerHTML = ''; // Očisti listu pre nego što je popunimo
-          snapshot.forEach(doc => {
-            const data = doc.data();
-            const userItem = document.createElement('li');
-            userItem.textContent = data.username;
-            const avatarImg = document.createElement('img');
-            avatarImg.src = data.avatar;
-            avatarImg.className = 'message-avatar'; // Pretpostavljamo da već imaš stil za avatara
-            userItem.prepend(avatarImg); // Dodaj avatar ispred imena
-            onlineUsersList.appendChild(userItem);
-          });
-        });
-      }
-      // Pozovi funkciju za učitavanje online korisnika kada se aplikacija učita
-      document.addEventListener('DOMContentLoaded', () => {
-        loadOnlineUsers();
-      });
-      // JavaScript za prikazivanje i sakrivanje online korisnika
-      document.getElementById('online-toggle').addEventListener('click', function() {
-        var onlineUsersDiv = document.getElementById('online-users');
-        var onlineUsersList = document.getElementById('online-users-list');
-        // Ako je lista trenutno prikazana, sakrij je
-        if (onlineUsersList.style.display === 'block') {
-          onlineUsersList.style.display = 'none';
-          onlineUsersDiv.style.transform = 'translate(-50%, -50%)'; // Pomeri div nazad u sredinu
+        loginScreen.style.display = 'block';
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedUsername = localStorage.getItem('username');
+        const savedAvatar = localStorage.getItem('avatar');
+
+        if (savedUsername) {
+            selectedAvatar = savedAvatar || 'default-avatar.png';
+            loginScreen.style.display = 'none';
+            chatScreen.style.display = 'block';
+            userDisplay.textContent = `Korisnik: ${savedUsername}`;
+            renderMessages();
         } else {
-          onlineUsersList.style.display = 'block';
-          onlineUsersDiv.style.transform = 'translate(-50%, -50%)'; // Pomeri div u sredinu
+            loginScreen.style.display = 'block';
         }
-      });
-    </script>
+    });
+</script>
+
   </body>
 </html>
