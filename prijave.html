@@ -314,6 +314,15 @@ button {
     
 }
 
+.avatarr {
+    width: 2px; /* Širina slike */
+    height: 2px; /* Visina slike */
+    border-radius: 50%; /* Čini sliku kružnom */
+    border: 2px solid #4CAF50; /* Zeleni okvir */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Senka ispod slike */
+    object-fit: cover; /* Da se slika prilagodi okvirovima */
+}
+
 
     </style>
 </head>
@@ -355,6 +364,8 @@ button {
                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNI3kQLeYMnpy05PhEiuzS1rtRmNVL7VKvwcE4ACmQSQT1rRmUO5mHLyjH-mGHq0ueUQY&usqp=CAU" class="avatar" data-avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNI3kQLeYMnpy05PhEiuzS1rtRmNVL7VKvwcE4ACmQSQT1rRmUO5mHLyjH-mGHq0ueUQY&usqp=CAU" alt="Avatar 3">
                   <img src="https://www.shutterstock.com/image-vector/avatar-girls-icon-vector-woman-260nw-433429546.jpg" class="avatar" data-avatar="https://www.shutterstock.com/image-vector/avatar-girls-icon-vector-woman-260nw-433429546.jpg" alt="Avatar 3">
                    <img src="https://as1.ftcdn.net/v2/jpg/01/12/70/16/1000_F_112701616_X71EL4aiwMMv6y8hmjpXcwpKGqDqSm7q.jpg" class="avatar" data-avatar="https://as1.ftcdn.net/v2/jpg/01/12/70/16/1000_F_112701616_X71EL4aiwMMv6y8hmjpXcwpKGqDqSm7q.jpg" alt="Avatar 3">
+                   
+                   <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihRUWLh4njdNHzSNBUwknFu6Vvw08zBVy9fGuSbLxH9EdkQ2tpWAiDJnhX2-r5o2SoskHjMkDOoz1GEllGqdqgmaQvwhD4JSKpPF24TVZslx-x0RuKNNRPuk4ZMUMj0cPIfiZIP3dCbPm0GxpYtyoP4zYOGluuPB3d6gfURd1uSRcZErRVTcHEF_UP5IxW/s1600/unnamed.webp" class="avatarr" data-avatar="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihRUWLh4njdNHzSNBUwknFu6Vvw08zBVy9fGuSbLxH9EdkQ2tpWAiDJnhX2-r5o2SoskHjMkDOoz1GEllGqdqgmaQvwhD4JSKpPF24TVZslx-x0RuKNNRPuk4ZMUMj0cPIfiZIP3dCbPm0GxpYtyoP4zYOGluuPB3d6gfURd1uSRcZErRVTcHEF_UP5IxW/s1600/unnamed.webp" alt="Avatarr 3">
                 <!-- Add more avatars as needed -->
             </div>
             <button id="close-modal">Zatvori</button>
@@ -410,6 +421,15 @@ button {
 
     avatarsContainer.addEventListener('click', (event) => {
         if (event.target.classList.contains('avatar')) {
+            selectedAvatar = event.target.getAttribute('data-avatar');
+            avatarModal.style.display = 'none'; // Hide avatar modal
+            chatScreen.style.display = 'block'; // Show chat screen
+            userDisplay.textContent = `Korisnik: ${localStorage.getItem('username')}`;
+        }
+    });
+    
+        avatarsContainer.addEventListener('click', (event) => {
+        if (event.target.classList.contains('avatarr')) {
             selectedAvatar = event.target.getAttribute('data-avatar');
             avatarModal.style.display = 'none'; // Hide avatar modal
             chatScreen.style.display = 'block'; // Show chat screen
