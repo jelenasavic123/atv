@@ -315,7 +315,7 @@ button {
 #welcome-text {
     background-color: #ffffff; /* Belo pozadinsko boje za čist izgled */
     border: 1px solid #ddd; /* Suptilna ivica oko teksta */
-    border-radius: 8px; /* Zaobljeni uglovi */
+    border-radius: 25px; /* Zaobljeni uglovi */
     padding: 20px; /* Unutrašnje margine za razmak od ivica */
     margin: 20px auto; /* Razmak od drugih elemenata i centriranje */
     max-width: 800px; /* Maksimalna širina kako bi se tekst ne rastegnuo */
@@ -754,6 +754,8 @@ function renderMessages() {
 
 // Dodaj ovo u tvoj postojeći JavaScript kod
 
+
+
 // Ref za kolekciju online korisnika
 const onlineUsersRef = db.collection('onlineUsers');
 
@@ -778,16 +780,6 @@ function loadOnlineUsers() {
         });
     });
 }
-
-let messageInputContainer = document.getElementById('message-input-container');
-
-window.addEventListener('resize', () => {
-    if (window.innerHeight < 500) { // Proveri visinu prozora da bi znala kada je tastatura otvorena
-        messageInputContainer.style.bottom = '15%'; // Podižemo element kada je tastatura otvorena
-    } else {
-        messageInputContainer.style.bottom = '5%'; // Vraćamo na prvobitnu poziciju
-    }
-});
 
 
 </script>
