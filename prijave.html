@@ -213,7 +213,7 @@ button {
 
 #message-input-container {
     position: fixed;
-    bottom: 0; /* Uvek postavi na dno ekrana */
+    bottom: 5%; /* Podižemo element za 5% od visine ekrana */
     left: 0;
     width: 100%;
     background-color: #fff;
@@ -222,9 +222,8 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: bottom 0.3s;
+    transition: bottom 0.3s; /* Glatka promena pozicije */
 }
-
 
 
 #message-input {
@@ -352,9 +351,8 @@ button {
                 <div id="message-input-container">
                     <input type="text" id="message-input" placeholder="Unesite poruku...">
                     <button id="send-btn">Pošalji</button>
-                          <button id="logout-btn">Odjavi se</button>
-                    <!-- HTML for delete button in each message -->
                 </div>
+                <button id="logout-btn">Odjavi se</button>
             </div>
         </div>
     </div>
@@ -760,6 +758,31 @@ function renderMessages() {
 
 
 
+// Ref za kolekciju online korisnika
+const onlineUsersRef = db.collection('onlineUsers');
+
+// Element za prikaz online korisnika
+const onlineUsersList = document.getElementById('online-users-list');
+
+// Funkcija za prikaz online korisnika
+function loadOnlineUsers() {
+    onlineUsersRef.onSnapshot(snapshot => {
+        onlineUsersList.innerHTML = ''; // Očisti listu pre nego što je popunimo
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const userItem = document.createElement('li');
+            userItem.textContent = data.username;
+
+            const avatarImg = document.createElement('img');
+            avatarImg.src = data.avatar;
+            avatarImg.className = 'message-avatar'; // Pretpostavljamo da već imaš stil za avatara
+
+            userItem.prepend(avatarImg); // Dodaj avatar ispred imena
+            onlineUsersList.appendChild(userItem);
+        });
+    });
+}
+
 // Funkcija za automatsko skrolovanje na dno chat-a
 function scrollToBottom() {
     setTimeout(() => {
@@ -795,24 +818,24 @@ db.collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
     scrollToBottom();
 });
 
-// Pratimo događaj kada se tastatura pojavljuje i nestaje
-window.addEventListener('resize', function() {
-    const messageInputContainer = document.getElementById('message-input-container');
-    const chatBox = document.getElementById('chat-box');
+// Pratimo resize događaj
+window.addEventListener('resize', () => {
+    // Dohvati visinu prozora
+    const windowHeight = window.innerHeight;
 
-    // Proveravamo da li je tastatura aktivna na osnovu promene visine prozora
-    if (window.innerHeight < 500) {  // Ovo zavisi od uređaja; prilagodite visinu po potrebi
-        messageInputContainer.style.bottom = '30%';  // Podižemo input deo iznad tastature
-    } else {
-        messageInputContainer.style.bottom = '5%';  // Vraćamo na originalnu poziciju
-    }
+    // Postavi visinu chat-box-a tako da zauzima preostali prostor kad je tastatura otvorena
+    document.getElementById('chat-box').style.height = `${windowHeight - 100}px`; // 100px je primer visine za unos poruka i dugmad
+});
+// Pratimo resize događaj
+window.addEventListener('resize', () => {
+    // Dohvati visinu prozora
+    const windowHeight = window.innerHeight;
 
-    // Skrolujemo chat na dno kad se tastatura pojavi
-    chatBox.scrollTop = chatBox.scrollHeight;
+    // Postavi visinu chat-box-a tako da zauzima preostali prostor kad je tastatura otvorena
+    document.getElementById('chat-box').style.height = `${windowHeight - 100}px`; // 100px je primer visine za unos poruka i dugmad
 });
 
 </script>
-
 
 </body>
 </html>
