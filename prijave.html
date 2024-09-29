@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -363,19 +363,14 @@ button {
             <h2>Izaberite Avatar</h2>
             <div id="avatars-container">
                 <img src="https://static.vecteezy.com/system/resources/previews/001/993/889/non_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg" class="avatar" data-avatar="https://static.vecteezy.com/system/resources/previews/001/993/889/non_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg" alt="Avatar 1">
-                <img src="https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg" class="avatar" data-avatar="https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg" alt="Avatar 2">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOXbOWUPYSg9U7KFrXG0fYPGtHapXfmqpjoRJ7W-zEWDMo3dyaMbxwnYbR8tVlbP09nbw&usqp=CAU" class="avatar" data-avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOXbOWUPYSg9U7KFrXG0fYPGtHapXfmqpjoRJ7W-zEWDMo3dyaMbxwnYbR8tVlbP09nbw&usqp=CAU" alt="Avatar 3">
-                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNI3kQLeYMnpy05PhEiuzS1rtRmNVL7VKvwcE4ACmQSQT1rRmUO5mHLyjH-mGHq0ueUQY&usqp=CAU" class="avatar" data-avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNI3kQLeYMnpy05PhEiuzS1rtRmNVL7VKvwcE4ACmQSQT1rRmUO5mHLyjH-mGHq0ueUQY&usqp=CAU" alt="Avatar 3">
-                  <img src="https://www.shutterstock.com/image-vector/avatar-girls-icon-vector-woman-260nw-433429546.jpg" class="avatar" data-avatar="https://www.shutterstock.com/image-vector/avatar-girls-icon-vector-woman-260nw-433429546.jpg" alt="Avatar 3">
-                   <img src="https://as1.ftcdn.net/v2/jpg/01/12/70/16/1000_F_112701616_X71EL4aiwMMv6y8hmjpXcwpKGqDqSm7q.jpg" class="avatar" data-avatar="https://as1.ftcdn.net/v2/jpg/01/12/70/16/1000_F_112701616_X71EL4aiwMMv6y8hmjpXcwpKGqDqSm7q.jpg" alt="Avatar 3">
+                
                 <!-- Add more avatars as needed -->
             </div>
             <button id="close-modal">Zatvori</button>
         </div>
     </div>
-
-
-    <!-- Firebase App (the core Firebase SDK) -->
+ 
+ <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <!-- Firebase Firestore -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -816,23 +811,6 @@ db.collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
 
     // Nakon što su sve poruke učitane, skrolujemo na dno
     scrollToBottom();
-});
-
-// Pratimo resize događaj
-window.addEventListener('resize', () => {
-    // Dohvati visinu prozora
-    const windowHeight = window.innerHeight;
-
-    // Postavi visinu chat-box-a tako da zauzima preostali prostor kad je tastatura otvorena
-    document.getElementById('chat-box').style.height = `${windowHeight - 100}px`; // 100px je primer visine za unos poruka i dugmad
-});
-// Pratimo resize događaj
-window.addEventListener('resize', () => {
-    // Dohvati visinu prozora
-    const windowHeight = window.innerHeight;
-
-    // Postavi visinu chat-box-a tako da zauzima preostali prostor kad je tastatura otvorena
-    document.getElementById('chat-box').style.height = `${windowHeight - 100}px`; // 100px je primer visine za unos poruka i dugmad
 });
 
 </script>
