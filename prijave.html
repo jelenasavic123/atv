@@ -17,7 +17,6 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    
 }
 .container {
     display: flex;
@@ -27,7 +26,6 @@ body {
     height: 100vh;
     margin-top: 0;
     background: linear-gradient(135deg, #e0f7f1, #b2dfdb); /* Blagi mint prelaz */
-    
 }
 #login-screen {
     display: flex;
@@ -35,12 +33,10 @@ body {
     align-items: center;
 }
 #chat-screen {
-    position: fixed;  /* Postavlja element fiksno u odnosu na prozor */
-    bottom: 25%;      /* Podiže element 20% od dna prozora */
-    width: 95%;       /* Širina elementa */
-   
+    position: fixed;
+    bottom: 0; /* Uveravamo se da je na dnu */
+    width: 100%; /* Postavljamo da zauzima punu širinu */
 }
-
 #loginScreen {
     display: flex;
     flex-direction: column;
@@ -151,15 +147,15 @@ button {
     font-weight: bold;
 }
 .message-timestamp {
-    font-size: 0.rem; /* Smanjite veličinu teksta ako je potrebno */
+    font-size: 0.8rem;
     color: #999;
     position: absolute;
-    top: 5px; /* Premestite vreme u gornji deo poruke */
-    right: 10px; /* Povećajte prostor od desnog ruba */
+    top: 5px;
+    right: 10px;
 }
 .reply-btn, .delete-btn {
     cursor: pointer;
-    padding: 1px 1px; /* Smanjena veličina dugmeta za odgovor */
+    padding: 1px 1px;
     color: white;
     border: none;
     border-radius: 4px;
@@ -194,26 +190,26 @@ button {
 #chat-container {
     display: flex;
     flex-direction: column;
-    height: 70vh;
-    justify-content: center; /* Centriranje sadržaja vertikalno */
-    align-items: center; /* Centriranje sadržaja horizontalno */
+    height: 100vh; /* Postavljamo visinu na 100% */
+    justify-content: flex-start; /* Da bi se sadržaj prikazivao od vrha */
+    align-items: center;
 }
 
 #chat-box {
-    flex: 1;
-    overflow-y: auto; /* Omogućava skrolovanje u chat boxu */
-    width: 100%; /* Osigurava da chat box zauzme celokupnu širinu */
-    max-width: 600px; /* Opcionalno: maksimalna širina */
-    padding: 20px; /* Opcionalno: unutrašnje margine */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Opcionalno: senka za bolji vizuelni efekat */
-    border-radius: 8px; /* Opcionalno: za zaobljene ivice */
-
+    flex: 1; /* Da popuni preostalu visinu u chat-container */
+    overflow-y: auto; /* Omogućava pomeranje kada je sadržaj veći od okvira */
+    width: 100%; /* Zauzima punu širinu */
+    max-width: 600px; /* Maksimalna širina */
+    padding: 10px; /* Postavi padding na pozitivnu vrednost */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Senka */
+    border-radius: 8px; /* Zaobljeni uglovi */
+    margin-bottom: 20%; /* Ostavlja 20% praznog prostora na dnu */
 }
 
 
 #message-input-container {
     position: fixed;
-    bottom: 5%; /* Podižemo element za 5% od visine ekrana */
+    bottom: 0; /* Uveravamo se da je na dnu */
     left: 0;
     width: 100%;
     background-color: #fff;
@@ -221,35 +217,32 @@ button {
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    transition: bottom 0.3s; /* Glatka promena pozicije */
+    margin-left: 10px; /* Dodaj marginu sa leve strane */
 }
 
-
 #message-input {
-    width: 75%; /* Povećajte širinu inputa za poruke */
+    width: 60%; /* Smanjivanje širine polja za unos */
     padding: 7px;
     font-size: 13px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    
+    margin-right: 10px; /* Razmak između inputa i dugmeta */
 }
+
 #send-btn {
-    padding: 7px;
+    padding: 7px 12px; /* Dodaj padding za bolji izgled */
     cursor: pointer;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     font-size: 10px;
-    position: absolute; /* Apsolutno pozicioniranje */
-    right: 25px; /* Postavlja dugme 10px od desne strane */
-    top: 10px; /* Ako želiš da bude bliže vrhu */
 }
 
 #send-btn:hover {
     background-color: #0056b3;
 }
+
 #logout-btn {
     padding: 1px;
     background-color: #dc3545;
@@ -316,18 +309,31 @@ button {
     background-color: #c82333;
 }
 #welcome-text {
-    background-color: #ffffff; /* Belo pozadinsko boje za čist izgled */
-    border: 1px solid #ddd; /* Suptilna ivica oko teksta */
-    border-radius: 25px; /* Zaobljeni uglovi */
-    padding: 20px; /* Unutrašnje margine za razmak od ivica */
-    margin: 20px auto; /* Razmak od drugih elemenata i centriranje */
-    max-width: 800px; /* Maksimalna širina kako bi se tekst ne rastegnuo */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Suptilna senka oko elemenata */
-    font-family: Arial, sans-serif; /* Font za lakše čitanje */
-    color: #333; /* Tamnija boja teksta za bolju čitljivost */
-    
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    color: #333;
 }
 
+/* Responsive design for mobile devices */
+@media screen and (max-width: 768px) {
+    #loginScreen, #chat-box {
+        width: 95%; /* Smanjujemo širinu za mobilne uređaje */
+    }
+    input[type="text"], input[type="password"], #message-input {
+        font-size: 12px; /* Manja veličina fonta za mobilne uređaje */
+        padding: 8px; /* Manje padding za bolji izgled */
+    }
+    button, #send-btn, #logout-btn {
+        font-size: 12px; /* Manja veličina fonta za dugmad */
+        padding: 6px; /* Manje padding za dugmad */
+    }
+}
 
     </style>
 </head>
