@@ -210,38 +210,28 @@ button {
 #message-input-container {
     position: fixed;
     bottom: 0; /* Uveravamo se da je na dnu */
-    left: 0;
-    width: 100%;
+    left: 50%; /* Pomeri sa leve strane do sredine */
+    width: 100%; /* Širina kontejnera */
+    transform: translateX(-50%); /* Centriraj kontejner horizontalno */
     background-color: #fff;
-    padding: 10px;
+    padding: 4px 10px; /* Smanjeni padding (gore/dole) i povećani (levo/desno) */
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
-    align-items: center;
-    margin-left: 10px; /* Dodaj marginu sa leve strane */
+    align-items: center; /* Vertikalno centriranje sadržaja */
+    height: 40px; /* Postavite željenu visinu */
 }
 
 #message-input {
-    width: 60%; /* Smanjivanje širine polja za unos */
-    padding: 7px;
-    font-size: 13px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px; /* Razmak između inputa i dugmeta */
+    width: 75%; /* Širina input polja */
+    padding: 5px; /* Smanjite padding za ulaz */
+    font-size: 12px; /* Smanjite veličinu fonta */
 }
 
 #send-btn {
-    padding: 7px 12px; /* Dodaj padding za bolji izgled */
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 10px;
+    padding: 5px; /* Smanjite padding za dugme */
+    font-size: 10px; /* Smanjite veličinu fonta */
 }
 
-#send-btn:hover {
-    background-color: #0056b3;
-}
 
 #logout-btn {
     padding: 1px;
