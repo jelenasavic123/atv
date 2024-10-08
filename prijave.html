@@ -555,6 +555,41 @@ button {
             }
         }
     });
+    
+    // Funkcija za automatsko skrolovanje na dno chat-a
+function scrollToBottom() {
+    setTimeout(() => {
+        chatBox.scrollTop = chatBox.scrollHeight;  // Skroluje na dno chat prozora
+    }, 300);  // Kašnjenje povećano na 300 milisekundi
+}
+
+// Učitavanje poruka iz baze i prikazivanje u chat prozoru
+db.collection('messages').orderBy('timestamp').onSnapshot(snapshot => {
+    chatBox.innerHTML = '';  // Čisti chatBox pre nego što dodamo nove poruke
+
+    snapshot.forEach(doc => {
+        const data = doc.data();  // Dobijamo podatke iz dokumenta
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+
+        // Ako postoji avatar, prikazujemo ga
+        if (data.avatar) {
+            const avatarImg = document.createElement('img');
+            avatarImg.src = data.avatar;
+            messageDiv.appendChild(avatarImg);
+        }
+
+        // Prikazujemo tekst poruke
+        const messageText = document.createElement('div');
+        messageText.textContent = `${data.username}: ${data.text}`;
+        messageDiv.appendChild(messageText);
+
+        chatBox.appendChild(messageDiv);  // Dodajemo poruku u chatBox
+    });
+
+    // Nakon što su sve poruke učitane, skrolujemo na dno
+    scrollToBottom();
+});
 
 </script>
 
