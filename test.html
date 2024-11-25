@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kupite Premium usluge kao što su Netflix, YouTube Premium i Spotify Premium. Brza i sigurna kupovina sa 24/7 podrškom.">
+    <meta name="author" content="Vaše ime ili firma">
+    <title>Premium Servisi - Netflix, YouTube, Spotify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #111;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 1.5em;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #444;
+            border-radius: 5px;
+        }
+
+        .container {
+            width: 85%;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .product {
+            background-color: #fff;
+            padding: 40px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .product img:hover {
+            transform: scale(1.1);
+        }
+
+        .product h2 {
+            font-size: 2.5em;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .product p {
+            font-size: 1.2em;
+            color: #666;
+            margin: 10px 0 20px 0;
+            background-color: #f2f2f2;  /* Siva pozadina */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .product button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .product button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #111;
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 2em;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #007BFF;
+        }
+
+        /* Instagram poziv na dnu sa leve strane */
+        .bottom-instagram {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #E4405F; /* Instagram crvena boja */
+            padding: 15px 25px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .bottom-instagram a {
+            color: #fff;
+            font-size: 1.8em;
+            text-decoration: none;
+            margin-right: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .bottom-instagram a:hover {
+            color: #fff;
+        }
+
+        .bottom-instagram span {
+            color: #fff;
+            font-size: 1.2em;
+        }
+
+        /* Ikone u tekstu */
+        .features {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            font-size: 1.5em;
+        }
+
+        .features div {
+            margin: 0 20px;
+            text-align: center;
+        }
+
+        .features i {
+            font-size: 3em;
+            color: #007BFF;
+        }
+
+        .features p {
+            margin-top: 10px;
+            font-size: 1.1em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Dobrodošli na Premium Servise!</h1>
+    <p>Brza, sigurna i <strong>najpovoljnija</strong> kupovina Netflix, YouTube Premium i Spotify Premium usluga, sa <strong>24/7 podrškom</strong>. Uživajte u svim prednostima uz <strong>najbolje cene na tržištu</strong>. Bez reklama, sa mogućnostima preuzimanja i još mnogo toga!</p>
+</header>
+
+<nav>
+    <a href="#netflix">Netflix</a>
+    <a href="#youtube">YouTube Premium</a>
+    <a href="#spotify">Spotify Premium</a>
+    <a href="#contact">Kontakt</a>
+</nav>
+
+<div class="container">
+    <!-- Ikone koje prikazuju prednosti usluga -->
+    <div class="features">
+        <div>
+            <i class="fas fa-tachometer-alt"></i>
+            <p>Brza Aktivacija</p>
+        </div>
+        <div>
+            <i class="fas fa-lock"></i>
+            <p>Sigurnost</p>
+        </div>
+        <div>
+            <i class="fas fa-headset"></i>
+            <p>24/7 Podrška</p>
+        </div>
+        <div>
+            <i class="fas fa-dollar-sign"></i>
+            <p>Najpovoljnije Cene</p>
+        </div>
+    </div>
+
+    <!-- Netflix Product -->
+    <section id="netflix" class="product">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMXIPgcnivoKHIspBc4rc_OdUVcOFP7nUiEA&s" alt="Netflix Logo">
+        <h2>Netflix Premium</h2>
+        <p>Pristup najnovijim filmovima, serijama i ekskluzivnim sadržajima. Brza aktivacija i bez reklama!</p>
+        <button onclick="window.location.href='https://www.paypal.com/paypalme/yourpaypal'">Kupite sada</button>
+    </section>
+
+    <!-- YouTube Premium Product -->
+    <section id="youtube" class="product">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3_JCHWvNV_2oU83TTdKoDnRVMCT8OAiFrjw&s" alt="YouTube Premium Logo">
+        <h2>YouTube Premium</h2>
+        <p>Bez reklama, preuzimanje video sadržaja i ekskluzivne opcije za kreiranje. Kupite odmah i uživajte!</p>
+        <button onclick="window.location.href='https://www.paypal.com/paypalme/yourpaypal'">Kupite sada</button>
+    </section>
+
+    <!-- Spotify Premium Product -->
+    <section id="spotify" class="product">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify Premium Logo">
+        <h2>Spotify Premium</h2>
+        <p>Uživajte u neprekidnoj muzici, bez reklama i sa offline funkcionalnostima. Brza aktivacija i podrška 24/7.</p>
+        <button onclick="window.location.href='https://www.paypal.com/paypalme/yourpaypal'">Kupite sada</button>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2024 Premium Servisi. Sva prava zadržana.</p>
+    <p>Pratite nas na društvenim mrežama!</p>
+    <div class="social-icons">
+        <a href="https://www.facebook.com" target="_blank" class="fab fa-facebook"></a>
+        <a href="https://www.instagram.com" target="_blank" class="fab fa-instagram"></a>
+        <a href="https://twitter.com" target="_blank" class="fab fa-twitter"></a>
+    </div>
+</footer>
+
+<!-- Instagram Call to Action -->
+<div class="bottom-instagram">
+    <a href="https://www.instagram.com" target="_blank" class="fab fa-instagram"></a>
+    <span>Pratite nas na Instagramu!</span>
+</div>
+
+</body>
+</html>
