@@ -667,7 +667,6 @@ logoutBtn.addEventListener('click', () => {
     chatScreen.style.display = 'none';
 });
 
-// Function to render messages
 function renderMessages() {
     db.collection('messages').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
         chatBox.innerHTML = '';
@@ -699,7 +698,7 @@ function renderMessages() {
             messageDiv.appendChild(messageHeader);
             
             const messageText = document.createElement('div');
-            messageText.textContent = data.text;
+            messageText.innerHTML = detectLinks(data.text); // Use the function to detect links
             messageDiv.appendChild(messageText);
 
             if (data.replyTo) {
@@ -756,6 +755,15 @@ function renderMessages() {
         });
     });
 }
+
+// Function to detect links in the message and convert them to <a> tags
+function detectLinks(text) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, (url) => {
+        return `<a href="${url}" target="_blank">${url}</a>`;
+    });
+}
+
 
 // Dodaj ovo u tvoj postojeći JavaScript kod
 
