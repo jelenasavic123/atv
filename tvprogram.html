@@ -1,653 +1,180 @@
-<div style='background-color: #141414; color: #e50914; padding: 5px; text-align: center; font-family: &apos;Helvetica Neue&apos;, Arial, sans-serif; border-radius: 10px; max-width: 600px; margin: 1px auto; border: 2px solid #e50914; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);'>
-    <p style='font-size: 13px; line-height: 1.8; margin: 0;'>Neke od novih serija će biti na pauzi do daljnjeg. O daljim informacijama i eventualnom nastavku emitovanja bićete blagovremeno obavešteni. </p>
-</div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RY30KTPZCB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-RY30KTPZCB');
-    </script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TV program</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #141414;
-            color: #fff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TV Program sa TMDb</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #141414;
+      color: #fff;
+    }
 
-        .header {
-            background: #000;
-            padding: 7px 20px;
-            text-align: center;
-        }
+    .header {
+      background: #000;
+      padding: 10px 20px;
+      text-align: center;
+    }
 
-        .header h1 {
-            margin: 0;
-            font-size: 1rem;
-        }
+    .header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            margin: 10px;
-        }
+    .calendar-container {
+      padding: 20px;
+    }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #333;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
+    .slider-container {
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
 
-        .dropdown-content a {
-            color: #fff;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
+    .slider-container::-webkit-scrollbar {
+      display: none;
+    }
 
-        .dropdown-content a:hover {
-            background-color: #575757;
-        }
+    .week {
+      display: flex;
+      gap: 10px;
+    }
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+    .day {
+      flex-shrink: 0;
+      background: #333;
+      border-radius: 5px;
+      padding: 10px;
+      width: 150px;
+      text-align: center;
+      box-sizing: border-box;
+    }
 
-        .calendar-container {
-            padding: 2px;
-        }
+    .day h2 {
+      margin-top: 0;
+      font-size: 1rem;
+    }
 
-        .slider-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            padding: 0 10px;
-            box-sizing: border-box;
-        }
+    .episodes {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-        .day-slider {
-            display: flex;
-            overflow-x: auto;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none;  /* Internet Explorer and Edge */
-            white-space: nowrap;
-        }
+    .episode {
+      background: #222;
+      border-radius: 5px;
+      padding: 10px;
+      transition: background 0.3s;
+    }
 
-        .day-slider::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, and Opera */
-        }
+    .episode img {
+      width: 100%;
+      border-radius: 5px;
+    }
 
-        .day {
-            background: #333;
-            border-radius: 5px;
-            padding: 1px;
-            min-width: 20px;
-            margin-right: 10px;
-            flex: 0 0 auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            box-sizing: border-box;
-        }
+    .episode p {
+      margin: 5px 0 0;
+      font-size: 0.7rem;
+    }
 
-        .day h2 {
-            margin-top: 0;
-            font-size: 1.2rem;
-        }
+    /* Mobile-friendly adjustments */
+    @media (max-width: 600px) {
+      .slider-container {
+        padding-bottom: 10px;
+      }
 
-        .episodes {
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-        }
+      .day {
+        width: 120px; /* Manja širina za mobilne uređaje */
+      }
 
-        .episode {
-            background: #222;
-            border-radius: 5px;
-            margin-bottom: 4px;
-            padding: 4px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .episode:hover {
-            background: #444;
-        }
-
-        .episode img {
-            width: 70px;
-            border-radius: 5px;
-        }
-
-        .episode-details {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .episode-details .content {
-            background: #333;
-            padding: 20px;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 600px;
-            position: relative;
-        }
-
-        .episode-details .content h2 {
-            margin-top: 0;
-        }
-
-        .episode-details .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: #fff;
-        }
-
-        .episode-details .content img {
-            max-width: 80px;   /* Maksimalna širina slike u modalnom prozoru */
-            max-height: 80vh;  /* Maksimalna visina slike u odnosu na visinu viewporta */
-            object-fit: contain; /* Prilagodite sliku da stane u prostor, zadržavajući proporcije */
-        }
-
-        .popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            z-index: 1000;
-        }
-
-        .popup-content {
-            background: #333;
-            padding: 20px;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        .popup-content h2 {
-            margin-top: 0;
-        }
-
-        .popup-content button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #444;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .popup-content button:hover {
-            background: #575757;
-        }
-
-        .dropbtn {
-            background-color: #b81717;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-
-        .dropbtn:hover {
-            background-color: #575757;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .container {
-            text-align: center;
-        }
-
-        #like-button {
-            padding: 7px 17px;
-            font-size: 12px;
-            cursor: pointer;
-            border: none;
-            background-color: #007bff;
-            color: white;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-    </style>
+      .header h1 {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-
-
-    <div class="header">
-        <h1>TV PROGRAM JE AZURIRAN 12.12.2024</h1>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <div class="dropdown">
-            <button class="dropbtn">Izaberite dan</button>
-            <div class="dropdown-content">
-                <a href="#" onclick="filterByDay('Ponedeljak')">Ponedeljak</a>
-                <a href="#" onclick="filterByDay('Utorak')">Utorak</a>
-                <a href="#" onclick="filterByDay('Sreda')">Sreda</a>
-                <a href="#" onclick="filterByDay('Četvrtak')">Četvrtak</a>
-                <a href="#" onclick="filterByDay('Petak')">Petak</a>
-                <a href="#" onclick="filterByDay('Subota')">Subota</a>
-                <a href="#" onclick="filterByDay('Nedelja')">Nedelja</a>
-            </div>
-        </div>
+  <div class="header">
+    <h1>TV PROGRAM AŽURIRAN SA TMDb</h1>
+  </div>
+  <div class="calendar-container">
+    <div class="slider-container">
+      <div class="week">
+        <!-- Dinamički sadržaj će se ovde dodati -->
+      </div>
     </div>
-<div class="container">
-    </div>
-    <div class="calendar-container">
-        <div class="slider-container">
-            <div class="day-slider" id="day-slider">
-                <!-- Days and episodes will be dynamically generated here -->
-                <div class="day" data-day="Ponedeljak">
-                    <h2>Ponedeljak</h2>
-                    <div class="episodes">
-                        <!-- P1 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'ponedeljkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2AQFRV4HHMDKpaK9b6nXxe387e7G5Ko6FoxfTIK1PXoisLMhI2zdYP-rWlosmukkqWEcOACTf4Ei-k3anpNMnjL_Z0Bpi0yzZnC-cllOoKiF8AD2wlPdW1gkz6lrLTotceQ-LsQD7UWYUGhd4bVxc4pU-xtUoRXX-NKGFyZjKj5_cLKLVGw27KHdiIeBv/s320-rw/Genije.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2AQFRV4HHMDKpaK9b6nXxe387e7G5Ko6FoxfTIK1PXoisLMhI2zdYP-rWlosmukkqWEcOACTf4Ei-k3anpNMnjL_Z0Bpi0yzZnC-cllOoKiF8AD2wlPdW1gkz6lrLTotceQ-LsQD7UWYUGhd4bVxc4pU-xtUoRXX-NKGFyZjKj5_cLKLVGw27KHdiIeBv/s320-rw/Genije.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- P1 -->
-                        <!-- P2 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'ponedeljkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjH_xwAPZNEN00IO1dtmSlGz4GLhCbE8Cv8yxAnjC-nkbW4gw3aItfJD0isB3TI_z0De7TknMJ2vRebB8Kk2eSqA9_8twG2zC8kYPQvPeaUEPRtRw9ChcU80ESdpgOHd0X5MxJYlaCaysYO/w680/Organizacija.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjH_xwAPZNEN00IO1dtmSlGz4GLhCbE8Cv8yxAnjC-nkbW4gw3aItfJD0isB3TI_z0De7TknMJ2vRebB8Kk2eSqA9_8twG2zC8kYPQvPeaUEPRtRw9ChcU80ESdpgOHd0X5MxJYlaCaysYO/w680/Organizacija.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- P2 -->
-                        <!-- P3 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'utorkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjiKxEyXz64gcN3JoFjbRSN8Wf31SGlcEnqaMlENc6H_R87tO6wQLZfcX-CRb8B5gznEmvPDIz2fVcEr-qS8jRR2uT7fJ1sUdTo6GpjAN5uwNGcol5hBq33SFnOB8YGQJJk46pvFdb_o3AT_0OsDKNofYHRRKfo9zU8WXEuX5bkexc98TAgSesGP0-GVDPN/w680/VETROVITI%20BREG.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjiKxEyXz64gcN3JoFjbRSN8Wf31SGlcEnqaMlENc6H_R87tO6wQLZfcX-CRb8B5gznEmvPDIz2fVcEr-qS8jRR2uT7fJ1sUdTo6GpjAN5uwNGcol5hBq33SFnOB8YGQJJk46pvFdb_o3AT_0OsDKNofYHRRKfo9zU8WXEuX5bkexc98TAgSesGP0-GVDPN/w680/VETROVITI%20BREG.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- P3 -->
-                    </div>
-                </div>
-                <!-- Add similar blocks for other days -->
-                                <!-- Days and episodes will be dynamically generated here -->
-                <div class="day" data-day="Utorak">
-                    <h2>Utorak</h2>
-                    <div class="episodes">
-                        <!-- U1 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'utorkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVIPkUmrDIJFE4q2MDAuAEfn6dkOp43u91uCOxjPFuIzOCs_0iXpjbEhptOLDY6ABi0nkxw4cQa7kRTDAa66KXU2LJWnUqHkSY7vfPP6jb9frU8WgasmN56C_Z90QiIk7nToQZXeAINyZaDGMpT_Tc04DbMBm7EoCLfkHgGtw8GLdNGteW29xvSPwQpqLO/w680/Slozio%20sam%20zakletvu%201.JPG')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVIPkUmrDIJFE4q2MDAuAEfn6dkOp43u91uCOxjPFuIzOCs_0iXpjbEhptOLDY6ABi0nkxw4cQa7kRTDAa66KXU2LJWnUqHkSY7vfPP6jb9frU8WgasmN56C_Z90QiIk7nToQZXeAINyZaDGMpT_Tc04DbMBm7EoCLfkHgGtw8GLdNGteW29xvSPwQpqLO/w680/Slozio%20sam%20zakletvu%201.JPG" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- U1 -->
-                        <!-- U2 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'utorkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjcfxGvs69Lzx3LhwKnpzl914G8rFBQUjUEWbRZocdk4DEjQtY0fh4mPMiL_3nPXNZw6jkYN08t0vsiJ1_rcAJmZBuSCK8xunUbp_cNBQ9esCuCpnQAzqmdI_QgKKl66tBrFmF6Zoi3yA_lMwa3i41bGscH-JYESOT4YsntLbd8tDUb3yXOZfqRH3R3DWRy/w680/Daleki%20grad.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjcfxGvs69Lzx3LhwKnpzl914G8rFBQUjUEWbRZocdk4DEjQtY0fh4mPMiL_3nPXNZw6jkYN08t0vsiJ1_rcAJmZBuSCK8xunUbp_cNBQ9esCuCpnQAzqmdI_QgKKl66tBrFmF6Zoi3yA_lMwa3i41bGscH-JYESOT4YsntLbd8tDUb3yXOZfqRH3R3DWRy/w680/Daleki%20grad.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- U2 -->
-                        <!-- U3 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'utorkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhD2ik_BlwaqFTAtQklHBlWyubre977i_at7QFUllC4TPrqZXp7F7gtNphRJeYF0XOy2fOMYXntPK8l-UKmoT3q1kCpWiNIo5Y3bHkhu8OBlHpuJ_vCK555pmmNKrzDbOfetES2qVS4HkX0jlnwSVZDTm40u9eFW7-lD3Y5ql9iKVAiIYOgG6-cuZf8YySf/s320/Falsifikator.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhD2ik_BlwaqFTAtQklHBlWyubre977i_at7QFUllC4TPrqZXp7F7gtNphRJeYF0XOy2fOMYXntPK8l-UKmoT3q1kCpWiNIo5Y3bHkhu8OBlHpuJ_vCK555pmmNKrzDbOfetES2qVS4HkX0jlnwSVZDTm40u9eFW7-lD3Y5ql9iKVAiIYOgG6-cuZf8YySf/s320/Falsifikator.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        </div>
-                        <!-- U3 -->
-                        <!-- U4 -->
-                    <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'utorkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s320-rw/Gelin1.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s320-rw/Gelin1.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- U4 -->
-                        <!-- U5 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'utorkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOuEObMVhmXk4nxWQoLY9rIjlZoH_vlQkdGh3G0xyCvVJ3xvZK3iuIfRInQHIHeQAug2dAErU6Ir5jtmWJltyek601dRddP52Qjy1vpem1776pLM-DNwpjeERVRURAu8M6cEkN8a5iYu8TY2LcDE7HCuictfEQr6YcQB-V8oYuKVG4h5SVZSkPSwAaSbAq/w680-rw/Zivot%20Koji%20Nas%20Spaja.JPG')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgVfqSihvhCY7sDLVcLxZr3XH4JlW2wS-QTsetTPeMucTaxe_mDK4t1Xo7wxq1Jv9n3jj7xjxmnzUlv9o_ynmcPuksE6lc2ogla5Q_rQsLaaYq6PcEmEir7VTSPCfadoi7ASI4xt5dH-Kyv-RUewu-NuuusE3xoe6-CR0FsJJ3bnyOxgpH9c0uvCPutCPQf/s320-rw/CRVENI%20PUPOLJCI.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- U5 -->
-                        <!-- U6 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'utorkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjobLMy6-XhCe7oL72mjycT-w9NyTk3e5eTfHhri_AO4GAHpmAraQA3Iwg2cHlh13ee-F6FPNytsnjOkwDDpsDvK8XVKLP32rr9HqWYigyYFzKQnENDHcrz3uPMGwILnviNnU98yojq8XT-l2BspGNM4XM66PZSAf_cod7c6Y8ptYaUJr9V5a5kSEJWyw/s320-rw/KRVAVO%20CVECE.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjobLMy6-XhCe7oL72mjycT-w9NyTk3e5eTfHhri_AO4GAHpmAraQA3Iwg2cHlh13ee-F6FPNytsnjOkwDDpsDvK8XVKLP32rr9HqWYigyYFzKQnENDHcrz3uPMGwILnviNnU98yojq8XT-l2BspGNM4XM66PZSAf_cod7c6Y8ptYaUJr9V5a5kSEJWyw/s320-rw/KRVAVO%20CVECE.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- U6 -->
-                        <!-- U7 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'utorkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680/Spasenje.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680/Spasenje.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- U7 -->
-                        <!-- U8 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'utorkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhVW4W4NgxUPptCe129OjiC9NkePN3GrqT_sMfVytSTDMtr8ToL1B5DaWSrTx_Hk7c0awcZyAomwa0tljK6s1HBpWvveQXjroYQRwx_9J7Gs-kDh9MedNd0ZEtU1nXHUzhAflwsf2oEU2-Nf-zMz7UdQdlnSMAaGVBt0R3bJYAaSXCsbv7sNjzx2kwDHbNE/w680/OSVAJAC%20JERUSALIMA.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhVW4W4NgxUPptCe129OjiC9NkePN3GrqT_sMfVytSTDMtr8ToL1B5DaWSrTx_Hk7c0awcZyAomwa0tljK6s1HBpWvveQXjroYQRwx_9J7Gs-kDh9MedNd0ZEtU1nXHUzhAflwsf2oEU2-Nf-zMz7UdQdlnSMAaGVBt0R3bJYAaSXCsbv7sNjzx2kwDHbNE/w680/OSVAJAC%20JERUSALIMA.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- U8 -->
-                </div>
-                <!-- Add similar blocks for other days -->
-                                <!-- Days and episodes will be dynamically generated here -->
-                <div class="day" data-day="Sreda">
-                    <h2>Sreda</h2>
-                    <div class="episodes">
-                       <!-- S1 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'sredom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVIPkUmrDIJFE4q2MDAuAEfn6dkOp43u91uCOxjPFuIzOCs_0iXpjbEhptOLDY6ABi0nkxw4cQa7kRTDAa66KXU2LJWnUqHkSY7vfPP6jb9frU8WgasmN56C_Z90QiIk7nToQZXeAINyZaDGMpT_Tc04DbMBm7EoCLfkHgGtw8GLdNGteW29xvSPwQpqLO/w680/Slozio%20sam%20zakletvu%201.JPG')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVIPkUmrDIJFE4q2MDAuAEfn6dkOp43u91uCOxjPFuIzOCs_0iXpjbEhptOLDY6ABi0nkxw4cQa7kRTDAa66KXU2LJWnUqHkSY7vfPP6jb9frU8WgasmN56C_Z90QiIk7nToQZXeAINyZaDGMpT_Tc04DbMBm7EoCLfkHgGtw8GLdNGteW29xvSPwQpqLO/w680/Slozio%20sam%20zakletvu%201.JPG" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S1 -->
-                        <!-- S2 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'sredom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEikj8tFmav_UG80q8eME4ydF2nRPEKz0QXzE2AtFX7kBNtQDD07POH0YxqHyLYbqSOQwNCaPGztsORIQ7RPJzkvb0DBD4xieKbdPXT2i8dyBpIHlIQ7dPlkiJ075Gu68Uhg2OGrPwx0oRFjYHSC6rnBn8wWOWSXK7FFcxlkLE-6QO0KyJOm-MLjGXbzSo4n/w680/Ne%20Placi%20Istanbul.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEikj8tFmav_UG80q8eME4ydF2nRPEKz0QXzE2AtFX7kBNtQDD07POH0YxqHyLYbqSOQwNCaPGztsORIQ7RPJzkvb0DBD4xieKbdPXT2i8dyBpIHlIQ7dPlkiJ075Gu68Uhg2OGrPwx0oRFjYHSC6rnBn8wWOWSXK7FFcxlkLE-6QO0KyJOm-MLjGXbzSo4n/w680/Ne%20Placi%20Istanbul.jpG" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S2 -->
-                        <!-- S3 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'sredom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjAX9mC9yWeXM4Vs9rwGgQEEzL-wzQpCsGZ85UTd2yAkhbdYHGVljTDkhybOVTzCMCHA_1JvXZsYboJJ4Tu6pzPxF8DS4o1pXNoIH3Hz2PCgriK20ohv9SUXj1jaeWz4fIZktiLNrG-eUbPw5CeKfDHhw5XifKyDQ-GpXqhAqHYxTR6xmPDSrW51-ivKpCS/w680/Tajni%20vrt.JPG')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjAX9mC9yWeXM4Vs9rwGgQEEzL-wzQpCsGZ85UTd2yAkhbdYHGVljTDkhybOVTzCMCHA_1JvXZsYboJJ4Tu6pzPxF8DS4o1pXNoIH3Hz2PCgriK20ohv9SUXj1jaeWz4fIZktiLNrG-eUbPw5CeKfDHhw5XifKyDQ-GpXqhAqHYxTR6xmPDSrW51-ivKpCS/w680/Tajni%20vrt.JPG" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S3 -->
-                        <!-- S4 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'sredom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh_f0wzK8YovkpnVq7833N7Cdvt1ma62bbAXqfBMHrxjH4-W2kwhqRK4mjlclDtPzxG93pbIFxYYRehzwWOkz-Rf9QTStymfoKX08Dmj7SEzF-YVLdQ2ly63YUnVJpLni9uODVdm8uDx2bLH7mv3eof4Nq7o_46cX1YPyIt5623kHflieLm8iA74zu2CuU9/w680-rw/Nocna%20Prica.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh_f0wzK8YovkpnVq7833N7Cdvt1ma62bbAXqfBMHrxjH4-W2kwhqRK4mjlclDtPzxG93pbIFxYYRehzwWOkz-Rf9QTStymfoKX08Dmj7SEzF-YVLdQ2ly63YUnVJpLni9uODVdm8uDx2bLH7mv3eof4Nq7o_46cX1YPyIt5623kHflieLm8iA74zu2CuU9/w680-rw/Nocna%20Prica.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S4 -->
-                        <!-- S5-->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'sredom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHQiRhWnyj7_Gl4VjPDhFeMw-Tl-JQSGly5MeSLWc-vzDstjktK9cLBga8LQaYwib8xtscWA0sF_ER7gPD79j7bpqc5so45ZbtxTJMuG7rtgxkOi0hSqtyZcEvHD4QX0HRU3XP9fIuADWT3uQbX_tHHSnKIGqrQhfjvqr5Z0Owkr09SpjbzatV632ej6aN/w680/Bahar.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHQiRhWnyj7_Gl4VjPDhFeMw-Tl-JQSGly5MeSLWc-vzDstjktK9cLBga8LQaYwib8xtscWA0sF_ER7gPD79j7bpqc5so45ZbtxTJMuG7rtgxkOi0hSqtyZcEvHD4QX0HRU3XP9fIuADWT3uQbX_tHHSnKIGqrQhfjvqr5Z0Owkr09SpjbzatV632ej6aN/w680/Bahar.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S5 -->
-                        <!-- S6 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'sredom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s320-rw/Gelin1.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s320-rw/Gelin1.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S6 -->
-                        <!-- S7 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'sredom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDaGAowOpm3jff9pJegcEPM5G0MaKgWtcjROkdshzw_Ctzd9hTB5XIoY5LxAo9DsMrTrp98Qv-mII8xCTWQ_-xUwxkofsuBUFtR15SVlumhhM6pSzQ-_pWCM-sZ9vj8CkSMgkpJDdMt8fsWCyW3QZWjYXSV1EFJPw_AzBtb-gYzKi0ChMICX8aX1sndW6U/w680/MEHMED%20SULTANOVA%20OSVAJANJA.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDaGAowOpm3jff9pJegcEPM5G0MaKgWtcjROkdshzw_Ctzd9hTB5XIoY5LxAo9DsMrTrp98Qv-mII8xCTWQ_-xUwxkofsuBUFtR15SVlumhhM6pSzQ-_pWCM-sZ9vj8CkSMgkpJDdMt8fsWCyW3QZWjYXSV1EFJPw_AzBtb-gYzKi0ChMICX8aX1sndW6U/w680/MEHMED%20SULTANOVA%20OSVAJANJA.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S7 -->
-                        <!-- S8 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'sredom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680/Spasenje.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680/Spasenje.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S8 -->
-                        <!-- S9 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'sredom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjobLMy6-XhCe7oL72mjycT-w9NyTk3e5eTfHhri_AO4GAHpmAraQA3Iwg2cHlh13ee-F6FPNytsnjOkwDDpsDvK8XVKLP32rr9HqWYigyYFzKQnENDHcrz3uPMGwILnviNnU98yojq8XT-l2BspGNM4XM66PZSAf_cod7c6Y8ptYaUJr9V5a5kSEJWyw/s320-rw/KRVAVO%20CVECE.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjobLMy6-XhCe7oL72mjycT-w9NyTk3e5eTfHhri_AO4GAHpmAraQA3Iwg2cHlh13ee-F6FPNytsnjOkwDDpsDvK8XVKLP32rr9HqWYigyYFzKQnENDHcrz3uPMGwILnviNnU98yojq8XT-l2BspGNM4XM66PZSAf_cod7c6Y8ptYaUJr9V5a5kSEJWyw/s320-rw/KRVAVO%20CVECE.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S9 -->
-                    </div>
-                </div>
-                <!-- Add similar blocks for other days -->
-                                <!-- Days and episodes will be dynamically generated here -->
-                <div class="day" data-day="Četvrtak">
-                    <h2>Četvrtak</h2>
-                    <div class="episodes">
-                        <!-- C1 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'Cetvrtkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVIPkUmrDIJFE4q2MDAuAEfn6dkOp43u91uCOxjPFuIzOCs_0iXpjbEhptOLDY6ABi0nkxw4cQa7kRTDAa66KXU2LJWnUqHkSY7vfPP6jb9frU8WgasmN56C_Z90QiIk7nToQZXeAINyZaDGMpT_Tc04DbMBm7EoCLfkHgGtw8GLdNGteW29xvSPwQpqLO/w680/Slozio%20sam%20zakletvu%201.JPG')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVIPkUmrDIJFE4q2MDAuAEfn6dkOp43u91uCOxjPFuIzOCs_0iXpjbEhptOLDY6ABi0nkxw4cQa7kRTDAa66KXU2LJWnUqHkSY7vfPP6jb9frU8WgasmN56C_Z90QiIk7nToQZXeAINyZaDGMpT_Tc04DbMBm7EoCLfkHgGtw8GLdNGteW29xvSPwQpqLO/w680/Slozio%20sam%20zakletvu%201.JPG" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- C1 -->
-                        <!-- C2 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'Cetvrtkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgoFScAkM43hpX3FkBKb35UGtdPUjse8CojB054VADSZoDDS7AQSHpKNOkPYt4YyncU7NhfEo4ZFSLPKhEzhZ63DCkiPpjX3vi-aPnKW1s9tvofuUw-l-4TsINcc4tI3ZP6UbR6qJ9UTEE4nzn05RkdJ9gjQDtB3dHj4RiHdIdhyKHfpIeNTfQ4aRNviQBE/w680/Moja%20majka%20ankara.JPG')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgoFScAkM43hpX3FkBKb35UGtdPUjse8CojB054VADSZoDDS7AQSHpKNOkPYt4YyncU7NhfEo4ZFSLPKhEzhZ63DCkiPpjX3vi-aPnKW1s9tvofuUw-l-4TsINcc4tI3ZP6UbR6qJ9UTEE4nzn05RkdJ9gjQDtB3dHj4RiHdIdhyKHfpIeNTfQ4aRNviQBE/w680/Moja%20majka%20ankara.JPG" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- C2 -->
-                        <!-- C3 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'Cetvrtkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiB8oB5Lr26MnZxMVTMANJBGoq6XtqQYyD1gaPVZjygqYx2DMmhNaJ68r8sR18siePZGbOPDlhDlLGCIIsxwtXPd-tEn2R07FgR_PuqL9AVff-4NE3KqpudvDZiCblTJKTs6WBiolcTQ0DzMXOJl4L0x58EaW38i7lLp1jz8M9MdJiwNYSXqyISXunKLrb4/w680/Beskucnici.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiB8oB5Lr26MnZxMVTMANJBGoq6XtqQYyD1gaPVZjygqYx2DMmhNaJ68r8sR18siePZGbOPDlhDlLGCIIsxwtXPd-tEn2R07FgR_PuqL9AVff-4NE3KqpudvDZiCblTJKTs6WBiolcTQ0DzMXOJl4L0x58EaW38i7lLp1jz8M9MdJiwNYSXqyISXunKLrb4/w680/Beskucnici.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- C3 -->
-                        <!-- C4 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'Cetvrtkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-7xsPkWN8mx-GkaAN7WZ9ES0qyu2hwuzhbCLZsuSMo9u03UHp09XpWI3EnnbGOyM-AIBcj_ajIIO6uFZK0-9HfDLSFUERChmS2p8Hu8lrZsDYZZknxyW70ea-cO0RjgJSqc4EjLAp7l2r/w200-h200/osman.osn.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-7xsPkWN8mx-GkaAN7WZ9ES0qyu2hwuzhbCLZsuSMo9u03UHp09XpWI3EnnbGOyM-AIBcj_ajIIO6uFZK0-9HfDLSFUERChmS2p8Hu8lrZsDYZZknxyW70ea-cO0RjgJSqc4EjLAp7l2r/w200-h200/osman.osn.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- C4 -->
-                        <!-- C5 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'Cetvrtkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-slWiLa-JODsnhHttg1WlibckU8dybev5p2SsiX7BrTlQp9l0XZqMTZUmbtdmr5iZ1TGxet77IIF-ipQK4arelnnEFQMqJbfKD9tQmjo3UJczaUnw_hnAnSrVwPoX5FrA8BYgQjZycVbcsDP9jlP75cfXM7yasYJrJhGhBbREdx3nOJsukLCq2P8IKZsW/s320-rw/zivot.1.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-slWiLa-JODsnhHttg1WlibckU8dybev5p2SsiX7BrTlQp9l0XZqMTZUmbtdmr5iZ1TGxet77IIF-ipQK4arelnnEFQMqJbfKD9tQmjo3UJczaUnw_hnAnSrVwPoX5FrA8BYgQjZycVbcsDP9jlP75cfXM7yasYJrJhGhBbREdx3nOJsukLCq2P8IKZsW/s320-rw/zivot.1.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- C5 -->
-                        <!-- C6 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'cetvrtkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s320-rw/Gelin1.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s320-rw/Gelin1.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- C6 -->
-                        <!-- C7 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'cetvrtkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqaAASCQrJ4n5vRGOoTJiZbr2rQ1lwkJTLPyZgQ00LWXE90TtVe04KGO4ZnAGk4PU-ZhQTSoxAqTX0JmU6Mad2DKydELUNeeQY-uJGTlT-SPnByZvqBp398Qj0pTwMKtCiarIgpkQ-nkmlViBiFh_tt6rNvt1w0y5r6QGqkBtcopqX8lhLAZgnpBscbT43/w680/Miris%20sanduka1.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqaAASCQrJ4n5vRGOoTJiZbr2rQ1lwkJTLPyZgQ00LWXE90TtVe04KGO4ZnAGk4PU-ZhQTSoxAqTX0JmU6Mad2DKydELUNeeQY-uJGTlT-SPnByZvqBp398Qj0pTwMKtCiarIgpkQ-nkmlViBiFh_tt6rNvt1w0y5r6QGqkBtcopqX8lhLAZgnpBscbT43/w680/Miris%20sanduka1.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- C7 -->
-                        <!-- C8 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'cetvrtkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680/Spasenje.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680/Spasenje.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- C8 -->
-                        <!-- C9 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'cetvrtkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjobLMy6-XhCe7oL72mjycT-w9NyTk3e5eTfHhri_AO4GAHpmAraQA3Iwg2cHlh13ee-F6FPNytsnjOkwDDpsDvK8XVKLP32rr9HqWYigyYFzKQnENDHcrz3uPMGwILnviNnU98yojq8XT-l2BspGNM4XM66PZSAf_cod7c6Y8ptYaUJr9V5a5kSEJWyw/s320-rw/KRVAVO%20CVECE.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjobLMy6-XhCe7oL72mjycT-w9NyTk3e5eTfHhri_AO4GAHpmAraQA3Iwg2cHlh13ee-F6FPNytsnjOkwDDpsDvK8XVKLP32rr9HqWYigyYFzKQnENDHcrz3uPMGwILnviNnU98yojq8XT-l2BspGNM4XM66PZSAf_cod7c6Y8ptYaUJr9V5a5kSEJWyw/s320-rw/KRVAVO%20CVECE.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- C9 -->
+  </div>
 
-                    </div>
-                </div>
-                <!-- Add similar blocks for other days -->
-                                <!-- Days and episodes will be dynamically generated here -->
-                <div class="day" data-day="Petak">
-                    <h2>Petak</h2>
-                    <div class="episodes">
-                        <!-- P1 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'petkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVIPkUmrDIJFE4q2MDAuAEfn6dkOp43u91uCOxjPFuIzOCs_0iXpjbEhptOLDY6ABi0nkxw4cQa7kRTDAa66KXU2LJWnUqHkSY7vfPP6jb9frU8WgasmN56C_Z90QiIk7nToQZXeAINyZaDGMpT_Tc04DbMBm7EoCLfkHgGtw8GLdNGteW29xvSPwQpqLO/w680/Slozio%20sam%20zakletvu%201.JPG')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVIPkUmrDIJFE4q2MDAuAEfn6dkOp43u91uCOxjPFuIzOCs_0iXpjbEhptOLDY6ABi0nkxw4cQa7kRTDAa66KXU2LJWnUqHkSY7vfPP6jb9frU8WgasmN56C_Z90QiIk7nToQZXeAINyZaDGMpT_Tc04DbMBm7EoCLfkHgGtw8GLdNGteW29xvSPwQpqLO/w680/Slozio%20sam%20zakletvu%201.JPG" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- P1 -->
-                        <!-- P2 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'petkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8k6nC3kFyz_Z915zGmb0pa-Nc9RfmEJ9SssF1xT9ztWN-DqAlnAh1YMnn4AS-E3Dc2Z0hcSxD7xnE0m39QfjfRp8VWuuxSGB6pTlADhMWYihluTIcIZeL3n-pFQdk8fmOYP-3sgfmkYTkKkfPeRzXotJJi2oYxc8H-1710hPyEu50jVMdujkyMF_N9SPk/s320/Holdin.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8k6nC3kFyz_Z915zGmb0pa-Nc9RfmEJ9SssF1xT9ztWN-DqAlnAh1YMnn4AS-E3Dc2Z0hcSxD7xnE0m39QfjfRp8VWuuxSGB6pTlADhMWYihluTIcIZeL3n-pFQdk8fmOYP-3sgfmkYTkKkfPeRzXotJJi2oYxc8H-1710hPyEu50jVMdujkyMF_N9SPk/s320/Holdin.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- P2 -->
-                        <!-- P3 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'petkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2I98yl-hpDxooB1avCwqYbJshVnUlFaIORhJQbE-i5m7ZrB6umUCRVjmnr7Bh3zTPuPKcAqPuRbV8jcgNU8ME_BSLJpsvo0CYsh5h6GfDywzcxzprdC8PA6aIF55IQ4LOcQvWm8g5xFgxh95XeUYmmcZlY5vhwpE-BMaOqtRBSvhN3dOnDflVh14uBUtI/w680/BISERI1.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2I98yl-hpDxooB1avCwqYbJshVnUlFaIORhJQbE-i5m7ZrB6umUCRVjmnr7Bh3zTPuPKcAqPuRbV8jcgNU8ME_BSLJpsvo0CYsh5h6GfDywzcxzprdC8PA6aIF55IQ4LOcQvWm8g5xFgxh95XeUYmmcZlY5vhwpE-BMaOqtRBSvhN3dOnDflVh14uBUtI/w680/BISERI1.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- P3 -->
-                        <!-- P4 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'petkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgiGnp1Vb8zSf8lvI21eEXYtJg4Qm63x32XvqfY7mnAqaCGseugmwgtIbHwUYsVBSLN2_OrzKUEswuYNYye-_CFbQjjaz6dK7SZTBmhieWbthdwdcnicUIpc50PbDtLlccDSHfEuDGocfMk6oePTIU5c9R8qS8a63ESKQec9FOEuT4mn0SwPc4xa_G9HCEI/s320-rw/Bezgranicna%20ljubav.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgiGnp1Vb8zSf8lvI21eEXYtJg4Qm63x32XvqfY7mnAqaCGseugmwgtIbHwUYsVBSLN2_OrzKUEswuYNYye-_CFbQjjaz6dK7SZTBmhieWbthdwdcnicUIpc50PbDtLlccDSHfEuDGocfMk6oePTIU5c9R8qS8a63ESKQec9FOEuT4mn0SwPc4xa_G9HCEI/s320-rw/Bezgranicna%20ljubav.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- P4 -->
-                        <!-- P5 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'petkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgq70gKnRkqAkEyVIi8p36tgZdLPD8OId0_9OoJNNkqqLGF3bcXccMuKTbIRCxcuYbgKYlZyJiYMvaCJPyaZ-vBr4QM93ZkSWgtBGq9hd5QpwS0mMjdm4NQ1bV-_xbMBEWs_iko6O3Cnj0HaTXC6CLFCuu6mlHSK5qdomfCxoLUPHVkMTNXJjZ5x2awTJs0/s320-rw/Crno%20Srce.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgq70gKnRkqAkEyVIi8p36tgZdLPD8OId0_9OoJNNkqqLGF3bcXccMuKTbIRCxcuYbgKYlZyJiYMvaCJPyaZ-vBr4QM93ZkSWgtBGq9hd5QpwS0mMjdm4NQ1bV-_xbMBEWs_iko6O3Cnj0HaTXC6CLFCuu6mlHSK5qdomfCxoLUPHVkMTNXJjZ5x2awTJs0/s320-rw/Crno%20Srce.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- P5 -->
-                        <!-- P6 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'petkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s320-rw/Gelin1.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s320-rw/Gelin1.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- P6 -->
-                        <!-- P7 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'petkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680/Spasenje.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680/Spasenje.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- P7 -->
-                        <!-- P8 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'petkom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjobLMy6-XhCe7oL72mjycT-w9NyTk3e5eTfHhri_AO4GAHpmAraQA3Iwg2cHlh13ee-F6FPNytsnjOkwDDpsDvK8XVKLP32rr9HqWYigyYFzKQnENDHcrz3uPMGwILnviNnU98yojq8XT-l2BspGNM4XM66PZSAf_cod7c6Y8ptYaUJr9V5a5kSEJWyw/s320-rw/KRVAVO%20CVECE.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjobLMy6-XhCe7oL72mjycT-w9NyTk3e5eTfHhri_AO4GAHpmAraQA3Iwg2cHlh13ee-F6FPNytsnjOkwDDpsDvK8XVKLP32rr9HqWYigyYFzKQnENDHcrz3uPMGwILnviNnU98yojq8XT-l2BspGNM4XM66PZSAf_cod7c6Y8ptYaUJr9V5a5kSEJWyw/s320-rw/KRVAVO%20CVECE.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- P8 -->
-                        </div>
-                </div>
-                <!-- Add similar blocks for other days -->
-                                <!-- Days and episodes will be dynamically generated here -->
-                <div class="day" data-day="Subota">
-                    <h2>Subota</h2>
-                    <div class="episodes">
-                        <!-- S1 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'subotom ujutru ili petkom kasno navecer', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVIPkUmrDIJFE4q2MDAuAEfn6dkOp43u91uCOxjPFuIzOCs_0iXpjbEhptOLDY6ABi0nkxw4cQa7kRTDAa66KXU2LJWnUqHkSY7vfPP6jb9frU8WgasmN56C_Z90QiIk7nToQZXeAINyZaDGMpT_Tc04DbMBm7EoCLfkHgGtw8GLdNGteW29xvSPwQpqLO/w680/Slozio%20sam%20zakletvu%201.JPG')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVIPkUmrDIJFE4q2MDAuAEfn6dkOp43u91uCOxjPFuIzOCs_0iXpjbEhptOLDY6ABi0nkxw4cQa7kRTDAa66KXU2LJWnUqHkSY7vfPP6jb9frU8WgasmN56C_Z90QiIk7nToQZXeAINyZaDGMpT_Tc04DbMBm7EoCLfkHgGtw8GLdNGteW29xvSPwQpqLO/w680/Slozio%20sam%20zakletvu%201.JPG" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S1 -->
-                        <!-- S2 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'subotom ujutru ili petkom kasno navecer', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhdeA7xmyohiXxJrHZ0mOLVXZOn3DgpNqcnZB8fgT1vIHVmNG0h3UAuMvm3njRF7ZVRLZbmfMSNrNErOqUuuhlotKDbVRYvbTcMQRaeicXFGwe5viJm53Is03IMo1qeHQMSLD_ZC5ftRbT2tKaTmQ5JcpYDkdpNKE05pKUJisgMfAPDz4rtK3DhXIsveg/s320-rw/Vodomar.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhdeA7xmyohiXxJrHZ0mOLVXZOn3DgpNqcnZB8fgT1vIHVmNG0h3UAuMvm3njRF7ZVRLZbmfMSNrNErOqUuuhlotKDbVRYvbTcMQRaeicXFGwe5viJm53Is03IMo1qeHQMSLD_ZC5ftRbT2tKaTmQ5JcpYDkdpNKE05pKUJisgMfAPDz4rtK3DhXIsveg/s320-rw/Vodomar.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S2 -->
-                        <!-- S3 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'subotom ujutru ili petkom kasno navecer', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGHxXA20iDKkKuyKM51nVVk6ZrrHppfHktn3QB9N6Vlkr3X7z5w7xawUgP27TDl4TjOZ-GvrNUmhNsO3daqbrF-PKdU7GoWlVzyHgVX9ztrN3gPdx-GCsVuusWzA0Jyia8CiOW4QgufRJ1HmydltN6-v9RIGJKv6FN2M8A4HD0Jmdw6xNmu-xA7Z-BrQ/s320-rw/Caj%20od%20brusnice.JPG')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGHxXA20iDKkKuyKM51nVVk6ZrrHppfHktn3QB9N6Vlkr3X7z5w7xawUgP27TDl4TjOZ-GvrNUmhNsO3daqbrF-PKdU7GoWlVzyHgVX9ztrN3gPdx-GCsVuusWzA0Jyia8CiOW4QgufRJ1HmydltN6-v9RIGJKv6FN2M8A4HD0Jmdw6xNmu-xA7Z-BrQ/s320-rw/Caj%20od%20brusnice.JPG" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S3 -->
-                        <!-- S4 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'subotom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s320-rw/Gelin1.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ2oJAF0uqmJs4InCL8Oo1JTEGA4wMFNTjkWgdnQsK0zidtw-kiVbLTeK7YWlySoHNWepD9LMeK4DcSg_GAggecpGxyD0IQwi5lpJtAUEQFP6TN_9amG2GEiSfVhCh3_PoDJ1cZw5X_v9i7bTpjaAeIYPxCxtgfgfRmAE0NHmchH4dDcjov3rT1UGy3CBu/s320-rw/Gelin1.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S4 -->
-                        <!-- S5 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'subotom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3yhRqEHcsApAEWkMZUtgTSv9PEiiOn969PI9hjdt0cjSv3iPTAFIdMHUrQYfkqaGP7-thpQaVOevTQ92I0SCVjwKA31qsyBdgxPsQ0ldE16HCzygY2XUZoqby9bIIgVK4oP8bGZyGVdYxRZZrReX4qjMUxGV4PdfIuzz37m4syaIdZCoX39YM20_YucfL/w680-rw/LEGENDA%20O%20CRNOM%20DRVETU.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3yhRqEHcsApAEWkMZUtgTSv9PEiiOn969PI9hjdt0cjSv3iPTAFIdMHUrQYfkqaGP7-thpQaVOevTQ92I0SCVjwKA31qsyBdgxPsQ0ldE16HCzygY2XUZoqby9bIIgVK4oP8bGZyGVdYxRZZrReX4qjMUxGV4PdfIuzz37m4syaIdZCoX39YM20_YucfL/w680-rw/LEGENDA%20O%20CRNOM%20DRVETU.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S5 -->
-                        <!-- S6 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'subotom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680/Spasenje.jpg">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiH5UBchjiN4nbjG6auIPAF5tSjuP8tR4gu0Ovvy-kzhd8-FW4Tq_fY6wKjXt5j2ube98T6X4JVs90fimDT8lcmVyauM9nRPOhiWCJ2UDSolqkCfYEzGSM7Nkfw8gnON7af56hZprpMRSHCSyZ7oSDGSNoKYUmLTVtiBPmWg2zVdRhkGdeqcsjokFNaUA/w680/Spasenje.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S6 -->
-                        <!-- S7 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'subotom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjobLMy6-XhCe7oL72mjycT-w9NyTk3e5eTfHhri_AO4GAHpmAraQA3Iwg2cHlh13ee-F6FPNytsnjOkwDDpsDvK8XVKLP32rr9HqWYigyYFzKQnENDHcrz3uPMGwILnviNnU98yojq8XT-l2BspGNM4XM66PZSAf_cod7c6Y8ptYaUJr9V5a5kSEJWyw/s320-rw/KRVAVO%20CVECE.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjobLMy6-XhCe7oL72mjycT-w9NyTk3e5eTfHhri_AO4GAHpmAraQA3Iwg2cHlh13ee-F6FPNytsnjOkwDDpsDvK8XVKLP32rr9HqWYigyYFzKQnENDHcrz3uPMGwILnviNnU98yojq8XT-l2BspGNM4XM66PZSAf_cod7c6Y8ptYaUJr9V5a5kSEJWyw/s320-rw/KRVAVO%20CVECE.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- S7 -->
-                    </div>
-                </div>
-                <!-- Add similar blocks for other days -->
-                                <!-- Days and episodes will be dynamically generated here -->
-                <div class="day" data-day="Nedelja">
-                    <h2>Nedelja</h2>
-                    <div class="episodes">
-                        <!-- N1 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'nedeljom ujutru',  'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgM0nZ1uhxYDOROBcDWeAEFrgeD6OV9CUH581dcfNbZHo4LerQ3n0OsQobubq7KirsDGYXFIMZijRWjnC1unsuIJ71RU49JfYAXDSSeRnh5HdrVYWRbh7vPMjd28PC4PPtqj_9vyR5lhilUdEIVrrMcE9McuIzgNLloEF387AiapT9DMD_t2gIa4Ggcxc64/s320-rw/Mrtva%20Tacka.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgM0nZ1uhxYDOROBcDWeAEFrgeD6OV9CUH581dcfNbZHo4LerQ3n0OsQobubq7KirsDGYXFIMZijRWjnC1unsuIJ71RU49JfYAXDSSeRnh5HdrVYWRbh7vPMjd28PC4PPtqj_9vyR5lhilUdEIVrrMcE9McuIzgNLloEF387AiapT9DMD_t2gIa4Ggcxc64/s320-rw/Mrtva%20Tacka.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                        <!-- N1 -->
-                        <!-- N2 -->
-                        <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'nedeljom ujutru',  'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh1pTj6FvcqZivs1Pv6aBl8MedjcK0PMn7Ia-vzKEMr4VEt0_EbGIH5Bpgg2W2CES4xqPrTrKJCvWHGAd_52-RnbNdmzbVOAtAmhJwYDtFwXYVn7cTCTG1IZcmDqC76qRshJBqUBwqBkOUXE5SXpKaEAeP9YMkiub0hFbxaf-BVIPKHOdoEkIpmer_ZeIcJ/s320-rw/DIVLJI.jpg')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh1pTj6FvcqZivs1Pv6aBl8MedjcK0PMn7Ia-vzKEMr4VEt0_EbGIH5Bpgg2W2CES4xqPrTrKJCvWHGAd_52-RnbNdmzbVOAtAmhJwYDtFwXYVn7cTCTG1IZcmDqC76qRshJBqUBwqBkOUXE5SXpKaEAeP9YMkiub0hFbxaf-BVIPKHOdoEkIpmer_ZeIcJ/s320-rw/DIVLJI.jpg" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                    </div>
-                    <!-- N2 -->
-                    <!-- N3 -->
-                    <div class="episode" onclick="showDetails('Nova Epizoda', 'Očekuje se', 'nedeljom ujutru', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhmD3lwVC2W9H3FIWbUPb4aimDB78E2lpx46PmtMHs_OmGqZj0UpNbqj4YQ-xBYjaqrmaMmV0n9HI9M0uxnv_jrU7TcAIJbn9I444QjOobXoy3ptRZjcDR21yXRPw_eHSmuU3zEwALT7nTxa2VHzN3Agp35XE51VhonzTTAdkBtWiJqZbCdDDSz9T7vocgy/s320-rw/laz.JPG')">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhmD3lwVC2W9H3FIWbUPb4aimDB78E2lpx46PmtMHs_OmGqZj0UpNbqj4YQ-xBYjaqrmaMmV0n9HI9M0uxnv_jrU7TcAIJbn9I444QjOobXoy3ptRZjcDR21yXRPw_eHSmuU3zEwALT7nTxa2VHzN3Agp35XE51VhonzTTAdkBtWiJqZbCdDDSz9T7vocgy/s320-rw/laz.JPG" alt="Epizoda 1">
-                            <p>Sledeća epz</p>
-                        </div>
-                    </div>
-                    <!-- N3 -->
-                </div>
-                <!-- Add similar blocks for other days -->
-            </div>
-        </div>
-    </div>
+  <script>
+    const API_KEY = '2701858e9bccab54d4d0e4931420a739'; // Tvoj TMDb API ključ
+    const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
-    <div class="episode-details" id="episode-details">
-        <div class="content">
-            <span class="close-btn" onclick="hideDetails()">×</span>
-            <h2 id="episode-title">Epizoda</h2>
-            <p id="episode-description">Opis epizode</p>
-            <p id="episode-date">Datum</p>
-            <img id="episode-image" src="" alt="Epizoda">
-        </div>
-    </div>
+    const tvProgram = {
+      "Ponedeljak": [242551, 262619, 119806],
+      "Utorak": [277303, 262619, 219290, 215709],
+      "Sreda": [277856, 277303, 262619, 261918],
+      "Četvrtak": [274482, 277303, 271548, 259812],
+      "Petak": [277303, 271014, 262619],
+      "Subota": [210865, 280541, 277303],
+      "Nedelja": [278693, 242551]
+    };
 
-    <script>
-        function filterByDay(day) {
-            const days = document.querySelectorAll('.day');
-            days.forEach(d => {
-                d.style.display = d.getAttribute('data-day') === day ? 'block' : 'none';
-            });
+    const weekContainer = document.querySelector('.week');
+
+    // Funkcija za dobijanje podataka o seriji sa TMDb API-ja
+    async function fetchTVDetails(id) {
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=sr`);
+        if (!response.ok) {
+          console.error(`Neuspešno učitavanje serije sa ID ${id}`);
+          return null;
+        }
+        return response.json();
+      } catch (error) {
+        console.error(`Greška prilikom komunikacije sa API-jem za ID ${id}:`, error);
+        return null;
+      }
+    }
+
+    // Funkcija za generisanje TV programa
+    async function generateTVProgram() {
+      for (const [day, ids] of Object.entries(tvProgram)) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day';
+        dayDiv.innerHTML = `<h2>${day}</h2>`;
+
+        const episodesDiv = document.createElement('div');
+        episodesDiv.className = 'episodes';
+
+        for (const id of ids) {
+          const tvData = await fetchTVDetails(id);
+          if (tvData) {
+            const episodeDiv = document.createElement('div');
+            episodeDiv.className = 'episode';
+
+            // Proveravamo naziv serije (lokalizovani naslov ako je dostupan)
+            const title = tvData.name || tvData.original_name;
+
+            episodeDiv.innerHTML = `
+              <img src="${IMAGE_BASE_URL}${tvData.poster_path}" alt="${title}">
+              <p>${title}</p>
+            `;
+            episodesDiv.appendChild(episodeDiv);
+          }
         }
 
-        function showDetails(title, description, date, imageUrl) {
-            document.getElementById('episode-title').textContent = title;
-            document.getElementById('episode-description').textContent = description;
-            document.getElementById('episode-date').textContent = date;
-            document.getElementById('episode-image').src = imageUrl;
-            document.getElementById('episode-details').style.display = 'flex';
-        }
+        dayDiv.appendChild(episodesDiv);
+        weekContainer.appendChild(dayDiv);
+      }
+    }
 
-        function hideDetails() {
-            document.getElementById('episode-details').style.display = 'none';
-        }
+    // Pokreni generisanje programa
+    generateTVProgram();
+</script>
 
-        function showPopup(popupId) {
-            document.getElementById(popupId).style.display = 'flex';
-        }
-
-        function hidePopup(popupId) {
-            document.getElementById(popupId).style.display = 'none';
-        }
-
-
-    </script>
 </body>
 </html>
