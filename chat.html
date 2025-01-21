@@ -2,78 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat App with Firebase</title>
-    <!-- Firebase App (the core Firebase SDK) -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <title>Redirecting...</title>
+    <script>
+        // Script for redirecting
+        function redirectToChat() {
+            window.location.href = "https://tawk.to/chat/6775631f49e2fd8dfe0161b1/1igh8mdcp";
+        }
 
-    <!-- Firebase Firestore -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        // Execute redirect after the page loads
+        window.onload = redirectToChat;
+    </script>
 </head>
 <body>
-    <h1>Chat Application</h1>
-
-    <!-- Chat Form -->
-    <div>
-        <input type="text" id="messageInput" placeholder="Enter your message">
-        <button id="sendMessage">Send</button>
-    </div>
-
-    <!-- Chat Messages -->
-    <div id="chatMessages"></div>
-
-    <script>
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAcp6ogJFrSnw2U6kTW0isDtSuWR7i20bs",
-            authDomain: "chat-4a2d6.firebaseapp.com",
-            projectId: "chat-4a2d6",
-            storageBucket: "chat-4a2d6.appspot.com",
-            messagingSenderId: "1045553997806",
-            appId: "1:1045553997806:web:bdffccdb2bd9f3bb9510ff",
-            measurementId: "G-X0564DDDLZ"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-
-        // Initialize Firestore
-        const db = firebase.firestore();
-
-        // Send Message
-        document.getElementById('sendMessage').addEventListener('click', function() {
-            const message = document.getElementById('messageInput').value;
-
-            // Add message to Firestore
-            if(message.trim()) {
-                db.collection("messages").add({
-                    text: message,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                })
-                .then(() => {
-                    console.log("Message sent!");
-                    document.getElementById('messageInput').value = ''; // Clear the input field
-                })
-                .catch((error) => {
-                    console.error("Error adding message: ", error);
-                });
-            }
-        });
-
-        // Retrieve and display messages in real-time
-        db.collection("messages").orderBy('timestamp')
-        .onSnapshot((snapshot) => {
-            const chatMessages = document.getElementById('chatMessages');
-            chatMessages.innerHTML = ''; // Clear previous messages
-            snapshot.forEach((doc) => {
-                const message = doc.data().text;
-                const messageElement = document.createElement('p');
-                messageElement.textContent = message;
-                chatMessages.appendChild(messageElement);
-            });
-        });
-
-    </script>
+    <p>Redirecting to chat... If you are not redirected automatically, <a href="https://tawk.to/chat/6775631f49e2fd8dfe0161b1/1igh8mdcp">click here</a>.</p>
 </body>
 </html>
