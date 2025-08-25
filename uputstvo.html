@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uputstvo</title>
     <style>
-        /* Globalni stilovi */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -14,83 +13,18 @@
             padding: 0;
         }
 
-        /* Stil za overlay */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 1000;
-        }
-
-        /* Stil za popup */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border-radius: 12px;
-            box-shadow: 40px 44px 10px rgba(0,0,0,0.3);
-            padding: 20px;
-            width: 90%;
-            max-width: 500px;
-            z-index: 1001;
+        h1 {
             text-align: center;
-        }
-
-        .popup h2 {
-            margin-top: 0;
-            font-size: 24px;
-            color: #333;
-        }
-
-        .popup label {
-            display: block;
-            margin: 15px 0;
-            font-size: 18px;
-            text-align: left;
-        }
-
-        .popup input[type="radio"] {
-            margin-right: 15px;
-            accent-color: #007bff;
-        }
-
-        .popup button {
-            background: #000;
-            border: none;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 18px;
-            margin-top: 20px;
-            transition: background 0.3s, transform 0.3s;
-            width: 100%;
-        }
-
-        .popup button:hover {
-            background: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .popup button:active {
-            transform: scale(0.98);
-        }
-
-        /* Stil za uputstvo */
-        .instruction {
-            display: none;
             margin: 20px;
+        }
+
+        .instruction {
+            margin: 20px auto;
             padding: 20px;
+            max-width: 700px;
             border-radius: 12px;
             box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
-            background: #f9f9f9; /* Blaga boja pozadine */
+            background: #f9f9f9;
         }
 
         .instruction p {
@@ -110,166 +44,63 @@
             color: #666;
         }
 
-        /* Stil za dugme Nazad */
-        .back-button {
-            background: #ff6f61;
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 20px;
-            transition: background 0.3s, transform 0.3s;
-            display: block;
-            text-align: center;
-            width: 150px;
-            margin: 20px auto;
-        }
-
-        .back-button:hover {
-            background: #e55d50;
-            transform: scale(1.05);
-        }
-
-        .back-button:active {
-            transform: scale(0.98);
-        }
-
-        /* Stil za mobilne uređaje */
         @media (max-width: 600px) {
-            .popup h2 {
-                font-size: 22px;
-            }
-
-            .popup label {
-                font-size: 16px;
-            }
-
-            .popup button {
-                font-size: 16px;
-                padding: 12px 18px;
-            }
-
             .instruction p {
                 font-size: 18px;
             }
-
             .instruction li {
                 font-size: 16px;
-            }
-
-            .back-button {
-                font-size: 14px;
-                padding: 8px 12px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Popup za izbor problema -->
-    <div class="overlay" id="overlay"></div>
-    <div class="popup" id="problemPopup">
-        <h2>Izaberite problem</h2>
-        <form id="problemForm">
-            <label><input type="radio" name="problem" value="cache"> Brisanje keš memorije </label>
-            <label><input type="radio" name="problem" value="reinstall"> Deinstalacija i instalacija app</label>
-            <label><input type="radio" name="problem" value="wifi"> Povezivanje na WiFi mrežu</label>
-            <label><input type="radio" name="problem" value="apps"> Zatvaranje drugih aplikacija</label>
-            <label><input type="radio" name="problem" value="play"> Višestruko klikanje na 'Play'</label>
-            <label><input type="radio" name="problem" value="errors"> Prijavljivanje grešaka ili problema</label>
-            <button type="button" onclick="showInstructions()">Prikaži uputstvo</button>
-        </form>
-    </div>
+    <h1>Uputstvo</h1>
 
-    <!-- Uputstvo -->
-    <h1 style="text-align: center; margin: 20px;">Uputstvo</h1>
-
-    <div class="instruction" id="cache">
-        <p><strong>✅ Brisanje keš memorije za bolje performanse:</strong></p>
+    <div class="instruction">
+        <p><strong>✅ Brisanje keš memorije:</strong></p>
         <ul>
-        <li>Ukoliko primetite usporenje ili kočenje video sadržaja, preporučujemo brisanje keš memorije.</li>
-        <li>Koristite opciju za brisanje keša putem naše aplikacije za optimalno iskustvo gledanja.</li>
-        <li>Brisanje keša može pomoći u rešavanju problema sa performansama i omogućiti vam da uživate u video sadržaju bez prekida.</li>
-        <li>Kako biste obrisali keš, otvorite aplikaciju, pronađite opciju za keš memoriju i pratite uputstva na ekranu.</li>
-        <li>Redovno brisanje keša može poboljšati brzinu aplikacije i smanjiti vreme učitavanja.</li>
+            <li>Ukoliko primetite usporenje ili kočenje video sadržaja, preporučujemo brisanje keš memorije.</li>
+            <li>Koristite opciju za brisanje keša putem aplikacije za optimalno iskustvo.</li>
+            <li>Redovno brisanje keša može poboljšati brzinu aplikacije i smanjiti vreme učitavanja.</li>
         </ul>
-        <button class="back-button" onclick="showPopup()">Nazad</button>
     </div>
 
-    <div class="instruction" id="reinstall">
-        <p><strong>✅ Deinstalacija i ponovna instalacija aplikacije:</strong></p>
+    <div class="instruction">
+        <p><strong>✅ Deinstalacija i ponovna instalacija:</strong></p>
         <ul>
-         <li>Ukoliko se i dalje susrećete s problemima, deinstalirajte aplikaciju i potom je ponovo instalirajte.</li>
-        <li>Ovo može pomoći u rešavanju tehničkih poteškoća koje možda ne možete drugačije rešiti.</li>
-        <li>Nakon deinstalacije, preuzmite najnoviju verziju aplikacije iz prodavnice aplikacija i instalirajte je ponovo.</li>
-        <li>Ova procedura može osigurati da aplikacija funkcioniše pravilno i bez grešaka.</li>
-        <li>Uverite se da ste povezani na internet tokom instalacije kako biste preuzeli sve potrebne ažuriranja.</li>
+            <li>Deinstalirajte i ponovo instalirajte aplikaciju ako imate problema.</li>
+            <li>Preuzmite najnoviju verziju iz prodavnice aplikacija.</li>
         </ul>
-        <button class="back-button" onclick="showPopup()">Nazad</button>
     </div>
 
-    <div class="instruction" id="wifi">
+    <div class="instruction">
         <p><strong>✅ Povezivanje na WiFi mrežu:</strong></p>
         <ul>
-             <li>Za optimalno korišćenje svih funkcija naše aplikacije, obavezno se povežite na WiFi mrežu sa stabilnim i brzim internetom.</li>
-        <li>Napomena: Naša aplikacija neće raditi preko mobilnih podataka, pa se preporučuje korišćenje WiFi veze za nesmetano korišćenje.</li>
-        <li>Ukoliko nemate pristup WiFi mreži, možda nećete moći da koristite sve dostupne funkcionalnosti ili da preuzimate sadržaje.</li>
-        <li>Proverite da li je vaša WiFi mreža ispravno povezana i ima dovoljno snage signala za stabilnu vezu.</li>
+            <li>Za optimalno korišćenje aplikacije povežite se na stabilan WiFi.</li>
+            <li>Aplikacija možda neće raditi preko mobilnih podataka.</li>
         </ul>
-        <button class="back-button" onclick="showPopup()">Nazad</button>
     </div>
 
-    <div class="instruction" id="apps">
+    <div class="instruction">
         <p><strong>✅ Zatvaranje drugih aplikacija:</strong></p>
         <ul>
-          <li>Pre nego što otvorite našu aplikaciju, obavezno zatvorite sve druge aplikacije koje trenutno koristite.</li>
-        <li>Ovo može pomoći u oslobađanju resursa vašeg uređaja, čime se poboljšava performansa naše aplikacije.</li>
-        <li>Zatvaranje drugih aplikacija može smanjiti mogućnost tehničkih problema i poboljšati ukupno iskustvo korišćenja.</li>
-        <li>Ako imate problema sa performansama, proverite da li su druge aplikacije zatvorene pre nego što pokušate ponovo.</li>
+            <li>Zatvorite druge aplikacije kako biste poboljšali performanse naše aplikacije.</li>
         </ul>
-        <button class="back-button" onclick="showPopup()">Nazad</button>
     </div>
 
-    <div class="instruction" id="play">
+    <div class="instruction">
         <p><strong>✅ Višestruko klikanje na 'Play':</strong></p>
         <ul>
-           <li>Ako video ne pokrene odmah, pokušajte više puta kliknuti na dugme za reprodukciju ('Play').</li>
-        <li>Višestruko klikanje može pomoći u rešavanju problema sa pokretanjem video sadržaja.</li>
-        <li>Budite strpljivi i pokušajte nekoliko puta, naročito ako primetite da video ne reaguje odmah na prvi klik.</li>
-        <button class="back-button" onclick="showPopup()">Nazad</button>
+            <li>Ako video ne pokrene odmah, pokušajte više puta kliknuti na dugme za reprodukciju.</li>
+        </ul>
     </div>
 
-    <div class="instruction" id="errors">
+    <div class="instruction">
         <p><strong>✅ Prijavljivanje grešaka ili problema:</strong></p>
         <ul>
-            <li>Ukoliko imate problema s reprodukcijom određene serije ili epizode, prijavite to našem timu.</li>
-            <li>Naš tim će u najkraćem roku reagovati i zameniti problematičnu epizodu kako biste neometano nastavili gledanje.</li>
+            <li>Prijavite problematične epizode našem timu za brzo rešenje.</li>
         </ul>
-        <button class="back-button" onclick="showPopup()">Nazad</button>
     </div>
-
-    <script>
-        function showPopup() {
-            document.getElementById('overlay').style.display = 'block';
-            document.getElementById('problemPopup').style.display = 'block';
-            document.querySelectorAll('.instruction').forEach(function(el) {
-                el.style.display = 'none';
-            });
-        }
-
-        function showInstructions() {
-            const selectedOption = document.querySelector('input[name="problem"]:checked');
-            if (selectedOption) {
-                document.getElementById('overlay').style.display = 'none';
-                document.getElementById('problemPopup').style.display = 'none';
-                document.getElementById(selectedOption.value).style.display = 'block';
-            }
-        }
-
-        window.onload = function() {
-            showPopup();
-        }
-    </script>
 </body>
 </html>
