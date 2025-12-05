@@ -1,28 +1,53 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="sr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Turske Serije Sa Prevodom</title>
-  <meta name="description" content="Sajt za aplikaciju Turske Serije Sa Prevodom — ovde je dostupan app-ads.txt za verifikaciju AdMob-a." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turske Serije – Developer Website</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background:#f5f5f5;
+        margin:0;
+        padding:40px;
+        text-align:center;
+    }
+    .card {
+        background:#fff;
+        max-width:600px;
+        margin:0 auto;
+        padding:30px;
+        border-radius:12px;
+        box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+        color:#333;
+        margin-bottom:10px;
+    }
+    p {
+        color:#555;
+        line-height:1.6;
+    }
+    a {
+        color:#0066cc;
+        text-decoration:none;
+        font-weight:bold;
+    }
+</style>
 </head>
-<body style="font-family:Arial,Helvetica,sans-serif;line-height:1.6;margin:2rem;">
-  <h1>Turske Serije Sa Prevodom</h1>
-  <p>Ovo je statična GitHub Pages stranica. Fajl <code>app-ads.txt</code> je dostupan na:</p>
-  <pre id="ads">https://<span id="user">TVOJ_GITHUB_USERNAME</span>.github.io/app-ads.txt</pre>
+<body>
 
-  <p>Ako želiš da AdMob verifikuje aplikaciju, budi sigurna da je domen isti kao u Play Console (Developer website).</p>
+<div class="card">
+    <h1>Turske Serije – Zvanični Developerski Sajt</h1>
+    <p>Dobrodošli na zvanični developerski sajt aplikacije <strong>Turske Serije Sa Prevodom</strong>.</p>
+    <p>Ovaj sajt postoji radi Google Play verifikacije i hostovanja app-ads.txt fajla.</p>
 
-  <h3>Proveri fajl:</h3>
-  <p>Otvorite:</p>
-  <p><a id="link" href="#" target="_blank">Otvori app-ads.txt</a></p>
+    <p>app-ads.txt fajl možete videti ovde:</p>
 
-  <script>
-    // zameni u repozitorijumu: promeni samo username u <span id="user"> ili ostavi prazno
-    const user = location.hostname.split('.')[0] || 'TVOJ_GITHUB_USERNAME';
-    document.getElementById('user').textContent = user;
-    document.getElementById('link').href = 'https://' + user + '.github.io/app-ads.txt';
-  </script>
+    <p><a href="app-ads.txt">Klikni za prikaz app-ads.txt</a></p>
+
+    <p>Ako imate pitanja, kontaktirajte nas putem Google Play store stranice.</p>
+</div>
+
 </body>
 </html>
-
