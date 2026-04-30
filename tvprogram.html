@@ -1,191 +1,225 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #141414;
-      color: #fff;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .header {
-      background: #000;
-      padding: 10px 20px;
-      text-align: center;
-    }
+<title>TV Program</title>
 
-    .header h1 {
-      margin: 0;
-      font-size: 1.2rem;
-    }
+<style>
+body {
+  margin:0;
+  font-family: Arial;
+  background:#141414;
+  color:#fff;
+}
 
-    .calendar-container {
-      padding: 20px;
-    }
+.header {
+  padding:15px;
+  text-align:center;
+  background:#000;
+  font-size:18px;
+}
 
-    .slider-container {
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: none;
-    }
+.search {
+  padding:10px;
+  text-align:center;
+}
 
-    .slider-container::-webkit-scrollbar {
-      display: none;
-    }
+.search input {
+  width:90%;
+  padding:8px;
+  border-radius:5px;
+  border:none;
+}
 
-    .week {
-      display: flex;
-      gap: 10px;
-    }
+.days {
+  display:flex;
+  overflow-x:auto;
+  gap:10px;
+  padding:10px;
+}
 
-    .day {
-      flex-shrink: 0;
-      background: #333;
-      border-radius: 5px;
-      padding: 10px;
-      width: 150px;
-      text-align: center;
-      box-sizing: border-box;
-    }
+.day-btn {
+  background:#333;
+  padding:8px 12px;
+  border-radius:5px;
+  cursor:pointer;
+  white-space:nowrap;
+}
 
-    .day h2 {
-      margin-top: 0;
-      font-size: 1rem;
-    }
+.active {
+  background:#e50914;
+}
 
-    .episodes {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+.container {
+  padding:10px;
+}
 
-    .episode {
-      background: #222;
-      border-radius: 5px;
-      padding: 10px;
-      transition: background 0.3s;
-    }
+.card {
+  background:#222;
+  border-radius:8px;
+  margin-bottom:15px;
+  overflow:hidden;
+}
 
-    .episode img {
-      width: 100%;
-      border-radius: 5px;
-    }
+.card img {
+  width:100%;
+}
 
-    .episode p {
-      margin: 5px 0 0;
-      font-size: 0.7rem;
-    }
+.card-content {
+  padding:10px;
+}
 
-    /* Mobile-friendly adjustments */
-    @media (max-width: 600px) {
-      .slider-container {
-        padding-bottom: 10px;
-      }
+.title {
+  font-size:14px;
+  font-weight:bold;
+}
 
-      .day {
-        width: 120px; /* Manja širina za mobilne uređaje */
-      }
+.desc {
+  font-size:12px;
+  color:#ccc;
+}
 
-      .header h1 {
-        font-size: 1rem;
-      }
-    }
-  </style>
+.btns {
+  margin-top:10px;
+  display:flex;
+  justify-content:space-between;
+}
+
+button {
+  padding:5px 10px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.fav {
+  background:#e50914;
+  color:white;
+}
+
+.tmdb {
+  text-align:center;
+  font-size:11px;
+  margin:15px;
+  color:#aaa;
+}
+</style>
 </head>
+
 <body>
-  <div class="tmdb-credit">
-   <p style="font-size: 0.6rem; text-align: center; margin: 5px 0;">
-Raspored za objavljivanje novih epizoda u aplikaciji
-</p>
 
-  </div>
-  <div class="header">
-  </div>
-  <div class="calendar-container">
-    <div class="slider-container">
-      <div class="week">
-        <!-- Dynamic content will be added here -->
+<div class="header">📺 TV Program</div>
+
+<div class="search">
+  <input type="text" id="search" placeholder="Pretraga...">
+</div>
+
+<div class="days" id="days"></div>
+
+<div class="container" id="list"></div>
+
+<div class="tmdb">
+  Powered by TMDb (nije zvanično povezan sa TMDb)
+</div>
+
+<script>
+const API_KEY = "2701858e9bccab54d4d0e4931420a739"; // prebaci kasnije na backend!
+const IMG = "https://image.tmdb.org/t/p/w500";
+
+const program = {
+  "Ponedeljak":[301693,245841],
+  "Utorak":[306118,299847],
+  "Sreda":[306529,300030],
+  "Četvrtak":[302658,271548],
+  "Petak":[298629],
+  "Subota":[213194],
+  "Nedelja":[111685]
+};
+
+let currentDay = "Ponedeljak";
+let allData = [];
+
+const daysDiv = document.getElementById("days");
+const listDiv = document.getElementById("list");
+
+function createDays(){
+  Object.keys(program).forEach(day=>{
+    const btn = document.createElement("div");
+    btn.className="day-btn";
+    btn.innerText=day;
+
+    btn.onclick=()=>{
+      document.querySelectorAll(".day-btn").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      currentDay=day;
+      load();
+    }
+
+    if(day===currentDay) btn.classList.add("active");
+
+    daysDiv.appendChild(btn);
+  });
+}
+
+async function fetchShow(id){
+  const res = await fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=sr`);
+  return res.json();
+}
+
+function saveFav(id){
+  let favs = JSON.parse(localStorage.getItem("favs")) || [];
+  if(!favs.includes(id)){
+    favs.push(id);
+    localStorage.setItem("favs", JSON.stringify(favs));
+    alert("Dodato u omiljene");
+  }
+}
+
+function render(data){
+  listDiv.innerHTML="";
+
+  data.forEach(show=>{
+    const div=document.createElement("div");
+    div.className="card";
+
+    div.innerHTML=`
+      <img src="${IMG}${show.poster_path}">
+      <div class="card-content">
+        <div class="title">${show.name}</div>
+        <div class="desc">${show.overview?.slice(0,80) || "Nema opisa"}...</div>
+        <div class="btns">
+          <button class="fav" onclick="saveFav(${show.id})">⭐ Favorit</button>
+        </div>
       </div>
-    </div>
-  </div>
-<!--
-Ask ve Gozyasi - 298792
-Aska Mahkum -298614
-Kizilcik Serbeti -213194
-spasenje-215709
-bezkucnici-271548
-leyla-259812
+    `;
 
--->
-  <script>
-    const API_KEY = '2701858e9bccab54d4d0e4931420a739'; // Tvoj TMDb API ključ
-    const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+    listDiv.appendChild(div);
+  });
+}
 
-    const tvProgram = {
-      "Ponedeljak": [301693,245841,119806],
-      "Utorak": [306118,306144,299847,274556,245841],
-      "Sreda": [306529,305996,306144,300030,246621,245841],
-      "Četvrtak": [306144,302658,283123,271548,245841],
-      "Petak": [306144,298629,245841,296502],
-      "Subota": [306144,306118,245841,213194,302063],
-      "Nedelja": [111685,245841]
-    };
+async function load(){
+  listDiv.innerHTML="Učitavanje...";
+  allData=[];
 
-    const weekContainer = document.querySelector('.week');
+  for(let id of program[currentDay]){
+    let d = await fetchShow(id);
+    allData.push(d);
+  }
 
-    // Funkcija za dobijanje podataka o seriji sa TMDb API-ja
-    async function fetchTVDetails(id) {
-      try {
-        const response = await fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=sr`);
-        if (!response.ok) {
-          console.error(`Neuspešno učitavanje serije sa ID ${id}`);
-          return null;
-        }
-        return response.json();
-      } catch (error) {
-        console.error(`Greška prilikom komunikacije sa API-jem za ID ${id}:`, error);
-        return null;
-      }
-    }
+  render(allData);
+}
 
-    // Funkcija za generisanje TV programa
-    async function generateTVProgram() {
-      for (const [day, ids] of Object.entries(tvProgram)) {
-        const dayDiv = document.createElement('div');
-        dayDiv.className = 'day';
-        dayDiv.innerHTML = `<h2>${day}</h2>`;
+document.getElementById("search").addEventListener("input", (e)=>{
+  const val = e.target.value.toLowerCase();
+  const filtered = allData.filter(s=>s.name.toLowerCase().includes(val));
+  render(filtered);
+});
 
-        const episodesDiv = document.createElement('div');
-        episodesDiv.className = 'episodes';
-
-        for (const id of ids) {
-          const tvData = await fetchTVDetails(id);
-          if (tvData) {
-            const episodeDiv = document.createElement('div');
-            episodeDiv.className = 'episode';
-
-            // Proveravamo naziv serije (lokalizovani naslov ako je dostupan)
-            const title = tvData.name || tvData.original_name;
-
-            episodeDiv.innerHTML = `
-              <img src="${IMAGE_BASE_URL}${tvData.poster_path}" alt="${title}">
-              <p>${title}</p>
-            `;
-            episodesDiv.appendChild(episodeDiv);
-          }
-        }
-
-        dayDiv.appendChild(episodesDiv);
-        weekContainer.appendChild(dayDiv);
-      }
-    }
-
-    // Pokreni generisanje programa
-    generateTVProgram();
+createDays();
+load();
 </script>
+
 </body>
 </html>
